@@ -1,0 +1,11 @@
+## Russia
+Server = https://mirror.yandex.ru/archlinux/$repo/os/$arch
+Server = http://mirror.aur.rocks/$repo/os/$arch
+Server = https://mirror.aur.rocks/$repo/os/$arch
+Server = http://mirror.rol.ru/archlinux/$repo/os/$arch
+Server = https://mirror.rol.ru/archlinux/$repo/os/$arch
+Server = http://mirror.truenetwork.ru/archlinux/$repo/os/$arch
+Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch
+Server = http://archlinux.zepto.cloud/$repo/os/$arch
+Server = http://ftp.byfly.by/pub/archlinux/$repo/os/$arch
+Server = http://mirror.datacenter.by/pub/archlinux/$repo/os/$arch
