@@ -33,9 +33,9 @@ read -p "1 - да, 0 - нет " hello
 fi
 
 #######
-wget http://bit.do/arch-zerkala
-cat 'arch-zerkala' > /etc/pacman.d/mirrorlist
-rm arch-zerkala
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
+cat 'zer' > /etc/pacman.d/mirrorlist
+rm zer
 pacman -Sy --noconfirm
 ######
 lsblk -f
