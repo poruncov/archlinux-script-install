@@ -33,9 +33,9 @@ read -p "1 - да, 0 - нет " hello
 fi
 
 #######
-wget ftp://poruncov.dlinkddns.com:2244/usb1_2/arch-install//zer
-cat 'zer' > /etc/pacman.d/mirrorlist
-rm zer
+wget http://bit.do/arch-zerkala
+cat 'arch-zerkala' > /etc/pacman.d/mirrorlist
+rm arch-zerkala
 pacman -Sy --noconfirm
 ######
 lsblk -f
@@ -141,13 +141,13 @@ genfstab -U /mnt >> /mnt/etc/fstab
 echo 'wifi или dhcpcd ?' 
 read -p "1 - wifi, 2  - проводной dhcpcd : " int
 if [[ $int == 1 ]]; then
-  wget -P /mnt ftp://poruncov.dlinkddns.com:2244/usb1_2/arch-install/kde.sh 
+  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh
   echo 'первый этап готов ' 
   echo 'ARCH-LINUX chroot' 
   echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh  >>> ' 
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
-  arch-chroot /mnt sh -c "$(curl -fsSL ftp://poruncov.dlinkddns.com:2244/usb1_2/arch-install/kde.sh)"
+  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh)"
   fi
   #######################################################################################
 umount -a
