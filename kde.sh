@@ -3,7 +3,7 @@
 echo 'скрипт второй'
 timedatectl set-ntp true
 
-wget  ftp://poruncov.dlinkddns.com:2244/usb1_2/arch-install/zer
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
 cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
 pacman -Syyu  --noconfirm
@@ -66,30 +66,21 @@ pacman -R konqueror --noconfirm
 pacman -Sy pulseaudio-bluetooth  flameshot ark exfat-utils filezilla alsa-utils android-tools unzip  gwenview steam steam-native-runtime ktorrent  kwalletmanager speedtest-cli ntfs-3g spectacle vlc  telegram-desktop latte-dock  pulseaudio-equalizer-ladspa gparted unrar neofetch screenfetch lha --noconfirm
 pacman -S  ttf-arphic-ukai git ttf-liberation ttf-dejavu ttf-arphic-uming ttf-fireflysung ttf-sazanami --noconfirm
 ########################
-######    ZSH   #####
+echo "######    ZSH   #####"
 pacman -S zsh  zsh-syntax-highlighting  grml-zsh-config --noconfirm
 chsh -s /bin/zsh
 chsh -s /bin/zsh $username
-#################
 mkdir /home/$username/.zsh
-wget  ftp://poruncov.dlinkddns.com:2244/usb1_2/arch-install/help
+wget  https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/help
 cp help /home/$username/.zsh  
 rm help
-wget  ftp://poruncov.dlinkddns.com:2244/usb1_2/arch-install/alias
+wget  https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/alias
 cp alias /home/$username/.zsh
 rm alias
-#################
 echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /etc/zsh/zshrc
 echo 'prompt adam2' >> /etc/zsh/zshrc
 echo  source  /home/$username/.zsh/alias >> /etc/zsh/zshrc
 
-###########################################################
-wget  ftp://poruncov.dlinkddns.com:2244/usb1_2/arch-install/help
-cp help /home/$username/.zsh  
-rm help
-wget  ftp://poruncov.dlinkddns.com:2244/usb1_2/arch-install/alias
-cp alias /home/$username/.zsh
-rm alias
 ##########################
 systemctl enable dhcpcd.service
 systemctl enable sddm NetworkManager
