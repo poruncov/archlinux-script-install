@@ -95,6 +95,7 @@ echo "###################   <<<< установка программ из AUR >>
 echo "##################################################################################"
 
 ############################
+cd /home/$username 
 git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git
 chown -R $username:users /home/$username/systemd-boot-pacman-hook   
 chown -R $username:users /home/$username/systemd-boot-pacman-hook/PKGBUILD 
@@ -103,11 +104,13 @@ sudo -u $username makepkg -si --noconfirm
 rm -Rf /home/$username/systemd-boot-pacman-hook
 cd /home/$username 
 echo "################################################################"
-
-echo " Уставливаем aur-helper ( pikaur ) ?  "
-read -p "1 - Да, 0 - Нет: " in_pikaur
+clear
+echo "    каждую из программ можно будет пропустить! "
+echo ""
+echo "    Уставливаем aur-helper ( pikaur ) ?  "
+read -p "   1 - Да, 0 - Нет: " in_pikaur
 if [[ $in_pikaur == 0 ]]; then
-  echo 'установка  пропущена' 
+  echo ' установка  пропущена' 
 elif [[ $in_pikaur == 1 ]]; then
    
 cd /home/$username
@@ -120,12 +123,13 @@ rm -Rf /home/$username/pikaur
 cd /home/$username  
 
 fi
+clear
 echo "################################################################"
 
 echo " Уставливаем браузер google-chrome ? : "
-read -p "1 - Да, 0 - Нет: " g_chrome
+read -p " 1 - Да, 0 - Нет: " g_chrome
 if [[ $g_chrome == 0 ]]; then
-  echo 'установка  пропущена' 
+  echo ' установка  пропущена' 
 elif [[ $g_chrome == 1 ]]; then
   
   git clone https://aur.archlinux.org/google-chrome.git
@@ -137,9 +141,10 @@ rm -Rf /home/$username/google-chrome
 cd /home/$username  
 
 fi
+clear
 echo "################################################################"
 echo " Уставливаем teamviewer для удаленного доступа ? : "
-read -p "1 - Да, 0 - Нет: " t_teamviewer
+read -p " 1 - Да, 0 - Нет: " t_teamviewer
 if [[ $t_teamviewer == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_teamviewer == 1 ]]; then
@@ -153,6 +158,7 @@ rm -Rf /home/$username/teamviewer
 systemctl enable teamviewerd.service
 
 fi
+clear
 echo "################################################################"
 
 echo " Уставливаем vk-messenger ? : "
@@ -168,11 +174,12 @@ cd /home/$username/vk-messenger
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/vk-messenger
 fi
+clear
 echo "################################################################"
 ########
 echo " Уставливаем woeusb (Программа для записи Windows.iso на USB-накопитель)  ? : "
 read -p "1 - Да, 0 - Нет: " t_woeusb
-if [[ $t_woeusb== 0 ]]; then
+if [[ $t_woeusb == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_woeusb == 1 ]]; then
 cd /home/$username 
@@ -183,11 +190,12 @@ cd /home/$username/woeusb
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/woeusb
 fi
+clear
 echo "################################################################"
 
 echo " Уставливаем alsi (альтернатива neofetch и screenfetch)  ? : "
 read -p "1 - Да, 0 - Нет: " t_alsi
-if [[ $t_alsi== 0 ]]; then
+if [[ $t_alsi == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_alsi == 1 ]]; then
 cd /home/$username
@@ -202,7 +210,7 @@ echo "################################################################"
 
 echo " Уставливаем inxi ( подробная информация о системе )  ? : "
 read -p "1 - Да, 0 - Нет: " t_inxi
-if [[ $t_inxi== 0 ]]; then
+if [[ $t_inxi == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_inxi == 1 ]]; then
 cd /home/$username 
@@ -213,14 +221,15 @@ cd /home/$username/inxi
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/inxi
 fi
+clear
 echo "################################################################"
 
 echo " Уставливаем octopi ( графический мереджер пакетов )  ? : "
 read -p "1 - Да, 0 - Нет: " t_octopi
-if [[ $t_octopi== 0 ]]; then
+if [[ $t_octopi == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_octopi == 1 ]]; then
-#################
+
 cd /home/$username
 git clone https://aur.archlinux.org/alpm_octopi_utils.git
 chown -R $username:users /home/$username/alpm_octopi_utils
