@@ -1,0 +1,71 @@
+ 
+unalias ...
+unalias egrep
+unalias grep
+unalias lsd
+unalias help-zshglob
+unalias insecscp
+unalias insecssh
+unalias keep
+unalias l
+unalias la
+unalias lad
+unalias lh
+unalias ll
+unalias llog
+unalias new
+unalias se
+unalias term2iso
+unalias url-quote
+unalias which-command
+unalias da
+unalias dir
+unalias lse
+unalias lsl
+unalias lsnew
+unalias lsnewdir
+unalias lsold
+unalias lsolddir
+unalias lss
+unalias lssmall
+unalias rmcdir
+unalias lsw
+unalias term2utf
+unalias lsx
+unalias lsa
+#######################
+alias st=' speedtest  '
+alias ...=' cd ' 
+alias fi=' alsi -l  '
+alias fin=' alsi -n  '
+alias sy=' sudo pacman -Sy  --noconfirm ' 
+alias py=' pikaur -Syu --noedit --noconfirm ' 
+alias s=' sudo ' 
+alias ss=' sudo su ' 
+alias yy=' sudo pacman -Syyu  --noconfirm ' 
+alias h=' cat /home/uriy/.zsh/help '
+alias р=' cat /home/uriy/.zsh/help '
+alias del='sudo pacman -R '
+alias aps='sudo pacman -Ss '
+alias ap=' sudo pacman -S --noconfirm '
+alias apc=' sudo pacman -Scc  --noconfirm '
+alias q=' exit ' 
+alias pi=' pikaur -S --noedit --noconfirm ' 
+alias na=' nano '
+alias re=' reboot '
+alias off=' poweroff '
+alias cli=' clear' 
+alias se=' simple-extract'
+alias pica=' pikaur -Sc --noedit --noconfirm  '
+alias pis=' pikaur -Ss '
+alias apg=' sudo pacman -Syyu  --noconfirm && pikaur -Syu --noedit --noconfirm  '
+echo 'h(р) помошь'
+alias dis=' lsblk ; df -h ' 
+alias kdsr='sudo shutdown -Fr now '
+alias fiscr=' screenfetch  '
+alias fineo=' neofetch '
+alias dels=' sudo pacman -Rsn $(pacman -Qqdt)'
+alias wind=' sudo efibootmgr -n 0001 && sync && reboot '
+alias lsl=' ls -la  '
+alias in='inxi -F '
+
