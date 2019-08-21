@@ -13,9 +13,15 @@ read -p "Введите имя пользователя: " username
 echo 'Прописываем имя компьютера'
 echo $hostname > /etc/hostname
 rm -rf /home/$username/.*
-
-echo " Настроим localtime? "
-read -p "1 - Москва, 2 - Минск, 3 - Екатеринбург, 4 - Киев, 5 - Якутск 6 - пропустить : " vm_time
+#####################################
+echo " Настроим localtime "
+while 
+    read -n1 -p  "1 - Москва, 2 - Минск, 3 - Екатеринбург, 4 - Киев, 5 - Якутск 6 - пропустить(если нет вашего варианта) : " wm_time 
+    echo ''
+    [[ "$wm_time" =~ [^123456] ]]
+do
+    :
+done
 if [[ $vm_time == 1 ]]; then
   ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 elif [[ $vm_time == 2 ]]; then
@@ -29,6 +35,7 @@ ln -sf /usr/share/zoneinfo/Asia/Yakutsk /etc/localtime
 elif [[ $vm_time == 6 ]]; then 
  echo  " этап пропущен " 
 fi
+#####################################
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 echo "ru_RU.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
@@ -107,12 +114,18 @@ echo "################################################################"
 clear
 echo "    каждую из программ можно будет пропустить! "
 echo ""
-echo "    Уставливаем aur-helper ( pikaur ) ?  "
-read -p "   1 - Да, 0 - Нет: " in_pikaur
-if [[ $in_pikaur == 0 ]]; then
+###########################################################################
+echo " Уставливаем aur-helper ( pikaur или yay ) ?  "
+while 
+    read -n1 -p  "1 - pikaur, 2 - yay, 0-пропустить : " in_aur_help # sends right after the keypress
+    echo ''
+    [[ "$in_aur_help" =~ [^120] ]]
+do
+    :
+done
+if [[ $in_aur_help == 0 ]]; then
   echo ' установка  пропущена' 
-elif [[ $in_pikaur == 1 ]]; then
-   
+elif [[ $in_aur_help == 1 ]]; then
 cd /home/$username
 git clone https://aur.archlinux.org/pikaur.git
 chown -R $username:users /home/$username/pikaur   
@@ -120,35 +133,53 @@ chown -R $username:users /home/$username/pikaur/PKGBUILD
 cd /home/$username/pikaur   
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/pikaur
-cd /home/$username  
-
+elif [[ $in_aur_help == 2 ]]; then
+cd /home/$username
+git clone https://aur.archlinux.org/yay.git
+chown -R $username:users /home/$username/yay
+chown -R $username:users /home/$username/yay/PKGBUILD 
+cd /home/$username/yay  
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/yay
 fi
 clear
 echo "################################################################"
-
+echo ""
 echo " Уставливаем браузер google-chrome ? : "
-read -p " 1 - Да, 0 - Нет: " g_chrome
+while 
+    read -n1 -p  "1 - да, 0 - нет: " g_chrome # sends right after the keypress
+    echo ''
+    [[ "$g_chrome" =~ [^10] ]]
+do
+    :
+done
 if [[ $g_chrome == 0 ]]; then
   echo ' установка  пропущена' 
 elif [[ $g_chrome == 1 ]]; then
-  
-  git clone https://aur.archlinux.org/google-chrome.git
+cd /home/$username   
+git clone https://aur.archlinux.org/google-chrome.git
 chown -R $username:users /home/$username/google-chrome 
 chown -R $username:users /home/$username/google-chrome/PKGBUILD 
 cd /home/$username/google-chrome  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/google-chrome
-cd /home/$username  
-
 fi
 clear
 echo "################################################################"
+echo ""
 echo " Уставливаем teamviewer для удаленного доступа ? : "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " t_teamviewer # sends right after the keypress
+    echo ''
+    [[ "$t_teamviewer" =~ [^10] ]]
+do
+    :
+done
 read -p " 1 - Да, 0 - Нет: " t_teamviewer
 if [[ $t_teamviewer == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_teamviewer == 1 ]]; then
-  
+cd /home/$username 
 git clone https://aur.archlinux.org/teamviewer.git
 chown -R $username:users /home/$username/teamviewer
 chown -R $username:users /home/$username/teamviewer/PKGBUILD 
@@ -156,17 +187,22 @@ cd /home/$username/teamviewer
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/teamviewer
 systemctl enable teamviewerd.service
-
 fi
 clear
 echo "################################################################"
-
+echo ""
 echo " Уставливаем vk-messenger ? : "
-read -p "1 - Да, 0 - Нет: " t_vk
+while 
+    read -n1 -p  "1 - да, 0 - нет: " t_vk # sends right after the keypress
+    echo ''
+    [[ "$t_vk" =~ [^10] ]]
+do
+    :
+done
 if [[ $t_vk == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_vk == 1 ]]; then
-  cd /home/$username
+cd /home/$username
 git clone https://aur.archlinux.org/vk-messenger.git
 chown -R $username:users /home/$username/vk-messenger
 chown -R $username:users /home/$username/vk-messenger/PKGBUILD 
@@ -178,7 +214,13 @@ clear
 echo "################################################################"
 ########
 echo " Уставливаем woeusb (Программа для записи Windows.iso на USB-накопитель)  ? : "
-read -p "1 - Да, 0 - Нет: " t_woeusb
+while 
+    read -n1 -p  "1 - да, 0 - нет: " t_woeusb # sends right after the keypress
+    echo ''
+    [[ "$t_woeusb" =~ [^10] ]]
+do
+    :
+done
 if [[ $t_woeusb == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_woeusb == 1 ]]; then
@@ -192,9 +234,15 @@ rm -Rf /home/$username/woeusb
 fi
 clear
 echo "################################################################"
-
+echo ""
 echo " Уставливаем alsi (альтернатива neofetch и screenfetch)  ? : "
-read -p "1 - Да, 0 - Нет: " t_alsi
+while 
+    read -n1 -p  "1 - да, 0 - нет: " t_alsi # sends right after the keypress
+    echo ''
+    [[ "$t_alsi" =~ [^10] ]]
+do
+    :
+done
 if [[ $t_alsi == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_alsi == 1 ]]; then
@@ -207,9 +255,15 @@ sudo -u $username  makepkg -si --noconfirm
 rm -Rf /home/$username/alsi
 fi
 echo "################################################################"
-
+echo ""
 echo " Уставливаем inxi ( подробная информация о системе )  ? : "
-read -p "1 - Да, 0 - Нет: " t_inxi
+while 
+    read -n1 -p  "1 - да, 0 - нет: " t_inxi # sends right after the keypress
+    echo ''
+    [[ "$t_inxi" =~ [^10] ]]
+do
+    :
+done
 if [[ $t_inxi == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_inxi == 1 ]]; then
@@ -223,12 +277,18 @@ rm -Rf /home/$username/inxi
 fi
 clear
 echo "################################################################"
-
+echo ""
 echo " Уставливаем octopi ( графический мереджер пакетов )  ? : "
-read -p "1 - Да, 0 - Нет: " t_octopi
-if [[ $t_octopi == 0 ]]; then
+while 
+    read -n1 -p  "1 - octopi, 2 - pacaur, 0 - пропустить : " t_aur # sends right after the keypress
+    echo ''
+    [[ "$t_aur" =~ [^120] ]]
+do
+    :
+done
+if [[ $t_aur == 0 ]]; then
   echo 'уcтановка  пропущена' 
-elif [[ $t_octopi == 1 ]]; then
+elif [[ $t_aur == 1 ]]; then
 
 cd /home/$username
 git clone https://aur.archlinux.org/alpm_octopi_utils.git
@@ -245,16 +305,37 @@ chown -R $username:users /home/$username/octopi/PKGBUILD
 cd /home/$username/octopi
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/octopi
+elif [[ $t_aur == 2 ]]; then
+cd /home/$username
+git clone https://aur.archlinux.org/auracle-git.git
+chown -R $username:users /home/$username/auracle-git
+chown -R $username:users /home/$username/auracle-git/PKGBUILD 
+cd /home/$username/auracle-git
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/auracle-git
+#######
+cd /home/$username
+git clone https://aur.archlinux.org/pacaur.git
+chown -R $username:users /home/$username/pacaur
+chown -R $username:users /home/$username/pacaur/PKGBUILD 
+cd /home/$username/pacaur
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/pacaur
 fi
 clear 
 echo "####################   Установка пакетов завершена   ############################################"
-
-###################################
+echo ""
 echo "создаем папки музыка и т.д. в дериктории пользователя?"
-read -p "1 - Да, 0 - Нет: " vm_setting
-if [[ $vm_setting == 0 ]]; then
+while 
+    read -n1 -p  "1 - да, 0 - нет: " vm_text # sends right after the keypress
+    echo ''
+    [[ "$vm_text" =~ [^10] ]]
+do
+    :
+done
+if [[ $vm_text == 0 ]]; then
   echo 'этап пропущен' 
-elif [[ $vm_setting == 1 ]]; then
+elif [[ $vm_text == 1 ]]; then
   mkdir /home/$username/{Downloads,Music,Pictures,Videos,Documents,time} 
   chown -R $username:users  /home/uriy/{Downloads,Music,Pictures,Videos,Documents,time}
 fi
