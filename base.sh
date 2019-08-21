@@ -1,6 +1,12 @@
 #!/bin/bash
 loadkeys ru
 setfont cyr-sun16
+clear
+echo ""
+echo " Если производиться переустановка системы а не чистая установка, вам необходимо остановить скрипт(ctrl+z) "
+echo " примонтировать boot раздел в /mnt у удалить все кроме .EFI/boot и EFI/Microsoft (это загрузчик windows) "
+echo " Если система ставить на чистый  hdd или переустановка без Windows  можно сразу запускать скрипт " 
+echo " и отформатировать boot раздел"
 echo ' скрипт первый '
 echo ""
 echo " ArchLinux режим загрузки UEFI noGrub plasma kde "
@@ -14,11 +20,6 @@ echo ""
 echo " важная информация, если производите разметку диска, то в cfdisk не забудьте указать type=EFI для boot раздела " 
 echo ""
 echo " также   указаь type=linux для других разделов будующей системы ( root и home раздела ) "
-echo ""
-echo " Если производиться переустановка системы а не чистая установка, вам необходимо остановить скрипт(ctrl+z) "
-echo " примонтировать boot раздел в /mnt у удалить все кроме .EFI/boot и EFI/Microsoft (это загрузчик windows) "
-echo " Если система ставить на чистый  hdd или переустановка без Windows  можно сразу запускать скрипт " 
-echo " и отформатировать boot раздел"
 echo ""
 echo " список пакетов которые будут установлены : "
 echo " pulseaudio-bluetooth  flameshot ark exfat-utils filezilla gparted unrar neofetch screenfetch "
@@ -197,7 +198,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 clear
 echo 'wifi или dhcpcd ?'
 while 
-    read -n1 -p  "1 - да, 2 - нет: " int # sends right after the keypress
+    read -n1 -p  "1 - wifi, 2 - dhcpcd: " int # sends right after the keypress
     echo ''
     [[ "$int" =~ [^12] ]]
 do
