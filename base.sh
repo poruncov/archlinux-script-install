@@ -29,9 +29,17 @@ echo " zsh(С таким же плагином и подцветкой как в
 echo ""
 echo " щрифты ttf-arphic-ukai  ttf-liberation ttf-dejavu ttf-arphic-uming ttf-fireflysung ttf-sazanami  "
 echo ""
-echo " готовы приступить?"
-read -p "1 - да, 0 - нет " hello
+####################################
+echo " готовы приступить?  "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " hello # sends right after the keypress
+    echo ''
+    [[ "$hello" =~ [^10] ]]
+do
+    :
+done
  if [[ $hello == 1 ]]; then
+  clear
   echo "Добро пожаловать в установку ArchLinux режим загрузки UEFI noGrub "
   elif [[ $hello == 0 ]]; then
    reboot   
@@ -41,10 +49,17 @@ wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-ue
 cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
 pacman -Sy --noconfirm
-######
+##############################
 lsblk -f
+echo ""
 echo 'Нужна разметка диска?'
-read -p "1 - да, 0 - нет " cfdisk
+while 
+    read -n1 -p  "1 - да, 0 - нет: " cfdisk # sends right after the keypress
+    echo ''
+    [[ "$cfdisk" =~ [^10] ]]
+do
+    :
+done
  if [[ $cfdisk == 1 ]]; then
   read -p "Укажите диск (sda/sdb ( например sda )):" cfd
 cfdisk /dev/$cfd
@@ -57,11 +72,17 @@ echo ""
 mkfs.ext4 /dev/$root -L root
 mount /dev/$root /mnt
 echo ""
-#
+########## boot  ########
 clear
 lsblk -f
 echo 'форматируем BOOT?'
-read -p "1 - да, 0 - нет " boots
+while 
+    read -n1 -p  "1 - да, 0 - нет: " boots # sends right after the keypress
+    echo ''
+    [[ "$boots" =~ [^10] ]]
+do
+    :
+done
  if [[ $boots == 1 ]]; then
   read -p "Укажите BOOT раздел(sda/sdb 1.2.3.4 (sda7 например)):" bootd
   mkfs.fat -F32 /dev/$bootd
@@ -72,10 +93,16 @@ read -p "1 - да, 0 - нет " boots
  mkdir /mnt/boot
 mount /dev/$bootd /mnt/boot
 fi
-########################################################################
+############ swap   #########################################################
 lsblk -f
 echo 'добавим swap раздел?'
-read -p "1 - да, 0 - нет " swap
+while 
+    read -n1 -p  "1 - да, 0 - нет: " swap # sends right after the keypress
+    echo ''
+    [[ "$swap" =~ [^10] ]]
+do
+    :
+done
  if [[ $swap == 1 ]]; then
   read -p "Укажите swap раздел(sda/sdb 1.2.3.4 (sda7 например)):" swaps
   mkswap /dev/$swaps -L swap
@@ -83,11 +110,17 @@ read -p "1 - да, 0 - нет " swap
   elif [[ $swap == 0 ]]; then
    echo 'добавление swap раздела пропущено.'   
 fi
-############################################################################ 
+################  home     ############################################################ 
 clear
 lsblk -f
 echo 'Форматируем home раздел?'
-read -p "1 - да, 0 - нет " homeF
+while 
+    read -n1 -p  "1 - да, 0 - нет: " homeF # sends right after the keypress
+    echo ''
+    [[ "$homeF" =~ [^10] ]]
+do
+    :
+done
    if [[ $homeF == 1 ]]; then
    read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
    mkfs.ext4 /dev/$home -L home
@@ -95,7 +128,13 @@ read -p "1 - да, 0 - нет " homeF
    echo 'Формаирыване домашнего раздела пропущено.'   
 fi
 echo 'Добавим раздел  HOME ?'
-read -p " 1 - да, 0 - нет : " homes
+while 
+    read -n1 -p  "1 - да, 0 - нет: " homes # sends right after the keypress
+    echo ''
+    [[ "$homes" =~ [^10] ]]
+do
+    :
+done
    if [[ $homes == 0 ]]; then
      echo 'пропущено'
   elif [[ $homes == 1 ]]; then
@@ -103,9 +142,15 @@ read -p " 1 - да, 0 - нет : " homes
     mkdir /mnt/home 
     mount /dev/$home /mnt/home
   fi
-##################################################################################
+###################  disk C  ###############################################################
 echo 'Добавим раздел диск "C" Windows?'
-read -p " 1 - да, 0 - нет : " diskC
+while 
+    read -n1 -p  "1 - да, 0 - нет: " diskC # sends right after the keypress
+    echo ''
+    [[ "$DiskC" =~ [^10] ]]
+do
+    :
+done
 if [[ $diskC == 0 ]]; then
   echo 'пропущено'
   elif [[ $diskC == 1 ]]; then
@@ -113,18 +158,31 @@ if [[ $diskC == 0 ]]; then
   mkdir /mnt/C 
   mount /dev/$diskCc /mnt/C
   fi
+############### disk D ##############
 echo 'Добавим раздел диск "D" Windows?'
-read -p " 1 - да, 0 - нет : " diskD
-
+while 
+    read -n1 -p  "1 - да, 0 - нет: " diskD # sends right after the keypress
+    echo ''
+    [[ "$diskD" =~ [^10] ]]
+do
+    :
+done
 if [[ $diskD == 1 ]]; then
   read -p " Укажите диск "D" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDd
   mkdir /mnt/D 
   mount /dev/$diskDd /mnt/D
-  elif [[ $diskE == 0 ]]; then
+  elif [[ $diskD == 0 ]]; then
   echo 'пропущено'
-  fi 
- echo 'Добавим раздел диск "E" Windows?'
-read -p " 1 - да, 0 - нет : " diskE
+  fi
+###### disk E ########
+echo 'Добавим раздел диск "E" Windows?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " diskE  # sends right after the keypress
+    echo ''
+    [[ "$diskE" =~ [^10] ]]
+do
+    :
+done
  if [[ $diskE == 1 ]]; then
   read -p " Укажите диск "E" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDe
   mkdir /mnt/E 
@@ -137,8 +195,14 @@ pacstrap /mnt base  base-devel wget efibootmgr iw wpa_supplicant dialog
 genfstab -U /mnt >> /mnt/etc/fstab
 ##################################################
 clear
-echo 'wifi или dhcpcd ?' 
-read -p "1 - wifi, 2  - проводной dhcpcd : " int
+echo 'wifi или dhcpcd ?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " int # sends right after the keypress
+    echo ''
+    [[ "$int" =~ [^10] ]]
+do
+    :
+done
 if [[ $int == 1 ]]; then
   wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh
   echo 'первый этап готов ' 
