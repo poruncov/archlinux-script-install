@@ -197,9 +197,9 @@ genfstab -U /mnt >> /mnt/etc/fstab
 clear
 echo 'wifi или dhcpcd ?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " int # sends right after the keypress
+    read -n1 -p  "1 - да, 2 - нет: " int # sends right after the keypress
     echo ''
-    [[ "$int" =~ [^10] ]]
+    [[ "$int" =~ [^12] ]]
 do
     :
 done
