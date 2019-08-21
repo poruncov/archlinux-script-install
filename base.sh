@@ -3,10 +3,6 @@ loadkeys ru
 setfont cyr-sun16
 clear
 echo ""
-echo " Если производиться переустановка системы а не чистая установка, вам необходимо остановить скрипт(ctrl+z) "
-echo " примонтировать boot раздел в /mnt у удалить все кроме .EFI/boot и EFI/Microsoft (это загрузчик windows) "
-echo " Если система ставить на чистый  hdd или переустановка без Windows  можно сразу запускать скрипт " 
-echo " и отформатировать boot раздел"
 echo ' скрипт первый '
 echo ""
 echo " ArchLinux режим загрузки UEFI noGrub plasma kde "
@@ -44,6 +40,31 @@ done
   echo "Добро пожаловать в установку ArchLinux режим загрузки UEFI noGrub "
   elif [[ $hello == 0 ]]; then
    reboot   
+fi
+clear
+#
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
+cat 'zer' > /etc/pacman.d/mirrorlist
+rm zer
+pacman -Sy --noconfirm
+echo ""
+echo 'удалим старый загрузчик linux'
+while 
+    read -n1 -p  "1 - удалим старый загрузкик линукс? , 0 - данный этап можно пропустить если устанока производиться первый раз(и не были установлеены другие дистрибутивы) " boots # sends right after the keypress
+    echo ''
+    [[ "$boots" =~ [^10] ]]
+do
+    :
+done
+ if [[ $boots == 1 ]]; then
+read -p "Укажите boot раздел (sda2/sdb2 ( например sda2 )):" bootd
+ mount /dev/$bootd /mnt
+ cd /mnt
+ ls | grep -v EFI | xargs rm -rfv
+cd /mnt/EFI
+ls | grep -v boot | grep -v Microsoft | xargs rm -rfv
+  elif [[ $boots == 0 ]]; then
+   echo " очиска boot раздела пропущена, далее вы сможете его отфармаировать, если нужно!(при установке дуал бут раздел не нужно форматировать!!! "   
 fi
 #
 wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
