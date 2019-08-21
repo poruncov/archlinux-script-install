@@ -41,9 +41,6 @@ done
 fi
 clear
 #
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
-cat 'zer' > /etc/pacman.d/mirrorlist
-rm zer
 pacman -Sy --noconfirm
 echo ""
 lsblk -f
