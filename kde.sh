@@ -16,9 +16,9 @@ rm -rf /home/$username/.*
 #####################################
 echo " Настроим localtime "
 while 
-    read -n1 -p  "1 - Москва, 2 - Минск, 3 - Екатеринбург, 4 - Киев, 5 - Якутск 6 - пропустить(если нет вашего варианта) : " wm_time 
+    read -n1 -p  "1 - Москва, 2 - Минск, 3 - Екатеринбург, 4 - Киев, 5 - Якутск, 6 - Саратов, 7 - пропустить(если нет вашего варианта) : " wm_time 
     echo ''
-    [[ "$wm_time" =~ [^123456] ]]
+    [[ "$wm_time" =~ [^1234567] ]]
 do
     :
 done
@@ -32,7 +32,9 @@ elif [[ $vm_time == 4 ]]; then
  ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime 
 elif [[ $vm_time == 5 ]]; then
 ln -sf /usr/share/zoneinfo/Asia/Yakutsk /etc/localtime
-elif [[ $vm_time == 6 ]]; then 
+elif [[ $vm_time == 6 ]]; then
+ln -sf /usr/share/zoneinfo/Europe/Saratov /etc/localtime
+elif [[ $vm_time == 7 ]]; then 
  echo  " этап пропущен " 
 fi
 #####################################
@@ -110,14 +112,13 @@ cd /home/$username/systemd-boot-pacman-hook
 sudo -u $username makepkg -si --noconfirm  
 rm -Rf /home/$username/systemd-boot-pacman-hook
 cd /home/$username 
-echo "################################################################"
 clear
 echo "    каждую из программ можно будет пропустить! "
 echo ""
 ###########################################################################
 echo " Уставливаем aur-helper ( pikaur или yay ) ?  "
 while 
-    read -n1 -p  "1 - pikaur, 2 - yay, 0-пропустить : " in_aur_help # sends right after the keypress
+    read -n1 -p  "1 - pikaur, 2 - yay, 0 - пропустить : " in_aur_help # sends right after the keypress
     echo ''
     [[ "$in_aur_help" =~ [^120] ]]
 do
@@ -141,8 +142,9 @@ chown -R $username:users /home/$username/yay/PKGBUILD
 cd /home/$username/yay  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/yay
-fi
 clear
+fi
+
 echo "################################################################"
 echo ""
 echo " Уставливаем браузер google-chrome ? : "
@@ -163,8 +165,8 @@ chown -R $username:users /home/$username/google-chrome/PKGBUILD
 cd /home/$username/google-chrome  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/google-chrome
-fi
 clear
+fi
 echo "################################################################"
 echo ""
 echo " Уставливаем teamviewer для удаленного доступа ? : "
@@ -175,7 +177,6 @@ while
 do
     :
 done
-read -p " 1 - Да, 0 - Нет: " t_teamviewer
 if [[ $t_teamviewer == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_teamviewer == 1 ]]; then
@@ -187,8 +188,8 @@ cd /home/$username/teamviewer
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/teamviewer
 systemctl enable teamviewerd.service
-fi
 clear
+fi
 echo "################################################################"
 echo ""
 echo " Уставливаем vk-messenger ? : "
@@ -209,8 +210,9 @@ chown -R $username:users /home/$username/vk-messenger/PKGBUILD
 cd /home/$username/vk-messenger  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/vk-messenger
-fi
 clear
+fi
+
 echo "################################################################"
 ########
 echo " Уставливаем woeusb (Программа для записи Windows.iso на USB-накопитель)  ? : "
@@ -231,8 +233,8 @@ chown -R $username:users /home/$username/woeusb/PKGBUILD
 cd /home/$username/woeusb  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/woeusb
-fi
 clear
+fi
 echo "################################################################"
 echo ""
 echo " Уставливаем alsi (альтернатива neofetch и screenfetch)  ? : "
@@ -253,6 +255,7 @@ chown -R $username:users /home/$username/alsi/PKGBUILD
 cd /home/$username/alsi  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/alsi
+clear
 fi
 echo "################################################################"
 echo ""
@@ -274,8 +277,8 @@ chown -R $username:users /home/$username/inxi/PKGBUILD
 cd /home/$username/inxi  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/inxi
-fi
 clear
+fi
 echo "################################################################"
 echo ""
 echo " Уставливаем octopi ( графический мереджер пакетов )  ? : "
@@ -305,6 +308,7 @@ chown -R $username:users /home/$username/octopi/PKGBUILD
 cd /home/$username/octopi
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/octopi
+clear
 elif [[ $t_aur == 2 ]]; then
 cd /home/$username
 git clone https://aur.archlinux.org/auracle-git.git
@@ -321,8 +325,8 @@ chown -R $username:users /home/$username/pacaur/PKGBUILD
 cd /home/$username/pacaur
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/pacaur
-fi
-clear 
+clear
+fi 
 echo "####################   Установка пакетов завершена   ############################################"
 echo ""
 echo "создаем папки музыка и т.д. в дериктории пользователя?"
