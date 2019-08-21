@@ -48,6 +48,7 @@ cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
 pacman -Sy --noconfirm
 echo ""
+lsblk -f
 echo 'удалим старый загрузчик linux'
 while 
     read -n1 -p  "1 - удалим старый загрузкик линукс? , 0 - данный этап можно пропустить если устанока производиться первый раз(и не были установлеены другие дистрибутивы) " boots # sends right after the keypress
@@ -62,7 +63,9 @@ read -p "Укажите boot раздел (sda2/sdb2 ( например sda2 )):
  cd /mnt
  ls | grep -v EFI | xargs rm -rfv
 cd /mnt/EFI
-ls | grep -v boot | grep -v Microsoft | xargs rm -rfv
+ls | grep -v Boot | grep -v Microsoft | xargs rm -rfv
+cd /root
+umount /mnt
   elif [[ $boots == 0 ]]; then
    echo " очиска boot раздела пропущена, далее вы сможете его отфармаировать, если нужно!(при установке дуал бут раздел не нужно форматировать!!! "   
 fi
