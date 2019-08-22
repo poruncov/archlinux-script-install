@@ -51,10 +51,6 @@ passwd $username
 
 pacman -Syy
 #############
-bootctl install 
-echo ' default arch ' > /boot/loader/loader.conf
-echo ' timeout 10 ' >> /boot/loader/loader.conf
-echo ' editor 0' >> /boot/loader/loader.conf
 ############
 clear
 lsblk -f
@@ -69,6 +65,10 @@ do
     :
 done
 if [[ $t_bootloader == 1 ]]; then
+bootctl install 
+echo ' default arch ' > /boot/loader/loader.conf
+echo ' timeout 10 ' >> /boot/loader/loader.conf
+echo ' editor 0' >> /boot/loader/loader.conf
 read -p "Укажите корневой раздел для загрузчика(пример sda4,sda6 ): " root
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
 echo 'linux   /vmlinuz-linux' >> /boot/loader/entries/arch.conf
@@ -90,7 +90,6 @@ grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
 fi
 mkinitcpio -p linux
-pacman -S dialog wpa_supplicant --noconfirm
 echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
