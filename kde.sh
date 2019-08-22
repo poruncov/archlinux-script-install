@@ -58,11 +58,37 @@ echo ' editor 0' >> /boot/loader/loader.conf
 ############
 clear
 lsblk -f
+###########################################################################
+echo ""
+echo "Какой загрузчик установить UEFI(systemd) или Grub для legacy"
+while 
+    read -n1 -p  "1 - UEFI, 2 - GRUB: " t_bootloader # sends right after the keypress
+    echo ''
+    [[ "$t_bootloader" =~ [^12] ]]
+do
+    :
+done
+if [[ $t_bootloader == 1 ]]; then
 read -p "Укажите корневой раздел для загрузчика(пример sda4,sda6 ): " root
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
 echo 'linux   /vmlinuz-linux' >> /boot/loader/entries/arch.conf
 echo 'initrd  /initramfs-linux.img' >> /boot/loader/entries/arch.conf
 echo options root=/dev/$root rw >> /boot/loader/entries/arch.conf
+cd /home/$username 
+git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git
+chown -R $username:users /home/$username/systemd-boot-pacman-hook   
+chown -R $username:users /home/$username/systemd-boot-pacman-hook/PKGBUILD 
+cd /home/$username/systemd-boot-pacman-hook   
+sudo -u $username makepkg -si --noconfirm  
+rm -Rf /home/$username/systemd-boot-pacman-hook
+cd /home/$username 
+clear
+elif [[ $t_bootloader == 2 ]]; then
+pacman -S grub grub-customizer os-prober
+read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
+grub-install /dev/$x_boot
+grub-mkconfig -o /boot/grub/grub.cfg
+fi
 mkinitcpio -p linux
 pacman -S dialog wpa_supplicant --noconfirm
 echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
@@ -108,9 +134,23 @@ clear
 fi
 echo "######    ZSH   #####"
 pacman -S zsh  zsh-syntax-highlighting  grml-zsh-config --noconfirm
-
+echo " сменим оболочку пользователя с bash на zsh? : "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " t_shell # sends right after the keypress
+    echo ''
+    [[ "$t_shell" =~ [^10] ]]
+do
+    :
+done
+if [[ $t_shell == 0 ]]; then
+clear
+  echo 'пользоватльская обочка не изменена ( по умолчанию BASH )' 
+elif [[ $t_shell == 1 ]]; then
 chsh -s /bin/zsh
 chsh -s /bin/zsh $username
+clear
+echo " оболочка изменена с bash на zsh "
+fi
 #########################
 systemctl enable dhcpcd.service
 systemctl enable sddm NetworkManager
@@ -120,20 +160,12 @@ systemctl enable sshd.service
 
 pacman -Sy --noconfirm
 ##############################################
+echo ""
+echo ""
 echo "##################################################################################"
 echo "###################   <<<< установка программ из AUR >>>    ######################"
 echo "##################################################################################"
-
-############################
-cd /home/$username 
-git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git
-chown -R $username:users /home/$username/systemd-boot-pacman-hook   
-chown -R $username:users /home/$username/systemd-boot-pacman-hook/PKGBUILD 
-cd /home/$username/systemd-boot-pacman-hook   
-sudo -u $username makepkg -si --noconfirm  
-rm -Rf /home/$username/systemd-boot-pacman-hook
-cd /home/$username 
-clear
+echo ""
 echo "    каждую из программ можно будет пропустить! "
 echo ""
 ###########################################################################
@@ -170,14 +202,14 @@ echo "################################################################"
 echo ""
 echo " Уставливаем браузер? : "
 while 
-    read -n1 -p  "1 - google-chrome, 2 - firefox(russian),  0 - пропустить: " g_chrome # sends right after the keypress
+    read -n1 -p  "1 - google-chrome, 2 - firefox(russian), 3 - усановить оба  0 - пропустить: " g_chrome # sends right after the keypress
     echo ''
     [[ "$g_chrome" =~ [^120] ]]
 do
     :
 done
 if [[ $g_chrome == 0 ]]; then
-  echo ' установка браузера пропущена после установки системы вы сможте установить браузер на свой выбор!!!!' 
+  echo ' установка браузера пропущена после установки системы вы сможте установить браузер на свой усмотрение!!!!' 
 elif [[ $g_chrome == 1 ]]; then
 cd /home/$username   
 git clone https://aur.archlinux.org/google-chrome.git
@@ -189,6 +221,16 @@ rm -Rf /home/$username/google-chrome
 clear
 elif [[ $g_chrome == 2 ]]; then
 pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
+clear
+elif [[ $g_chrome == 3 ]]; then
+pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
+cd /home/$username   
+git clone https://aur.archlinux.org/google-chrome.git
+chown -R $username:users /home/$username/google-chrome 
+chown -R $username:users /home/$username/google-chrome/PKGBUILD 
+cd /home/$username/google-chrome  
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/google-chrome
 clear
 fi
 echo "################################################################"
@@ -248,6 +290,7 @@ do
     :
 done
 if [[ $t_woeusb == 0 ]]; then
+clear
   echo 'уcтановка  пропущена' 
 elif [[ $t_woeusb == 1 ]]; then
 cd /home/$username 
@@ -270,6 +313,7 @@ do
     :
 done
 if [[ $t_alsi == 0 ]]; then
+clear
   echo 'уcтановка  пропущена' 
 elif [[ $t_alsi == 1 ]]; then
 cd /home/$username
@@ -292,6 +336,7 @@ do
     :
 done
 if [[ $t_inxi == 0 ]]; then
+clear
   echo 'уcтановка  пропущена' 
 elif [[ $t_inxi == 1 ]]; then
 cd /home/$username 
@@ -305,7 +350,7 @@ clear
 fi
 echo "################################################################"
 echo ""
-echo " Уставливаем octopi ( графический мереджер пакетов )  ? : "
+echo " Уставливаем графический мереджер пакетов для Archlinux ? : "
 while 
     read -n1 -p  "1 - octopi, 2 - pacaur, 0 - пропустить : " t_aur # sends right after the keypress
     echo ''
