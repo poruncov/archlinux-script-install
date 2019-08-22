@@ -108,20 +108,10 @@ clear
 fi
 echo "######    ZSH   #####"
 pacman -S zsh  zsh-syntax-highlighting  grml-zsh-config --noconfirm
+
 chsh -s /bin/zsh
 chsh -s /bin/zsh $username
-mkdir /home/$username/.zsh
-wget  https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/help
-cp help /home/$username/.zsh  
-rm help
-wget  https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/alias
-cp alias /home/$username/.zsh
-rm alias
-echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /etc/zsh/zshrc
-echo 'prompt adam2' >> /etc/zsh/zshrc
-echo  source  /home/$username/.zsh/alias >> /etc/zsh/zshrc
-
-##########################
+#########################
 systemctl enable dhcpcd.service
 systemctl enable sddm NetworkManager
 systemctl enable sddm.service -f
