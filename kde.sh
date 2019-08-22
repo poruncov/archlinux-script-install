@@ -70,11 +70,42 @@ echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 pacman -Syy 
 pacman -Sy xorg-server xorg-drivers --noconfirm
-pacman -Sy linux-headers  plasma-meta kdebase  sddm sddm-kcm openssh networkmanager htop network-manager-applet ppp --noconfirm
+pacman -Sy linux-headers  plasma-meta kdebase  sddm sddm-kcm  networkmanager htop network-manager-applet ppp --noconfirm
 pacman -R konqueror --noconfirm
 pacman -Sy pulseaudio-bluetooth  flameshot ark exfat-utils filezilla alsa-utils android-tools unzip  gwenview steam steam-native-runtime ktorrent  kwalletmanager speedtest-cli ntfs-3g spectacle vlc  telegram-desktop latte-dock  pulseaudio-equalizer-ladspa gparted unrar neofetch screenfetch lha --noconfirm
 pacman -S  ttf-arphic-ukai git ttf-liberation ttf-dejavu ttf-arphic-uming ttf-fireflysung ttf-sazanami --noconfirm
-########################
+clear
+echo ""
+echo " Уставливаем ssh(клиент) для удаленного доступа ? : "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " t_ssh # sends right after the keypress
+    echo ''
+    [[ "$t_ssh" =~ [^10] ]]
+do
+    :
+done
+if [[ $t_ssh == 0 ]]; then
+  echo 'уcтановка  пропущена' 
+elif [[ $t_ssh == 1 ]]; then
+pacman -S openssh --noconfirm
+clear
+fi
+echo ""
+echo " Вкличим в автозагрузку ssh(server) для удаленного доступа к этому пк ? : "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " t_ssh1 # sends right after the keypress
+    echo ''
+    [[ "$t_ssh1" =~ [^10] ]]
+do
+    :
+done
+if [[ $t_ssh1 == 0 ]]; then
+clear
+  echo ' сервис sshd не вкючен' 
+elif [[ $t_ssh1 == 1 ]]; then
+systemctl enable sshd.service
+clear
+fi
 echo "######    ZSH   #####"
 pacman -S zsh  zsh-syntax-highlighting  grml-zsh-config --noconfirm
 chsh -s /bin/zsh
@@ -147,16 +178,16 @@ fi
 
 echo "################################################################"
 echo ""
-echo " Уставливаем браузер google-chrome ? : "
+echo " Уставливаем браузер? : "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " g_chrome # sends right after the keypress
+    read -n1 -p  "1 - google-chrome, 2 - firefox(russian),  0 - пропустить: " g_chrome # sends right after the keypress
     echo ''
-    [[ "$g_chrome" =~ [^10] ]]
+    [[ "$g_chrome" =~ [^120] ]]
 do
     :
 done
 if [[ $g_chrome == 0 ]]; then
-  echo ' установка  пропущена' 
+  echo ' установка браузера пропущена после установки системы вы сможте установить браузер на свой выбор!!!!' 
 elif [[ $g_chrome == 1 ]]; then
 cd /home/$username   
 git clone https://aur.archlinux.org/google-chrome.git
@@ -165,6 +196,9 @@ chown -R $username:users /home/$username/google-chrome/PKGBUILD
 cd /home/$username/google-chrome  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/google-chrome
+clear
+elif [[ $g_chrome == 2 ]]; then
+pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
 clear
 fi
 echo "################################################################"
