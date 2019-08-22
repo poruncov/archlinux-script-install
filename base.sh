@@ -73,7 +73,7 @@ umount /mnt
    echo " очиска boot раздела пропущена, далее вы сможете его отфармаировать, если нужно!(при установке дуал бут раздел не нужно форматировать!!! "   
 fi
 #
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
 cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
 pacman -Sy --noconfirm
@@ -245,13 +245,14 @@ do
     :
 done
 if [[ $int == 1 ]]; then
-  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh
+
+  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh
   echo 'первый этап готов ' 
   echo 'ARCH-LINUX chroot' 
   echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh  >>> ' 
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
-  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh)"
+  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
   #######################################################################################
 umount -a
@@ -262,7 +263,7 @@ exit
 ## часть вторая
 elif [[ $menu == 2 ]]; then 
 echo "Добро пожаловать в установку ArchLinux режим GRUB-Legacy "
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
 cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
  pacman -Sy --noconfirm
@@ -433,13 +434,13 @@ do
     :
 done
 if [[ $int == 1 ]]; then
-  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh
+  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh
   echo 'первый этап готов ' 
   echo 'ARCH-LINUX chroot' 
   echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh  >>> ' 
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
-  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh)"
+  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
   #######################################################################################
 umount -a
