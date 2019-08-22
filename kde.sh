@@ -3,7 +3,7 @@
 echo 'скрипт второй'
 timedatectl set-ntp true
 
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
 cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
 pacman -Syyu  --noconfirm
