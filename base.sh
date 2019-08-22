@@ -3,15 +3,13 @@ loadkeys ru
 setfont cyr-sun16
 clear
 echo ""
-echo ' скрипт первый '
-echo ""
-echo " ArchLinux режим загрузки UEFI noGrub plasma kde "
+echo " ArchLinux plasma kde на выбор UEFI или Legacy "
 echo ""
 echo " Скрипт писал Порунцов Юрий"
 echo ""
 echo " Порунцов Юрий https://vk.com/poruncov https://t.me/poruncov "
 echo ""
-echo " важная информация, если производите разметку диска, то в cfdisk не забудьте указать type=EFI для boot раздела " 
+echo " важная информация, если производите разметку диска, только в cfdisk не забудьте указать type=EFI для boot раздела " 
 echo ""
 echo " также   указаь type=linux для других разделов будующей системы ( root/swap(type=swap)/home раздела ) "
 echo ""
@@ -24,7 +22,7 @@ echo " zsh(С таким же плагином и подцветкой как в
 echo ""
 echo " щрифты ttf-arphic-ukai  ttf-liberation ttf-dejavu ttf-arphic-uming ttf-fireflysung ttf-sazanami  "
 echo ""
-####################################
+#####
 echo " готовы приступить?  "
 while 
     read -n1 -p  "1 - да, 0 - нет: " hello # sends right after the keypress
@@ -35,12 +33,22 @@ do
 done
  if [[ $hello == 1 ]]; then
   clear
-  echo "Добро пожаловать в установку ArchLinux режим загрузки UEFI noGrub "
+  echo "Добро пожаловать в установку ArchLinux"
   elif [[ $hello == 0 ]]; then
    reboot   
 fi
+##
+echo " UEFI( no grub ) или Grub-legcy? "
+while 
+    read -n1 -p  "1 - UEFI, 2 - GRUB-legcy, 0 - exit " menu # sends right after the keypress
+    echo ''
+    [[ "$menu" =~ [^120] ]]
+do
+    :
+done
+if [[ $nenu == 1 ]]; then
 clear
-#
+
 pacman -Sy --noconfirm
 echo ""
 lsblk -f
@@ -211,8 +219,21 @@ done
   echo 'пропущено'
   fi 
  ################################################################################### 
-pacstrap /mnt base  base-devel wget efibootmgr iw wpa_supplicant dialog
-genfstab -U /mnt >> /mnt/etc/fstab
+ echo 'Установка базовой системы, будете ли вы использовать wifi?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " x_pacstrap  # sends right after the keypress
+    echo ''
+    [[ "$x_pacstrap" =~ [^10] ]]
+do
+    :
+done
+ if [[ $x_pacstrap == 1 ]]; then
+ pacstrap /mnt base  base-devel wget wpa_supplicant dialog
+ genfstab -U /mnt >> /mnt/etc/fstab
+  elif [[ $x_pacstrap == 0 ]]; then
+  pacstrap /mnt base  base-devel wget 
+  genfstab -U /mnt >> /mnt/etc/fstab
+  fi 
 ##################################################
 clear
 echo 'wifi или dhcpcd ?'
@@ -236,6 +257,213 @@ if [[ $int == 1 ]]; then
 umount -a
 reboot
 exit
+#####################################
+#####################################
+## часть вторая
+elif [[ $menu == 2 ]]; then 
+echo "Добро пожаловать в установку ArchLinux режим GRUB-Legacy "
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/zer
+cat 'zer' > /etc/pacman.d/mirrorlist
+rm zer
+ pacman -Sy --noconfirm
+ lsblk -f
+echo ""
+echo 'Нужна разметка диска?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " cfdisk # sends right after the keypress
+    echo ''
+    [[ "$cfdisk" =~ [^10] ]]
+do
+    :
+done
+ if [[ $cfdisk == 1 ]]; then
+  read -p "Укажите диск (sda/sdb ( например sda )):" cfd
+cfdisk /dev/$cfd
+  elif [[ $cfdisk == 0 ]]; then
+   echo 'разметка пропущена.'   
+fi
+#
+read -p "Укажите ROOT раздел(sda/sdb 1.2.3.4 (sda5 например)):" root
+echo ""
+mkfs.ext4 /dev/$root -L root
+mount /dev/$root /mnt
+echo ""     
+##
+clear
+lsblk -f  
+echo 'добавим и  форматируем BOOT?'
+while 
+    read -n1 -p  "1 - если boot раздел есть, 2 - если boot раздела нет( тоесть boot в корне и не вынесен на другой раздел) : " boots # sends right after the keypress
+    echo ''
+    [[ "$boots" =~ [^12] ]]
+do
+    :
+done
+ if [[ $boots == 1 ]]; then
+  read -p "Укажите BOOT раздел(sda/sdb 1.2.3.4 (sda7 например)):" bootd
+  mkfs.ext2  /dev/$bootd -L boot
+  mkdir /mnt/boot
+  mount /dev/$bootd /mnt/boot
+  elif [[ $boots == 2 ]]; then
+ echo " продолжим дальше "
+fi   
+###
+lsblk -f
+echo 'добавим swap раздел?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " swap # sends right after the keypress
+    echo ''
+    [[ "$swap" =~ [^10] ]]
+do
+    :
+done
+ if [[ $swap == 1 ]]; then
+  read -p "Укажите swap раздел(sda/sdb 1.2.3.4 (sda7 например)):" swaps
+  mkswap /dev/$swaps -L swap
+  swapon /dev/$swaps
+  elif [[ $swap == 0 ]]; then
+   echo 'добавление swap раздела пропущено.'   
+fi  
+###  
+clear
+lsblk -f
+echo 'Форматируем home раздел?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " homeF # sends right after the keypress
+    echo ''
+    [[ "$homeF" =~ [^10] ]]
+do
+    :
+done
+   if [[ $homeF == 1 ]]; then
+   read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
+   mkfs.ext4 /dev/$home -L home
+   elif [[ $homeF == 0 ]]; then
+   echo 'Формаирыване домашнего раздела пропущено.'   
+fi
+echo 'Добавим раздел  HOME ?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " homes # sends right after the keypress
+    echo ''
+    [[ "$homes" =~ [^10] ]]
+do
+    :
+done
+   if [[ $homes == 0 ]]; then
+     echo 'пропущено'
+  elif [[ $homes == 1 ]]; then
+    read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
+    mkdir /mnt/home 
+    mount /dev/$home /mnt/home
+  fi
+  ####
+  echo 'Добавим раздел диск "C" Windows?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " diskC # sends right after the keypress
+    echo ''
+    [[ "$DiskC" =~ [^10] ]]
+do
+    :
+done
+if [[ $diskC == 0 ]]; then
+  echo 'пропущено'
+  elif [[ $diskC == 1 ]]; then
+  read -p " Укажите диск "C" раздел(sda/sdb 1.2.3.4 (sda4 например) ) : " diskCc
+  mkdir /mnt/C 
+  mount /dev/$diskCc /mnt/C
+  fi
+############### disk D ##############
+echo 'Добавим раздел диск "D" Windows?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " diskD # sends right after the keypress
+    echo ''
+    [[ "$diskD" =~ [^10] ]]
+do
+    :
+done
+if [[ $diskD == 1 ]]; then
+  read -p " Укажите диск "D" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDd
+  mkdir /mnt/D 
+  mount /dev/$diskDd /mnt/D
+  elif [[ $diskD == 0 ]]; then
+  echo 'пропущено'
+  fi
+###### disk E ########
+echo 'Добавим раздел диск "E" Windows?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " diskE  # sends right after the keypress
+    echo ''
+    [[ "$diskE" =~ [^10] ]]
+do
+    :
+done
+ if [[ $diskE == 1 ]]; then
+  read -p " Укажите диск "E" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDe
+  mkdir /mnt/E 
+  mount /dev/$diskDe /mnt/E
+  elif [[ $diskE == 0 ]]; then
+  echo 'пропущено'
+  fi 
+ ################################################################################### 
+echo 'Установка базовой системы, будете ли вы использовать wifi?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " x_pacstrap  # sends right after the keypress
+    echo ''
+    [[ "$x_pacstrap" =~ [^10] ]]
+do
+    :
+done
+ if [[ $x_pacstrap == 1 ]]; then
+ pacstrap /mnt base  base-devel wget wpa_supplicant dialog
+ genfstab -pU /mnt >> /mnt/etc/fstab
+  elif [[ $x_pacstrap == 0 ]]; then
+  pacstrap /mnt base  base-devel wget 
+  genfstab -pU /mnt >> /mnt/etc/fstab
+  fi 
+ 
+
+###############################
+clear
+echo 'wifi или dhcpcd ?'
+while 
+    read -n1 -p  "1 - wifi, 2 - dhcpcd: " int # sends right after the keypress
+    echo ''
+    [[ "$int" =~ [^12] ]]
+do
+    :
+done
+if [[ $int == 1 ]]; then
+  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh
+  echo 'первый этап готов ' 
+  echo 'ARCH-LINUX chroot' 
+  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh  >>> ' 
+  arch-chroot /mnt      
+  elif [[ $int == 2 ]]; then
+  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub/master/kde.sh)"
+  fi
+  #######################################################################################
+umount -a
+reboot
+exit
+##############################################
+elif [[ $menu == 0 ]]; then
+   reboot
+
+fi
+
+exit
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
