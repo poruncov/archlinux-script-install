@@ -125,6 +125,8 @@ echo "#####################################################################"
 echo ""
 echo " Установка дополнительных программ "
 echo ""
+echo " flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  telegram-desktop  "
+echo ""
 echo " установим все или на ваш выбор? "
 while 
     read -n1 -p  "1 - все, 2 - на выбор, 0 - пропустить " i_pror # sends right after the keypress
