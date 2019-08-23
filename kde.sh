@@ -406,7 +406,7 @@ echo ""
 echo "    каждую из программ можно будет пропустить! "
 echo ""
 ###########################################################################
-echo " Уставливаем aur-helper ( pikaur или yay ) ?  "
+echo " Уставливаем aur-helper ( pikaur(идет как зависимость для octopi) или yay ) ?  "
 while 
     read -n1 -p  "1 - pikaur, 2 - yay, 0 - пропустить : " in_aur_help # sends right after the keypress
     echo ''
