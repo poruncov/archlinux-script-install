@@ -647,7 +647,7 @@ if [[ $vm_text == 0 ]]; then
   echo 'этап пропущен' 
 elif [[ $vm_text == 1 ]]; then
   mkdir /home/$username/{Downloads,Music,Pictures,Videos,Documents,time} 
-  chown -R $username:users  /home/uriy/{Downloads,Music,Pictures,Videos,Documents,time}
+  chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
 fi
 echo "################################################################"
 echo "###################    T H E   E N D      ######################"
