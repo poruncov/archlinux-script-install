@@ -437,7 +437,7 @@ fi
 
 echo "################################################################"
 echo ""
-echo " Уставливаем браузер? : "
+echo " Устанавливаем браузер? : "
 while 
     read -n1 -p  "1 - google-chrome, 2 - firefox(russian), 3 - усановить оба  0 - пропустить: " g_chrome # sends right after the keypress
     echo ''
