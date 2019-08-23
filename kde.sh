@@ -391,7 +391,7 @@ clear
 echo " оболочка изменена с bash на zsh "
 fi
 #########################
-systemctl enable dhcpcd.service
+#systemctl enable dhcpcd.service
 systemctl enable sddm NetworkManager
 systemctl enable bluetooth.service
 
