@@ -23,11 +23,7 @@ ________________________________________________________________________________
 
 пакеты драйверов xorg-server xorg-drivers (после установки можно будет установить/дополнить )
 
-pulseaudio-bluetooth  flameshot ark exfat-utils filezilla gparted unrar neofetch screenfetch 
-
-alsa-utils android-tools unzip  gwenview steam steam-native-runtime ktorrent  kwalletmanager 
-
-speedtest-cli ntfs-3g spectacle vlc  telegram-desktop latte-dock  pulseaudio-equalizer-ladspa 
+pulseaudio-bluetooth ark exfat-utils unrar alsa-utils  unzip ntfs-3g pulseaudio-equalizer-ladspa  
 
 zsh(С таким же плагином и подцветкой как в усановочном образе archlinux ) 
 
