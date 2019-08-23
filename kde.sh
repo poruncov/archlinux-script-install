@@ -95,9 +95,247 @@ echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 pacman -Syy 
 pacman -Sy xorg-server xorg-drivers --noconfirm
-pacman -Sy linux-headers  plasma-meta kdebase  sddm sddm-kcm  networkmanager htop network-manager-applet ppp --noconfirm
+pacman -Sy linux-headers networkmanager  network-manager-applet ppp --noconfirm
+pacman -Sy pulseaudio-bluetooth  ark exfat-utils  alsa-utils  unzip  ntfs-3g pulseaudio-equalizer-ladspa  unrar  lha --noconfirm
+echo "#####################################################################"
+echo ""
+echo " Установим DE? "
+while 
+    read -n1 -p  "1 - KDE(Plasma)+sddm , 2 - xfce+lxdm, 0 - пропустить " x_de
+    echo ''
+    [[ "$x_de" =~ [^120] ]]
+do
+    :
+done
+if [[ $x_de == 0 ]]; then
+  echo 'уcтановка DE пропущена' 
+elif [[ $x_de == 1 ]]; then
+pacman -S sddm sddm-kcm  plasma-meta kdebase kwalletmanager  latte-dock --noconfirm
 pacman -R konqueror --noconfirm
-pacman -Sy pulseaudio-bluetooth  flameshot ark exfat-utils filezilla alsa-utils android-tools unzip  gwenview steam steam-native-runtime ktorrent  kwalletmanager speedtest-cli ntfs-3g spectacle vlc  telegram-desktop latte-dock  pulseaudio-equalizer-ladspa gparted unrar neofetch screenfetch lha --noconfirm
+systemctl enable sddm.service -f
+clear
+echo "Plasma KDE успешно установлена"
+elif [[ $x_de == 2 ]]; then
+pacman -S  xfce4 xfce4-goodies lxdm --noconfirm
+systemctl enable lxdm
+clear
+echo "Xfce успешно установлено"
+fi
+echo "#####################################################################"                                        
+echo ""
+echo " Установка дополнительных программ "
+echo ""
+echo " установим все или на ваш выбор? "
+while 
+    read -n1 -p  "1 - все, 2 - на выбор, 0 - пропустить " i_pror # sends right after the keypress
+    echo ''
+    [[ "$i_pror" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_prog == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_prog == 1 ]]; then
+pacman -S flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  telegram-desktop     --noconfirm
+clear
+echo " установка завершена "
+elif [[ $i_prog == 2 ]]; then
+echo " htop--диспетер задач для linux "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_htop # sends right after the keypress
+    echo ''
+    [[ "$i_htop" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_htop == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_htop == 1 ]]; then
+pacman -S htop --noconfirm
+clear
+echo " установка htop  завершена "
+fi
+#############  filezilla ###############
+echo "#############################################################################"
+echo ""
+echo " Filezilla - графический клиент для работы с FTP/SFTP "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_Filezilla    # sends right after the keypress
+    echo ''
+    [[ "$i_filezilla" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_filezilla == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_filezilla == 1 ]]; then
+pacman -S filezilla --noconfirm
+clear
+echo " Установка завершена "
+fi  
+echo "#############################################################################"
+echo ""
+echo " gwenview - программа для просмотра изображений  "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_gwenview    # sends right after the keypress
+    echo ''
+    [[ "$i_gwenview" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_gwenview == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_gwenview == 1 ]]; then
+pacman -S gwenview --noconfirm
+clear
+echo " Установка завершена "
+fi
+echo "#############################################################################"
+echo ""
+echo " Steam - магазин игр   "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_steam    # sends right after the keypress
+    echo ''
+    [[ "$i_steam" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_steam == 0 ]]; then
+clear
+echo " Усттанока пропущена "
+elif [[ $i_steam == 1 ]]; then
+pacman -S steam steam-native-runtime --noconfirm
+clear
+echo " Установка завершена "
+fi
+echo "#############################################################################"
+echo ""
+echo " neofetch - вывод данных о системе с лого в консоле "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_neofetch     # sends right after the keypress
+    echo ''
+    [[ "$i_neofetch" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_neofetch  == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_neofetch  == 1 ]]; then
+pacman -S neofetch  --noconfirm
+clear
+echo " Установка завершена "
+fi
+echo "#############################################################################"
+echo ""
+echo " screenfetch - вывод данных о системе с лого в консоле( аналог neofetch ) "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_screenfetch     # sends right after the keypress
+    echo ''
+    [[ "$i_screenfetch" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_screenfetch  == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_screenfetch  == 1 ]]; then
+pacman -S screenfetch  --noconfirm
+clear
+echo " Установка завершена "
+fi
+echo "#############################################################################"
+echo ""
+echo " vlc - проигрыватель мультимедиа ) "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_vlc   # sends right after the keypress
+    echo ''
+    [[ "$i_vlc" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_vlc  == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_vlc  == 1 ]]; then
+pacman -S vlc  --noconfirm
+clear
+echo " Установка завершена "
+fi
+echo "#############################################################################"
+echo ""
+echo " gparted - программа для работы с разделоми sdd/hdd ) "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_gparted   # sends right after the keypress
+    echo ''
+    [[ "$i_gparted" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_gparted  == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_gparted  == 1 ]]; then
+pacman -S gparted  --noconfirm
+clear
+echo " Установка завершена "
+fi
+echo "#############################################################################"
+echo ""
+echo " telegram - мессенджер ) "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_telegram   # sends right after the keypress
+    echo ''
+    [[ "$i_telegram" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_telegram  == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_telegram  == 1 ]]; then
+pacman -S telegram-desktop   --noconfirm
+clear
+echo " Установка завершена "
+fi
+
+echo "#############################################################################"
+echo ""
+echo " установим программу для создания скриншотов? "
+echo ""
+echo " spectacle(интегрируеться в рабочий стол  Plasma(kde)) и flameshot(универсальна, хорошо работает в KDE и Xfce) "
+while 
+    read -n1 -p  "1 - spectacle, 2 -flameshot , 3 - оба варианта   0 - пропустить: " i_screen   # sends right after the keypress
+    echo ''
+    [[ "$i_screen" =~ [^1230] ]]
+do
+    :
+done
+if [[ $i_screen == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_screen == 1 ]]; then
+pacman -S spectacle   --noconfirm
+clear
+echo " Установка завершена "
+elif [[ $i_screen == 2 ]]; then
+pacman -S flameshot --noconfirm
+clear
+echo " Установка завершена "
+elif [[ $i_screen == 3 ]]; then
+pacman -S spectacle flameshot --noconfirm
+clear
+echo " установка завершена "
+fi
+
+
+
+
+fi
 pacman -S  ttf-arphic-ukai git ttf-liberation ttf-dejavu ttf-arphic-uming ttf-fireflysung ttf-sazanami --noconfirm
 clear
 echo ""
@@ -143,7 +381,7 @@ do
 done
 if [[ $t_shell == 0 ]]; then
 clear
-  echo 'пользоватльская обочка не изменена ( по умолчанию BASH )' 
+echo 'пользоватльская обочка не изменена ( по умолчанию BASH )' 
 elif [[ $t_shell == 1 ]]; then
 chsh -s /bin/zsh
 chsh -s /bin/zsh $username
@@ -153,9 +391,7 @@ fi
 #########################
 systemctl enable dhcpcd.service
 systemctl enable sddm NetworkManager
-systemctl enable sddm.service -f
 systemctl enable bluetooth.service
-systemctl enable sshd.service
 
 pacman -Sy --noconfirm
 ##############################################
