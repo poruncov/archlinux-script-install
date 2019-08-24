@@ -25,14 +25,16 @@ ________________________________________________________________________________
 
  програмы: pulseaudio-bluetooth ark exfat-utils unrar alsa-utils  unzip ntfs-3g pulseaudio-equalizer-ladspa  
 
-есть возможность выбора  программ для установки!!!
+есть возможность выбора  программ для установки
+
+flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  telegram-desktop
 
 KDE или Xfce на выбор!!!
 
 предоставлен выбор zsh или bash
 zsh(С таким же плагином и подцветкой как в усановочном образе archlinux ) 
 
-так же можно установить Mozilla Firefox(russian) или GoogleChrome на выбор
+так же можно установить Mozilla Firefox(russian) или GoogleChrome на выбор!
 
 __________________________________________________________________________________________________________
 
