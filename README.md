@@ -3,11 +3,11 @@
 
 Для установки  ArchLinux(KDE vs Xfce) вам необходимо загрузиться с установочного диска ArchLinux и в теринале выполнить   
 
-1 wget http://bit.do/arch-kde-install
+1 wget http://bit.do/arch-ru
 
-2 chmod + x arch-kde-install
+2 chmod + x arch-ru
 
-3 ./arch-kde-install
+3 ./arch-ru
 
 Данный скрипт позваляет установить ArchLinux(KDE vs Xfce), как рядом с Windows так и произвести чистую установку.
 ___________________________________________________________________________________________________________
