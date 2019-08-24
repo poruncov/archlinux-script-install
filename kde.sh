@@ -1,6 +1,6 @@
  
 #!/bin/bash
-echo 'скрипт второй'
+echo 'скрипт второй настройка системы в chroot '
 timedatectl set-ntp true
 
 wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
@@ -58,7 +58,7 @@ lsblk -f
 echo ""
 echo "Какой загрузчик установить UEFI(systemd) или Grub для legacy"
 while 
-    read -n1 -p  "1 - UEFI, 2 - GRUB: " t_bootloader # sends right after the keypress
+    read -n1 -p  "1 - UEFI, 2 - GRUB(legacy): " t_bootloader # sends right after the keypress
     echo ''
     [[ "$t_bootloader" =~ [^12] ]]
 do
@@ -129,9 +129,9 @@ echo " flameshot filezilla htop gparted neofetch screenfetch gwenview steam stea
 echo ""
 echo " установим все или на ваш выбор? "
 while 
-    read -n1 -p  "1 - все, 2 - на выбор, 0 - пропустить " i_pror # sends right after the keypress
+    read -n1 -p  "1 - все, 2 - на выбор, 0 - пропустить " i_prog # sends right after the keypress
     echo ''
-    [[ "$i_pror" =~ [^10] ]]
+    [[ "$i_prog" =~ [^120] ]]
 do
     :
 done
@@ -333,11 +333,8 @@ pacman -S spectacle flameshot --noconfirm
 clear
 echo " установка завершена "
 fi
-
-
-
-
 fi
+###############################################################################
 pacman -S  ttf-arphic-ukai git ttf-liberation ttf-dejavu ttf-arphic-uming ttf-fireflysung ttf-sazanami --noconfirm
 clear
 echo ""
@@ -371,7 +368,24 @@ elif [[ $t_ssh1 == 1 ]]; then
 systemctl enable sshd.service
 clear
 fi
+echo "#############################################################################"
 echo "######    ZSH   #####"
+echo ""
+echo " установим zsh(такой же как и в установочном образе Archlinux) или оставим Bash по умолчанию ? "
+echo ""
+echo "при необходимости можно бужет установить другую оболочку в уже установленной системе "
+while 
+    read -n1 -p  "1 - установить zsh ,2 - оставим bash по умолчанию " x_shell
+    echo ''
+    [[ "$x_shell" =~ [^12] ]]
+do
+    :
+done
+if [[ $x_shell == 0 ]]; then
+clear
+  echo ' оболочка не изменета, по умолчанию bash!"  ' 
+elif [[ $x_shell == 1 ]]; then
+clear
 pacman -S zsh  zsh-syntax-highlighting  grml-zsh-config --noconfirm
 echo " сменим оболочку пользователя с bash на zsh? : "
 while 
@@ -390,11 +404,28 @@ chsh -s /bin/zsh $username
 clear
 echo " оболочка изменена с bash на zsh "
 fi
-#########################
-#systemctl enable dhcpcd.service
+fi
+echo "#############################################################################"
 systemctl enable sddm NetworkManager
 systemctl enable bluetooth.service
-
+echo ""
+echo " Добавим dhcpcd в автозагрузку( для проводного интернета, который  получает настройки от роутера ) ? "
+echo ""
+echo "при необходиости это можно будет сделать уже в установленной системе "
+while 
+    read -n1 -p  "1 - включить dhcpcd ,0 - не включать dhcpcd " x_dhcpcd
+    echo ''
+    [[ "$x_dhcpcd" =~ [^10] ]]
+do
+    :
+done
+if [[ $x_dhcpcd == 0 ]]; then
+  echo ' dhcpcd не включен в автозагрузку, при необходиости это можно будет сделать уже в установленной системе ' 
+elif [[ $x_dhcpcd == 1 ]]; then
+systemctl enable dhcpcd.service
+clear
+echo "Dhcpcd успешно добавлен в автозагрузку"
+fi
 pacman -Sy --noconfirm
 ##############################################
 echo ""
