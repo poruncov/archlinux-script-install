@@ -5,7 +5,7 @@
 
 1 wget http://bit.do/arch-ru
 
-2 chmod + x arch-ru
+2 chmod +x arch-ru
 
 3 ./arch-ru
 
