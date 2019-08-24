@@ -42,7 +42,7 @@ while
 do
     :
 done
-if [[ $nenu == 1 ]]; then
+if [[ $menu == 1 ]]; then
 clear
 
 pacman -Sy --noconfirm
