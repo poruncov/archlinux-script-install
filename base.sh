@@ -3,24 +3,16 @@ loadkeys ru
 setfont cyr-sun16
 clear
 echo ""
-echo " ArchLinux plasma kde на выбор UEFI или Legacy "
+echo " ArchLinux plasma kde или Xfce на выбор" 
+echo "UEFI или Legacy на выбор "
 echo ""
 echo " Скрипт писал Порунцов Юрий"
 echo ""
 echo " Порунцов Юрий https://vk.com/poruncov https://t.me/poruncov "
 echo ""
-echo " важная информация, если производите разметку диска, только в cfdisk не забудьте указать type=EFI для boot раздела " 
+echo " важная информация! Вся разметка диска производиться только в cfdisk! Не забудьте указать type=EFI для boot раздела " 
 echo ""
-echo " также   указаь type=linux для других разделов будующей системы ( root/swap(type=swap)/home раздела ) "
-echo ""
-echo " список пакетов которые будут установлены : "
-echo " pulseaudio-bluetooth  flameshot ark exfat-utils filezilla gparted unrar neofetch screenfetch "
-echo " alsa-utils android-tools unzip  gwenview steam steam-native-runtime ktorrent  kwalletmanager "
-echo " speedtest-cli ntfs-3g spectacle vlc  telegram-desktop latte-dock  pulseaudio-equalizer-ladspa "
-echo "" 
-echo " zsh(С таким же плагином и подцветкой как в усановочном образе archlinux ) "
-echo ""
-echo " щрифты ttf-arphic-ukai  ttf-liberation ttf-dejavu ttf-arphic-uming ttf-fireflysung ttf-sazanami  "
+echo " также   указаь type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
 echo ""
 #####
 echo " готовы приступить?  "
@@ -38,6 +30,10 @@ done
    reboot   
 fi
 ##
+echo " здесь выберайте то каким режимом запущен установочный образ ArchLinux"
+echo " Если вы загрузились в Uefi тогда "1" если legacy тогда "2" "
+echo " Режим legacy только для mbr-таблицы разделов, Uefi для Gpt- таблицы разделов" 
+echo   ""
 echo " UEFI( no grub ) или Grub-legcy? "
 while 
     read -n1 -p  "1 - UEFI, 2 - GRUB-legcy, 0 - exit " menu # sends right after the keypress
@@ -52,9 +48,13 @@ clear
 pacman -Sy --noconfirm
 echo ""
 lsblk -f
+echo " Здесь вы можете удалить boot от старой системы, файлы Windows загрузчика не затрагиваються."
+echo " если вам неоходио полность очистить boot раздел, то пропусите этот этап далее установка предложит отформатировать boot раздел "
+echo " При установке дуал бут раздел не нужно форматировать!!! "
+echo ""
 echo 'удалим старый загрузчик linux'
 while 
-    read -n1 -p  "1 - удалим старый загрузкик линукс? , 0 - данный этап можно пропустить если устанока производиться первый раз(и не были установлеены другие дистрибутивы) " boots # sends right after the keypress
+    read -n1 -p  "1 - удалим старый загрузкик линукс , 0 -(пропустить) данный этап можно пропустить если устанока производиться первый раз(и не были установлеены другие дистрибутивы) " boots 
     echo ''
     [[ "$boots" =~ [^10] ]]
 do
@@ -70,7 +70,7 @@ ls | grep -v Boot | grep -v Microsoft | xargs rm -rfv
 cd /root
 umount /mnt
   elif [[ $boots == 0 ]]; then
-   echo " очиска boot раздела пропущена, далее вы сможете его отфармаировать, если нужно!(при установке дуал бут раздел не нужно форматировать!!! "   
+   echo " очиска boot раздела пропущена, далее вы сможете его отфармаировать, если нужно! "   
 fi
 #
 wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
@@ -79,6 +79,7 @@ rm zer
 pacman -Sy --noconfirm
 ##############################
 lsblk -f
+echo " Выберайте "1 ", если ранее не производилась разметка диска и у вас нет разделов для ArchLinux "
 echo ""
 echo 'Нужна разметка диска?'
 while 
@@ -142,6 +143,8 @@ fi
 clear
 lsblk -f
 echo 'Форматируем home раздел?'
+echo " Если у вас есть home раздел от предыдущей системы его можно не форматировать"
+echo " При указании польователя укажите, то имя которое было ранее, тогда система сама востановит бут раздел "
 while 
     read -n1 -p  "1 - да, 0 - нет: " homeF # sends right after the keypress
     echo ''
@@ -170,12 +173,25 @@ done
     mkdir /mnt/home 
     mount /dev/$home /mnt/home
   fi
-###################  disk C  ###############################################################
-echo 'Добавим раздел диск "C" Windows?'
+###################  раздел  ###############################################################
+echo 'Добавим разделы  Windows?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " wind # sends right after the keypress
+    echo ''
+    [[ "$wind" =~ [^10] ]]
+do
+    :
+done
+if [[ $wind == 0 ]]; then
+  echo 'пропущено'
+  elif [[ $wind == 1 ]]; then
+  echo "#####################################################################################"
+echo ""
+  echo 'Добавим раздел диск "C" Windows?'
 while 
     read -n1 -p  "1 - да, 0 - нет: " diskC # sends right after the keypress
     echo ''
-    [[ "$DiskC" =~ [^10] ]]
+    [[ "$diskC" =~ [^10] ]]
 do
     :
 done
@@ -218,6 +234,9 @@ done
   elif [[ $diskE == 0 ]]; then
   echo 'пропущено'
   fi 
+  fi
+#####
+
  ################################################################################### 
  echo 'Установка базовой системы, будете ли вы использовать wifi?'
 while 
@@ -228,14 +247,16 @@ do
     :
 done
  if [[ $x_pacstrap == 1 ]]; then
- pacstrap /mnt base  base-devel wget wpa_supplicant dialog
+ pacstrap /mnt base  base-devel wget  efibootmgr iw   wpa_supplicant dialog
  genfstab -U /mnt >> /mnt/etc/fstab
   elif [[ $x_pacstrap == 0 ]]; then
-  pacstrap /mnt base  base-devel wget 
+  pacstrap /mnt base  base-devel wget efibootmgr iw 
   genfstab -U /mnt >> /mnt/etc/fstab
   fi 
 ##################################################
 clear
+echo " если вы используете wifi тогда "1", если проводной тогда "2" "  
+echo ""
 echo 'wifi или dhcpcd ?'
 while 
     read -n1 -p  "1 - wifi, 2 - dhcpcd: " int # sends right after the keypress
@@ -249,7 +270,7 @@ if [[ $int == 1 ]]; then
   wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh
   echo 'первый этап готов ' 
   echo 'ARCH-LINUX chroot' 
-  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh  >>> ' 
+  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh ' 
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
@@ -268,6 +289,8 @@ cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
  pacman -Sy --noconfirm
  lsblk -f
+echo ""
+echo " Выберайте "1 ", если ранее не производилась разметка диска и у вас нет разделов для ArchLinux "
 echo ""
 echo 'Нужна разметка диска?'
 while 
@@ -293,8 +316,11 @@ echo ""
 clear
 lsblk -f  
 echo 'добавим и  форматируем BOOT?'
+echo " Если производиться установка и у вас уже имеется бут раздел от предыдущей системы "
+echo " тогда ва необхадимо его форматировать "1", если у вас бут раздел не вынесен на другой раздел тогда "
+echo " 'этот этап можно пропустить "2" "
 while 
-    read -n1 -p  "1 - если boot раздел есть, 2 - если boot раздела нет( тоесть boot в корне и не вынесен на другой раздел) : " boots # sends right after the keypress
+    read -n1 -p  "1 - форматировать и монтировать на отдельный раздел, 2 - пропустить если бут раздела нет ) : " boots 
     echo ''
     [[ "$boots" =~ [^12] ]]
 do
@@ -328,6 +354,10 @@ fi
 ###  
 clear
 lsblk -f
+echo ' Форматируем home раздел?'
+echo ""
+echo " Если у вас есть home раздел от предыдущей системы его можно не форматировать"
+echo " При указании польователя укажите, то имя которое было ранее, тогда система сама востановит home раздел "
 echo 'Форматируем home раздел?'
 while 
     read -n1 -p  "1 - да, 0 - нет: " homeF # sends right after the keypress
@@ -357,12 +387,25 @@ done
     mkdir /mnt/home 
     mount /dev/$home /mnt/home
   fi
-  ####
+###################  раздел  ###############################################################
+echo 'Добавим разделы  Windows?'
+while 
+    read -n1 -p  "1 - да, 0 - нет: " wind # sends right after the keypress
+    echo ''
+    [[ "$wind" =~ [^10] ]]
+do
+    :
+done
+if [[ $wind == 0 ]]; then
+  echo 'пропущено'
+  elif [[ $wind == 1 ]]; then
+  echo "#####################################################################################"
+echo ""
   echo 'Добавим раздел диск "C" Windows?'
 while 
     read -n1 -p  "1 - да, 0 - нет: " diskC # sends right after the keypress
     echo ''
-    [[ "$DiskC" =~ [^10] ]]
+    [[ "$diskC" =~ [^10] ]]
 do
     :
 done
@@ -405,6 +448,7 @@ done
   elif [[ $diskE == 0 ]]; then
   echo 'пропущено'
   fi 
+  fi
  ################################################################################### 
 echo 'Установка базовой системы, будете ли вы использовать wifi?'
 while 
@@ -425,6 +469,8 @@ done
 
 ###############################
 clear
+echo " Если установка производиться по wifi тогда "1", если проводной интернет тогда "2" " 
+echo ""
 echo 'wifi или dhcpcd ?'
 while 
     read -n1 -p  "1 - wifi, 2 - dhcpcd: " int # sends right after the keypress
