@@ -4,7 +4,7 @@ setfont cyr-sun16
 clear
 echo ""
 echo " ArchLinux plasma kde или Xfce на выбор" 
-echo "UEFI или Legacy на выбор "
+echo " UEFI или Legacy на выбор "
 echo ""
 echo " Скрипт писал Порунцов Юрий"
 echo ""
@@ -12,7 +12,7 @@ echo " Порунцов Юрий https://vk.com/poruncov https://t.me/poruncov "
 echo ""
 echo " важная информация! Вся разметка диска производиться только в cfdisk! Не забудьте указать type=EFI для boot раздела " 
 echo ""
-echo " также   указаь type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
+echo " также   указать type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
 echo ""
 #####
 echo " готовы приступить?  "
