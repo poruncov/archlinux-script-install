@@ -73,9 +73,9 @@ umount /mnt
    echo " очиска boot раздела пропущена, далее вы сможете его отфармаировать, если нужно! "   
 fi
 #
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
-cat 'zer' > /etc/pacman.d/mirrorlist
-rm zer
+#wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
+#cat 'zer' > /etc/pacman.d/mirrorlist
+#rm zer
 pacman -Sy --noconfirm
 ##############################
 lsblk -f
