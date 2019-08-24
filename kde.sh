@@ -12,7 +12,23 @@ read -p "Введите имя пользователя: " username
 
 echo 'Прописываем имя компьютера'
 echo $hostname > /etc/hostname
+echo ""
+echo " Очистим папку конфигов, кеш, и скрытые каталоги в /home/$username от старой системы ? "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " i_rm      # sends right after the keypress
+    echo ''
+    [[ "$i_rm" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_rm == 0 ]]; then
+clear
+echo " очистка пропущена "
+elif [[ $i_rm == 1 ]]; then
 rm -rf /home/$username/.*
+clear
+echo " очистка завершена "
+fi  
 #####################################
 echo " Настроим localtime "
 while 
@@ -48,10 +64,7 @@ passwd
 echo 'Добавляем пользователя'
 useradd -m -g users -G wheel -s /bin/bash $username
 passwd $username
-
 pacman -Syy
-#############
-############
 clear
 lsblk -f
 ###########################################################################
@@ -69,7 +82,13 @@ bootctl install
 echo ' default arch ' > /boot/loader/loader.conf
 echo ' timeout 10 ' >> /boot/loader/loader.conf
 echo ' editor 0' >> /boot/loader/loader.conf
-read -p "Укажите корневой раздел для загрузчика(пример sda4,sda6 ): " root
+echo ""
+echo " Укажите тот радел который будет после перезагрузки, то есть например "
+echo " при установке с флешки ваш hdd может быть sdb, а после перезагрузки sda "
+echo " выше видно что sdbX напривмер примонтирован в /mnt, а после перезагрузки systemd будет искать корень на sdaX "
+echo " если указать не правильный раздел система не загрузится "
+echo ""
+read -p "Укажите корневой раздел для загрузчика(пример  sdaX,sdbX ): " root
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
 echo 'linux   /vmlinuz-linux' >> /boot/loader/entries/arch.conf
 echo 'initrd  /initramfs-linux.img' >> /boot/loader/entries/arch.conf
@@ -143,6 +162,8 @@ pacman -S flameshot filezilla htop gparted neofetch screenfetch gwenview steam s
 clear
 echo " установка завершена "
 elif [[ $i_prog == 2 ]]; then
+echo "#############################################################################"
+echo ""
 echo " htop--диспетер задач для linux "
 while 
     read -n1 -p  "1 - да, 0 - нет: " i_htop # sends right after the keypress
@@ -373,7 +394,7 @@ echo "######    ZSH   #####"
 echo ""
 echo " установим zsh(такой же как и в установочном образе Archlinux) или оставим Bash по умолчанию ? "
 echo ""
-echo "при необходимости можно бужет установить другую оболочку в уже установленной системе "
+echo "при необходимости можно будет установить другую оболочку в уже установленной системе "
 while 
     read -n1 -p  "1 - установить zsh ,2 - оставим bash по умолчанию " x_shell
     echo ''
@@ -666,7 +687,7 @@ clear
 fi 
 echo "####################   Установка пакетов завершена   ############################################"
 echo ""
-echo "создаем папки музыка и т.д. в дериктории пользователя?"
+echo "создаем папки музыка, видео и т.д. в дериктории пользователя?"
 while 
     read -n1 -p  "1 - да, 0 - нет: " vm_text # sends right after the keypress
     echo ''
