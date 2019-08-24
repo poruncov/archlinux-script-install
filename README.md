@@ -23,13 +23,18 @@ ________________________________________________________________________________
 
 пакеты драйверов xorg-server xorg-drivers (после установки можно будет установить/дополнить )
 
-pulseaudio-bluetooth ark exfat-utils unrar alsa-utils  unzip ntfs-3g pulseaudio-equalizer-ladspa  
+по умолчанию :pulseaudio-bluetooth ark exfat-utils unrar alsa-utils  unzip ntfs-3g pulseaudio-equalizer-ladspa  
 
+есть возможность выбора какие программы установить!!!
+
+KDE или Xfce на выбор
+
+предоставлен выбор zsh или bash
 zsh(С таким же плагином и подцветкой как в усановочном образе archlinux ) 
 
 так же можно установить Mozilla Firefox(russian) или GoogleChrome на выбор
 
-удален только браузер  браузер konqueror
+удален только браузер  браузер konqueror если устанавливаете KDE
 
 __________________________________________________________________________________________________________
 
