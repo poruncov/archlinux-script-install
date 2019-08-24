@@ -3,9 +3,9 @@
 echo 'скрипт второй настройка системы в chroot '
 timedatectl set-ntp true
 
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
-cat 'zer' > /etc/pacman.d/mirrorlist
-rm zer
+#wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
+#cat 'zer' > /etc/pacman.d/mirrorlist
+#rm zer
 pacman -Syyu  --noconfirm
 read -p "Введите имя компьютера: " hostname
 read -p "Введите имя пользователя: " username
