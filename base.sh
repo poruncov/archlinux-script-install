@@ -60,11 +60,11 @@ while
 do
     :
 done
- if [[ $boots == 1 ]]; then
+if [[ $boots == 1 ]]; then
 read -p "Укажите boot раздел (sda2/sdb2 ( например sda2 )):" bootd
- mount /dev/$bootd /mnt
- cd /mnt
- ls | grep -v EFI | xargs rm -rfv
+mount /dev/$bootd /mnt
+cd /mnt
+ls | grep -v EFI | xargs rm -rfv
 cd /mnt/EFI
 ls | grep -v Boot | grep -v Microsoft | xargs rm -rfv
 cd /root
@@ -73,9 +73,6 @@ umount /mnt
    echo " очиска boot раздела пропущена, далее вы сможете его отфармаировать, если нужно! "   
 fi
 #
-#wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
-#cat 'zer' > /etc/pacman.d/mirrorlist
-#rm zer
 pacman -Sy --noconfirm
 ##############################
 lsblk -f
@@ -174,7 +171,7 @@ done
     mount /dev/$home /mnt/home
   fi
 ###################  раздел  ###############################################################
-echo 'Добавим разделы  Windows?'
+echo 'Добавим разделы  Windows (ntfs/fat32)?'
 while 
     read -n1 -p  "1 - да, 0 - нет: " wind # sends right after the keypress
     echo ''
@@ -238,6 +235,11 @@ done
 #####
 
  ################################################################################### 
+ echo "Если для подключения к интернету исрользовали wifi (wifi-menu) тогда "1" "
+ echo ""
+ echo " Если у вас есть wifi модуль и вы сейчас его не используете, но будете использовать потом то для "
+ echo " исключения ошибок в работе системы рекомендую "1" " 
+ echo ""
  echo 'Установка базовой системы, будете ли вы использовать wifi?'
 while 
     read -n1 -p  "1 - да, 0 - нет: " x_pacstrap  # sends right after the keypress
@@ -255,7 +257,9 @@ done
   fi 
 ##################################################
 clear
-echo " если вы используете wifi тогда "1", если проводной тогда "2" "  
+echo "Если вы производите устновку используя Wifi тогда рекомендую  "1" "
+echo ""
+echo "если проводной интернет тогда "2" " 
 echo ""
 echo 'wifi или dhcpcd ?'
 while 
@@ -315,12 +319,12 @@ echo ""
 ##
 clear
 lsblk -f  
-echo 'добавим и  форматируем BOOT?'
+echo 'добавим и отформатируем BOOT?'
 echo " Если производиться установка и у вас уже имеется бут раздел от предыдущей системы "
 echo " тогда ва необхадимо его форматировать "1", если у вас бут раздел не вынесен на другой раздел тогда "
 echo " 'этот этап можно пропустить "2" "
 while 
-    read -n1 -p  "1 - форматировать и монтировать на отдельный раздел, 2 - пропустить если бут раздела нет ) : " boots 
+    read -n1 -p  "1 - форматировать и монтировать на отдельный раздел, 2 - пропустить если бут раздела нет : " boots 
     echo ''
     [[ "$boots" =~ [^12] ]]
 do
@@ -388,7 +392,7 @@ done
     mount /dev/$home /mnt/home
   fi
 ###################  раздел  ###############################################################
-echo 'Добавим разделы  Windows?'
+echo 'Добавим разделы  Windows (ntfs/fat32)?'
 while 
     read -n1 -p  "1 - да, 0 - нет: " wind # sends right after the keypress
     echo ''
@@ -450,7 +454,11 @@ done
   fi 
   fi
  ################################################################################### 
-echo 'Установка базовой системы, будете ли вы использовать wifi?'
+echo ""
+ echo " Если у вас есть wifi модуль и вы сейчас его не используете, то для "
+ echo " исключения ошибок в работе системы регомендую "1" " 
+ echo ""
+ echo 'Установка базовой системы, будете ли вы использовать wifi?'
 while 
     read -n1 -p  "1 - да, 0 - нет: " x_pacstrap  # sends right after the keypress
     echo ''
@@ -469,8 +477,12 @@ done
 
 ###############################
 clear
-echo " Если установка производиться по wifi тогда "1", если проводной интернет тогда "2" " 
+echo "Если для подключения к интернету использовали wifi (wifi-menu) тогда "1" "
 echo ""
+echo "Если вы производите установку используя Wifi тогда рекомендую  '1' "
+echo ""
+echo "если проводной интернет тогда "2" "
+echo "" 
 echo 'wifi или dhcpcd ?'
 while 
     read -n1 -p  "1 - wifi, 2 - dhcpcd: " int # sends right after the keypress
@@ -483,7 +495,7 @@ if [[ $int == 1 ]]; then
   wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh
   echo 'первый этап готов ' 
   echo 'ARCH-LINUX chroot' 
-  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh  >>> ' 
+  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh ' 
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
@@ -494,25 +506,6 @@ reboot
 exit
 ##############################################
 elif [[ $menu == 0 ]]; then
-   reboot
-
-fi
-
 exit
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+fi
+exit
