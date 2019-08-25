@@ -2,10 +2,6 @@
 #!/bin/bash
 echo 'скрипт второй настройка системы в chroot '
 timedatectl set-ntp true
-
-#wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
-#cat 'zer' > /etc/pacman.d/mirrorlist
-#rm zer
 pacman -Syyu  --noconfirm
 read -p "Введите имя компьютера: " hostname
 read -p "Введите имя пользователя: " username
@@ -32,26 +28,36 @@ fi
 #####################################
 echo " Настроим localtime "
 while 
-    read -n1 -p  "1 - Москва, 2 - Минск, 3 - Екатеринбург, 4 - Киев, 5 - Якутск, 6 - Саратов, 7 - пропустить(если нет вашего варианта) : " wm_time 
+    read -n1 -p  "1 - Москва, 2 - Минск, 3 - Екатеринбург, 4 - Киев, 5 - Якутск, 6 - Саратов, 7-  Новосибирск, 0 - пропустить(если нет вашего варианта) : " wm_time 
     echo ''
-    [[ "$wm_time" =~ [^1234567] ]]
+    [[ "$wm_time" =~ [^12345670] ]]
 do
     :
 done
-if [[ $vm_time == 1 ]]; then
+if [[ $wm_time == 1 ]]; then
   ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-elif [[ $vm_time == 2 ]]; then
+echo " Москва "
+  elif [[ $wm_time == 2 ]]; then
   ln -sf /usr/share/zoneinfo/Europe/Minsk /etc/localtime
-elif [[ $vm_time == 3 ]]; then  
+  echo "Минск"
+  elif [[ $wm_time == 3 ]]; then  
 ln -sf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
-elif [[ $vm_time == 4 ]]; then 
+echo " Екатеринбург "
+elif [[ $wm_time == 4 ]]; then 
  ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime 
-elif [[ $vm_time == 5 ]]; then
+echo " Киев " 
+ elif [[ $wm_time == 5 ]]; then
 ln -sf /usr/share/zoneinfo/Asia/Yakutsk /etc/localtime
-elif [[ $vm_time == 6 ]]; then
+echo " Якутск "
+elif [[ $wm_time == 6 ]]; then
 ln -sf /usr/share/zoneinfo/Europe/Saratov /etc/localtime
-elif [[ $vm_time == 7 ]]; then 
- echo  " этап пропущен " 
+echo " Саратов "
+elif [[ $wm_time == 7 ]]; then 
+ln -sf /usr/share/zoneinfo/Asia/Novosibirsk /etc/localtime
+echo " Новосибирск "
+elif [[ $wm_time == 0 ]]; then 
+clear
+echo  " этап пропущен " 
 fi
 #####################################
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
@@ -60,8 +66,9 @@ locale-gen
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf 
 echo "KEYMAP=ru" >> /etc/vconsole.conf
 echo "FONT=cyr-sun16" >> /etc/vconsole.conf
+echo " Укажите пароль для "ROOT" "
 passwd
-echo 'Добавляем пользователя'
+echo 'Добавляем пароль для пользователя '$username' '
 useradd -m -g users -G wheel -s /bin/bash $username
 passwd $username
 pacman -Syy
@@ -87,8 +94,9 @@ echo " Укажите тот радел который будет после п�
 echo " при установке с флешки ваш hdd может быть sdb, а после перезагрузки sda "
 echo " выше видно что sdbX напривмер примонтирован в /mnt, а после перезагрузки systemd будет искать корень на sdaX "
 echo " если указать не правильный раздел система не загрузится "
+echo " если у вас один hdd/ssd тогда это будет sdaX"
 echo ""
-read -p "Укажите корневой раздел для загрузчика(пример  sdaX,sdbX ): " root
+read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
 echo 'linux   /vmlinuz-linux' >> /boot/loader/entries/arch.conf
 echo 'initrd  /initramfs-linux.img' >> /boot/loader/entries/arch.conf
@@ -118,11 +126,13 @@ pacman -Sy linux-headers networkmanager  network-manager-applet ppp --noconfirm
 pacman -Sy pulseaudio-bluetooth  ark exfat-utils  alsa-utils  unzip  ntfs-3g pulseaudio-equalizer-ladspa  unrar  lha --noconfirm
 echo "#####################################################################"
 echo ""
+echo " Arch-wiki рекоендует для kde-sddm, а для xfce-lxdm "
+echo ""
 echo " Установим DE? "
 while 
-    read -n1 -p  "1 - KDE(Plasma)+sddm , 2 - xfce+lxdm, 0 - пропустить " x_de
+    read -n1 -p  "1 - KDE(Plasma)+sddm , 2 - xfce+lxdm, 3 - kde+lxdm, 4 - xfce+sddm, 0 - пропустить " x_de
     echo ''
-    [[ "$x_de" =~ [^120] ]]
+    [[ "$x_de" =~ [^12340] ]]
 do
     :
 done
@@ -137,6 +147,17 @@ echo "Plasma KDE успешно установлена"
 elif [[ $x_de == 2 ]]; then
 pacman -S  xfce4 xfce4-goodies lxdm --noconfirm
 systemctl enable lxdm
+clear
+echo "Xfce успешно установлено"
+elif [[ $x_de == 3 ]]; then
+pacman -S plasma-meta kdebase kwalletmanager latte-dock lxdm  --noconfirm
+pacman -R konqueror --noconfirm
+systemctl enable lxdm
+clear
+echo "Plasma KDE успешно установлена"
+elif [[ $x_de == 4 ]]; then
+pacman -S  xfce4 xfce4-goodies sddm sddm-kcm --noconfirm
+systemctl enable sddm.service -f
 clear
 echo "Xfce успешно установлено"
 fi
@@ -237,7 +258,7 @@ echo " Установка завершена "
 fi
 echo "#############################################################################"
 echo ""
-echo " neofetch - вывод данных о системе с лого в консоле "
+echo " neofetch - вывод данных о системе с лого в консоли "
 while 
     read -n1 -p  "1 - да, 0 - нет: " i_neofetch     # sends right after the keypress
     echo ''
@@ -255,7 +276,7 @@ echo " Установка завершена "
 fi
 echo "#############################################################################"
 echo ""
-echo " screenfetch - вывод данных о системе с лого в консоле( аналог neofetch ) "
+echo " screenfetch - вывод данных о системе с лого в консоли( аналог neofetch ) "
 while 
     read -n1 -p  "1 - да, 0 - нет: " i_screenfetch     # sends right after the keypress
     echo ''
@@ -408,7 +429,9 @@ clear
 elif [[ $x_shell == 1 ]]; then
 clear
 pacman -S zsh  zsh-syntax-highlighting  grml-zsh-config --noconfirm
-echo " сменим оболочку пользователя с bash на zsh? : "
+echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> /etc/zsh/zshrc
+echo 'prompt adam2' >> /etc/zsh/zshrc
+echo " сменим оболочку пользователя с bash на zsh? "
 while 
     read -n1 -p  "1 - да, 0 - нет: " t_shell # sends right after the keypress
     echo ''
@@ -423,11 +446,12 @@ elif [[ $t_shell == 1 ]]; then
 chsh -s /bin/zsh
 chsh -s /bin/zsh $username
 clear
+echo " при первом запуске консоли(терминала) нажмите "0" "
 echo " оболочка изменена с bash на zsh "
 fi
 fi
 echo "#############################################################################"
-systemctl enable sddm NetworkManager
+systemctl enable NetworkManager.service
 systemctl enable bluetooth.service
 echo ""
 echo " Добавим dhcpcd в автозагрузку( для проводного интернета, который  получает настройки от роутера ) ? "
@@ -493,7 +517,7 @@ echo " Устанавливаем браузер? : "
 while 
     read -n1 -p  "1 - google-chrome, 2 - firefox(russian), 3 - усановить оба  0 - пропустить: " g_chrome # sends right after the keypress
     echo ''
-    [[ "$g_chrome" =~ [^120] ]]
+    [[ "$g_chrome" =~ [^1230] ]]
 do
     :
 done
@@ -650,7 +674,15 @@ done
 if [[ $t_aur == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_aur == 1 ]]; then
-
+###
+cd /home/$username
+git clone https://aur.archlinux.org/pikaur.git
+chown -R $username:users /home/$username/pikaur   
+chown -R $username:users /home/$username/pikaur/PKGBUILD 
+cd /home/$username/pikaur   
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/pikaur
+#####
 cd /home/$username
 git clone https://aur.archlinux.org/alpm_octopi_utils.git
 chown -R $username:users /home/$username/alpm_octopi_utils
@@ -667,6 +699,7 @@ cd /home/$username/octopi
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/octopi
 clear
+echo " Octopi успешно установлен "
 elif [[ $t_aur == 2 ]]; then
 cd /home/$username
 git clone https://aur.archlinux.org/auracle-git.git
@@ -684,10 +717,11 @@ cd /home/$username/pacaur
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/pacaur
 clear
+echo " Pacaur успешно установлен! "
 fi 
 echo "####################   Установка пакетов завершена   ############################################"
 echo ""
-echo "создаем папки музыка, видео и т.д. в дериктории пользователя?"
+echo "Создаем папки музыка, видео и т.д. в дириктории пользователя?"
 while 
     read -n1 -p  "1 - да, 0 - нет: " vm_text # sends right after the keypress
     echo ''
