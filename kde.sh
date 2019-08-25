@@ -35,18 +35,18 @@ do
     :
 done
 if [[ $wm_time == 1 ]]; then
-  ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 echo " Москва "
-  elif [[ $wm_time == 2 ]]; then
-  ln -sf /usr/share/zoneinfo/Europe/Minsk /etc/localtime
-  echo "Минск"
-  elif [[ $wm_time == 3 ]]; then  
+elif [[ $wm_time == 2 ]]; then
+ln -sf /usr/share/zoneinfo/Europe/Minsk /etc/localtime
+echo "Минск"
+elif [[ $wm_time == 3 ]]; then  
 ln -sf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
 echo " Екатеринбург "
 elif [[ $wm_time == 4 ]]; then 
- ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime 
+ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime 
 echo " Киев " 
- elif [[ $wm_time == 5 ]]; then
+elif [[ $wm_time == 5 ]]; then
 ln -sf /usr/share/zoneinfo/Asia/Yakutsk /etc/localtime
 echo " Якутск "
 elif [[ $wm_time == 6 ]]; then
@@ -94,7 +94,7 @@ echo " Укажите тот радел который будет после п�
 echo " при установке с флешки ваш hdd может быть sdb, а после перезагрузки sda "
 echo " выше видно что sdbX напривмер примонтирован в /mnt, а после перезагрузки systemd будет искать корень на sdaX "
 echo " если указать не правильный раздел система не загрузится "
-echo " если у вас один hdd/ssd тогда это будет sdaX"
+echo " если у вас один hdd/ssd тогда это будет sda 99%"
 echo ""
 read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
