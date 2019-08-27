@@ -38,6 +38,28 @@ done
   elif [[ $hello == 0 ]]; then
    exit   
 fi
+###
+echo ""
+echo "
+Данный этап помодет вам избежать проблем с ключами 
+Pacmаn, если использкуете не свежий образ ArchLinux для установки! "
+echo " Обновим ключи?  "
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " x_key 
+    echo ''
+    [[ "$x_key" =~ [^10] ]]
+do
+    :
+done
+ if [[ $x_key == 1 ]]; then
+  clear
+  pacman-key --refresh-keys 
+  elif [[ $x_key == 0 ]]; then
+   echo " Обновление ключей пропущено "   
+fi
 ##
 echo " здесь выберайте то каким режимом запущен установочный образ ArchLinux"
 echo " Если вы загрузились в Uefi тогда "1" если legacy тогда "2" "
