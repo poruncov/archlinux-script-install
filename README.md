@@ -19,6 +19,7 @@ ________________________________________________________________________________
 
 Файловая система для boot раздела "ext2" < в legacy режиме
 __________________________________________________________________________________________________________
+__________________________________________________________________________________________________________
 Список пакетов установленных по умолчанию
 
 пакеты драйверов xorg-server xorg-drivers (после установки можно будет установить/дополнить )
@@ -27,8 +28,19 @@ ________________________________________________________________________________
 
 есть возможность выбора  программ для установки
 
-flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  telegram-desktop
-
+flameshot
+filezilla
+htop
+gparted
+neofetch
+screenfetch
+gwenview
+steam steam-native-runtime 
+spectacle 
+vlc  
+telegram-desktop
+gvfs-afc - iphone
+gvfs-mtp - android
 KDE или Xfce на выбор!!!
 
 предоставлен выбор zsh или bash
