@@ -19,28 +19,24 @@ ________________________________________________________________________________
 
 Файловая система для boot раздела "ext2" < в legacy режиме
 __________________________________________________________________________________________________________
-__________________________________________________________________________________________________________
 Список пакетов установленных по умолчанию
 
 пакеты драйверов xorg-server xorg-drivers (после установки можно будет установить/дополнить )
 
- програмы: pulseaudio-bluetooth ark exfat-utils unrar alsa-utils  unzip ntfs-3g pulseaudio-equalizer-ladspa  
+програмы: pulseaudio-bluetooth ark exfat-utils unrar alsa-utils  unzip ntfs-3g pulseaudio-equalizer-ladspa  
 
 есть возможность выбора  программ для установки
 
-flameshot
-filezilla
-htop
-gparted
-neofetch
-screenfetch
+flameshot filezilla
+htop gparted
+neofetch screenfetch
 gwenview
 steam steam-native-runtime 
-spectacle 
-vlc  
-telegram-desktop
+spectacle vlc 
+elegram-desktop
 gvfs-afc - iphone
 gvfs-mtp - android
+
 KDE или Xfce на выбор!!!
 
 предоставлен выбор zsh или bash
