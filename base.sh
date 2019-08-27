@@ -366,22 +366,6 @@ if [[ $int == 1 ]]; then
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
-  #######################################################################################
-echo ""
-echo ' Отмонтируем разделы и перезагрузим ПК? '
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " r_reboot
-    echo ''
-    [[ "$r_reboot" =~ [^10] ]]
-do
-    :
-done
-if [[ $r_reboot == 0 ]]; then
-  echo 'пропущено'
-  elif [[ $r_reboot == 1 ]]; then
 umount -a
 reboot  
   fi
@@ -653,25 +637,9 @@ if [[ $int == 1 ]]; then
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
-  #######################################################################################
-echo ""
-echo ' Отмонтируем разделы и перезагрузим ПК? '
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " r_reboot
-    echo ''
-    [[ "$r_reboot" =~ [^10] ]]
-do
-    :
-done
-if [[ $r_reboot == 0 ]]; then
-  echo 'пропущено'
-  elif [[ $r_reboot == 1 ]]; then
+
 umount -a
 reboot  
-  fi
 ##############################################
 elif [[ $menu == 0 ]]; then
 exit
