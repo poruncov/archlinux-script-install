@@ -69,7 +69,9 @@ echo " UEFI( no grub ) или Grub-legcy? "
 while 
     read -n1 -p  "
     1 - UEFI
+    
     2 - GRUB-legcy
+    
     0 - exit " menu # sends right after the keypress
     echo ''
     [[ "$menu" =~ [^120] ]]
