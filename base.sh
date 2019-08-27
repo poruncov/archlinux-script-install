@@ -2,22 +2,31 @@
 loadkeys ru
 setfont cyr-sun16
 clear
+echo " 
+ArchLinux plasma kde или Xfce на выбор
+
+UEFI или Legacy на выбор 
+
+Скрипт писал Порунцов Юрий
+
+Порунцов Юрий https://vk.com/poruncov https://t.me/poruncov 
+
+важная информация! Вся разметка диска производиться только в cfdisk! Не забудьте указать 
+
+type=EFI для boot раздела 
+
+также   указать 
+
+type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
 echo ""
-echo " ArchLinux plasma kde или Xfce на выбор" 
-echo " UEFI или Legacy на выбор "
-echo ""
-echo " Скрипт писал Порунцов Юрий"
-echo ""
-echo " Порунцов Юрий https://vk.com/poruncov https://t.me/poruncov "
-echo ""
-echo " важная информация! Вся разметка диска производиться только в cfdisk! Не забудьте указать type=EFI для boot раздела " 
-echo ""
-echo " также   указать type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
-echo ""
+
 #####
 echo " готовы приступить?  "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " hello # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " hello # sends right after the keypress
     echo ''
     [[ "$hello" =~ [^10] ]]
 do
@@ -27,7 +36,7 @@ done
   clear
   echo "Добро пожаловать в установку ArchLinux"
   elif [[ $hello == 0 ]]; then
-   reboot   
+   exit   
 fi
 ##
 echo " здесь выберайте то каким режимом запущен установочный образ ArchLinux"
@@ -36,7 +45,10 @@ echo " Режим legacy только для mbr-таблицы разделов
 echo   ""
 echo " UEFI( no grub ) или Grub-legcy? "
 while 
-    read -n1 -p  "1 - UEFI, 2 - GRUB-legcy, 0 - exit " menu # sends right after the keypress
+    read -n1 -p  "
+    1 - UEFI
+    2 - GRUB-legcy
+    0 - exit " menu # sends right after the keypress
     echo ''
     [[ "$menu" =~ [^120] ]]
 do
@@ -80,7 +92,10 @@ echo " Выберайте "1 ", если ранее не производила�
 echo ""
 echo 'Нужна разметка диска?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " cfdisk # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " cfdisk # sends right after the keypress
     echo ''
     [[ "$cfdisk" =~ [^10] ]]
 do
@@ -103,7 +118,10 @@ clear
 lsblk -f
 echo 'форматируем BOOT?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " boots # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " boots # sends right after the keypress
     echo ''
     [[ "$boots" =~ [^10] ]]
 do
@@ -123,7 +141,10 @@ fi
 lsblk -f
 echo 'добавим swap раздел?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " swap # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " swap # sends right after the keypress
     echo ''
     [[ "$swap" =~ [^10] ]]
 do
@@ -143,7 +164,10 @@ echo 'Форматируем home раздел?'
 echo " Если у вас есть home раздел от предыдущей системы его можно не форматировать"
 echo " При указании польователя укажите, то имя которое было ранее, тогда система сама востановит бут раздел "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " homeF # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " homeF # sends right after the keypress
     echo ''
     [[ "$homeF" =~ [^10] ]]
 do
@@ -157,7 +181,10 @@ done
 fi
 echo 'Добавим раздел  HOME ?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " homes # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " homes # sends right after the keypress
     echo ''
     [[ "$homes" =~ [^10] ]]
 do
@@ -173,7 +200,10 @@ done
 ###################  раздел  ###############################################################
 echo 'Добавим разделы  Windows (ntfs/fat32)?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " wind # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " wind # sends right after the keypress
     echo ''
     [[ "$wind" =~ [^10] ]]
 do
@@ -186,7 +216,10 @@ if [[ $wind == 0 ]]; then
 echo ""
   echo 'Добавим раздел диск "C" Windows?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " diskC # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " diskC # sends right after the keypress
     echo ''
     [[ "$diskC" =~ [^10] ]]
 do
@@ -202,7 +235,10 @@ if [[ $diskC == 0 ]]; then
 ############### disk D ##############
 echo 'Добавим раздел диск "D" Windows?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " diskD # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " diskD # sends right after the keypress
     echo ''
     [[ "$diskD" =~ [^10] ]]
 do
@@ -218,7 +254,10 @@ if [[ $diskD == 1 ]]; then
 ###### disk E ########
 echo 'Добавим раздел диск "E" Windows?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " diskE  # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " diskE  # sends right after the keypress
     echo ''
     [[ "$diskE" =~ [^10] ]]
 do
@@ -232,9 +271,30 @@ done
   echo 'пропущено'
   fi 
   fi
-#####
-
- ################################################################################### 
+################################################################################### 
+ # смена зеркал  
+echo " Я рекомендую не изменять зеркала во время установки, для уменьшения вероятности ошибок " 
+echo " Если не уверены в том что смена зеркал вамм необходима тогда пропустите "
+echo 'Сменим зеркала на яндекс для увеличения скорости загрузки пакетов?'
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " zerkala # sends right after the keypress
+    echo ''
+    [[ "$zerkala" =~ [^10] ]]
+do
+    :
+done
+ if [[ $zerkala == 1 ]]; then
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
+cat 'zer' > /etc/pacman.d/mirrorlist
+rm zer
+  elif [[ $zerkala == 0 ]]; then
+   echo 'смена зеркал пропущена.'   
+fi
+pacman -Sy --noconfirm
+######
  echo "Если для подключения к интернету исрользовали wifi (wifi-menu) тогда "1" "
  echo ""
  echo " Если у вас есть wifi модуль и вы сейчас его не используете, но будете использовать потом то для "
@@ -242,7 +302,10 @@ done
  echo ""
  echo 'Установка базовой системы, будете ли вы использовать wifi?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " x_pacstrap  # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " x_pacstrap  # sends right after the keypress
     echo ''
     [[ "$x_pacstrap" =~ [^10] ]]
 do
@@ -280,25 +343,40 @@ if [[ $int == 1 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
   #######################################################################################
+echo ""
+echo ' Отмонтируем разделы и перезагрузим ПК? '
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " r_reboot
+    echo ''
+    [[ "$r_reboot" =~ [^10] ]]
+do
+    :
+done
+if [[ $r_reboot == 0 ]]; then
+  echo 'пропущено'
+  elif [[ $r_reboot == 1 ]]; then
 umount -a
-reboot
-exit
+reboot  
+  fi
 #####################################
 #####################################
 ## часть вторая
 elif [[ $menu == 2 ]]; then 
 echo "Добро пожаловать в установку ArchLinux режим GRUB-Legacy "
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
-cat 'zer' > /etc/pacman.d/mirrorlist
-rm zer
- pacman -Sy --noconfirm
- lsblk -f
+
+lsblk -f
 echo ""
 echo " Выберайте "1 ", если ранее не производилась разметка диска и у вас нет разделов для ArchLinux "
 echo ""
 echo 'Нужна разметка диска?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " cfdisk # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " cfdisk # sends right after the keypress
     echo ''
     [[ "$cfdisk" =~ [^10] ]]
 do
@@ -319,12 +397,15 @@ echo ""
 ##
 clear
 lsblk -f  
-echo 'добавим и отформатируем BOOT?'
+echo ' добавим и отформатируем BOOT?'
 echo " Если производиться установка и у вас уже имеется бут раздел от предыдущей системы "
 echo " тогда ва необхадимо его форматировать "1", если у вас бут раздел не вынесен на другой раздел тогда "
-echo " 'этот этап можно пропустить "2" "
+echo " этот этап можно пропустить "2" "
 while 
-    read -n1 -p  "1 - форматировать и монтировать на отдельный раздел, 2 - пропустить если бут раздела нет : " boots 
+    read -n1 -p  "
+    1 - форматировать и монтировать на отдельный раздел
+    
+    2 - пропустить если бут раздела нет : " boots 
     echo ''
     [[ "$boots" =~ [^12] ]]
 do
@@ -342,7 +423,10 @@ fi
 lsblk -f
 echo 'добавим swap раздел?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " swap # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " swap # sends right after the keypress
     echo ''
     [[ "$swap" =~ [^10] ]]
 do
@@ -362,9 +446,12 @@ echo ' Форматируем home раздел?'
 echo ""
 echo " Если у вас есть home раздел от предыдущей системы его можно не форматировать"
 echo " При указании польователя укажите, то имя которое было ранее, тогда система сама востановит home раздел "
-echo 'Форматируем home раздел?'
+echo ' Форматируем home раздел?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " homeF # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " homeF # sends right after the keypress
     echo ''
     [[ "$homeF" =~ [^10] ]]
 do
@@ -378,7 +465,10 @@ done
 fi
 echo 'Добавим раздел  HOME ?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " homes # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " homes # sends right after the keypress
     echo ''
     [[ "$homes" =~ [^10] ]]
 do
@@ -394,7 +484,9 @@ done
 ###################  раздел  ###############################################################
 echo 'Добавим разделы  Windows (ntfs/fat32)?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " wind # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    0 - нет: " wind # sends right after the keypress
     echo ''
     [[ "$wind" =~ [^10] ]]
 do
@@ -405,9 +497,12 @@ if [[ $wind == 0 ]]; then
   elif [[ $wind == 1 ]]; then
   echo "#####################################################################################"
 echo ""
-  echo 'Добавим раздел диск "C" Windows?'
+echo 'Добавим раздел диск "C" Windows?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " diskC # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " diskC # sends right after the keypress
     echo ''
     [[ "$diskC" =~ [^10] ]]
 do
@@ -423,7 +518,10 @@ if [[ $diskC == 0 ]]; then
 ############### disk D ##############
 echo 'Добавим раздел диск "D" Windows?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " diskD # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " diskD # sends right after the keypress
     echo ''
     [[ "$diskD" =~ [^10] ]]
 do
@@ -439,7 +537,10 @@ if [[ $diskD == 1 ]]; then
 ###### disk E ########
 echo 'Добавим раздел диск "E" Windows?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " diskE  # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " diskE  # sends right after the keypress
     echo ''
     [[ "$diskE" =~ [^10] ]]
 do
@@ -453,6 +554,28 @@ done
   echo 'пропущено'
   fi 
   fi
+# смена зеркал  
+echo " Я рекомендую не изменять зеркала во время установки, для уменьшения вероятности ошибок " 
+echo " Если не уверены в том что смена зеркал вамм необходима тогда пропустите "
+echo 'Сменим зеркала на яндекс для увеличения скорости загрузки пакетов?'
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " zerkala # sends right after the keypress
+    echo ''
+    [[ "$zerkala" =~ [^10] ]]
+do
+    :
+done
+ if [[ $zerkala == 1 ]]; then
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
+cat 'zer' > /etc/pacman.d/mirrorlist
+rm zer
+  elif [[ $zerkala == 0 ]]; then
+   echo 'смена зеркал пропущена.'   
+fi
+pacman -Sy --noconfirm
  ################################################################################### 
 echo ""
  echo " Если у вас есть wifi модуль и вы сейчас его не используете, то для "
@@ -460,19 +583,22 @@ echo ""
  echo ""
  echo 'Установка базовой системы, будете ли вы использовать wifi?'
 while 
-    read -n1 -p  "1 - да, 0 - нет: " x_pacstrap  # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " x_pacstrap  # sends right after the keypress
     echo ''
     [[ "$x_pacstrap" =~ [^10] ]]
 do
     :
 done
  if [[ $x_pacstrap == 1 ]]; then
- pacstrap /mnt base  base-devel wget wpa_supplicant dialog
- genfstab -pU /mnt >> /mnt/etc/fstab
-  elif [[ $x_pacstrap == 0 ]]; then
+  pacstrap /mnt base  base-devel wget wpa_supplicant dialog
+  genfstab -pU /mnt >> /mnt/etc/fstab
+elif [[ $x_pacstrap == 0 ]]; then
   pacstrap /mnt base  base-devel wget 
   genfstab -pU /mnt >> /mnt/etc/fstab
-  fi 
+fi 
  
 
 ###############################
@@ -485,7 +611,10 @@ echo "если проводной интернет тогда "2" "
 echo "" 
 echo 'wifi или dhcpcd ?'
 while 
-    read -n1 -p  "1 - wifi, 2 - dhcpcd: " int # sends right after the keypress
+    read -n1 -p  "
+    1 - wifi
+    
+    2 - dhcpcd: " int # sends right after the keypress
     echo ''
     [[ "$int" =~ [^12] ]]
 do
@@ -501,9 +630,24 @@ if [[ $int == 1 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
   #######################################################################################
+echo ""
+echo ' Отмонтируем разделы и перезагрузим ПК? '
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " r_reboot
+    echo ''
+    [[ "$r_reboot" =~ [^10] ]]
+do
+    :
+done
+if [[ $r_reboot == 0 ]]; then
+  echo 'пропущено'
+  elif [[ $r_reboot == 1 ]]; then
 umount -a
-reboot
-exit
+reboot  
+  fi
 ##############################################
 elif [[ $menu == 0 ]]; then
 exit
