@@ -11,7 +11,10 @@ echo $hostname > /etc/hostname
 echo ""
 echo " Очистим папку конфигов, кеш, и скрытые каталоги в /home/$username от старой системы ? "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_rm      # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " i_rm      # sends right after the keypress
     echo ''
     [[ "$i_rm" =~ [^10] ]]
 do
@@ -28,7 +31,22 @@ fi
 #####################################
 echo " Настроим localtime "
 while 
-    read -n1 -p  "1 - Москва, 2 - Минск, 3 - Екатеринбург, 4 - Киев, 5 - Якутск, 6 - Саратов, 7-  Новосибирск, 0 - пропустить(если нет вашего варианта) : " wm_time 
+    read -n1 -p  "
+    1 - Москва
+    
+    2 - Минск
+    
+    3 - Екатеринбург
+    
+    4 - Киев
+    
+    5 - Якутск
+    
+    6 - Саратов
+    
+    7-  Новосибирск
+
+    0 - пропустить(если нет вашего варианта) : " wm_time 
     echo ''
     [[ "$wm_time" =~ [^12345670] ]]
 do
@@ -78,7 +96,10 @@ lsblk -f
 echo ""
 echo "Какой загрузчик установить UEFI(systemd) или Grub для legacy"
 while 
-    read -n1 -p  "1 - UEFI, 2 - GRUB(legacy): " t_bootloader # sends right after the keypress
+    read -n1 -p  "
+    1 - UEFI
+    
+    2 - GRUB(legacy): " t_bootloader # sends right after the keypress
     echo ''
     [[ "$t_bootloader" =~ [^12] ]]
 do
@@ -130,7 +151,16 @@ echo " Arch-wiki рекоендует для kde-sddm, а для xfce-lxdm "
 echo ""
 echo " Установим DE? "
 while 
-    read -n1 -p  "1 - KDE(Plasma)+sddm , 2 - xfce+lxdm, 3 - kde+lxdm, 4 - xfce+sddm, 0 - пропустить " x_de
+    read -n1 -p  "
+    1 - KDE(Plasma)+sddm 
+    
+    2 - xfce+lxdm 
+    
+    3 - kde+lxdm 
+    
+    4 - xfce+sddm 
+    
+    0 - пропустить " x_de
     echo ''
     [[ "$x_de" =~ [^12340] ]]
 do
@@ -169,7 +199,12 @@ echo " flameshot filezilla htop gparted neofetch screenfetch gwenview steam stea
 echo ""
 echo " установим все или на ваш выбор? "
 while 
-    read -n1 -p  "1 - все, 2 - на выбор, 0 - пропустить " i_prog # sends right after the keypress
+    read -n1 -p  "
+    1 - все
+    
+    2 - на выбор
+    
+    0 - пропустить " i_prog # sends right after the keypress
     echo ''
     [[ "$i_prog" =~ [^120] ]]
 do
@@ -179,15 +214,52 @@ if [[ $i_prog == 0 ]]; then
 clear
 echo " Устанока пропущена "
 elif [[ $i_prog == 1 ]]; then
-pacman -S flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  telegram-desktop     --noconfirm
+pacman -S flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  gvfs-mtp gvfs-afc  telegram-desktop     --noconfirm
 clear
 echo " установка завершена "
 elif [[ $i_prog == 2 ]]; then
 echo "#############################################################################"
 echo ""
+echo " Будете ли вы подключать Android или Iphone к ПК через USB? "
+while 
+    read -n1 -p  "
+    1 - Android 
+    
+    2 - Iphone 
+    
+    3 - оба варианта
+    
+    0 - пропустить: " i_telephone # sends right after the keypress
+    
+    echo ''
+    [[ "$i_telephone" =~ [^1230] ]]
+do
+    :
+done
+if [[ $i_telephone == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_telephone == 1 ]]; then
+pacman -S gvfs-mtp --noconfirm
+clear
+echo " установка gvfs-mtp  завершена "
+elif [[ $i_telephone == 2 ]]; then
+pacman -S gvfs-afc --noconfirm
+clear
+echo " установка gvfs-afc  завершена "
+elif [[ $i_telephone == 3 ]]; then
+pacman -S gvfs-afc gvfs-mtp --noconfirm
+clear
+echo " установка gvfs-afc gvfs-mtp  завершена "
+fi
+echo "#############################################################################"
+echo ""
 echo " htop--диспетер задач для linux "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_htop # sends right after the keypress
+    read -n1 -p  "
+    1 - да 
+    
+    0 - нет: " i_htop # sends right after the keypress
     echo ''
     [[ "$i_htop" =~ [^10] ]]
 do
@@ -206,7 +278,10 @@ echo "##########################################################################
 echo ""
 echo " Filezilla - графический клиент для работы с FTP/SFTP "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_Filezilla    # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " i_Filezilla    # sends right after the keypress
     echo ''
     [[ "$i_filezilla" =~ [^10] ]]
 do
@@ -224,7 +299,10 @@ echo "##########################################################################
 echo ""
 echo " gwenview - программа для просмотра изображений  "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_gwenview    # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " i_gwenview    # sends right after the keypress
     echo ''
     [[ "$i_gwenview" =~ [^10] ]]
 do
@@ -242,7 +320,10 @@ echo "##########################################################################
 echo ""
 echo " Steam - магазин игр   "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_steam    # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " i_steam    # sends right after the keypress
     echo ''
     [[ "$i_steam" =~ [^10] ]]
 do
@@ -260,7 +341,10 @@ echo "##########################################################################
 echo ""
 echo " neofetch - вывод данных о системе с лого в консоли "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_neofetch     # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " i_neofetch     # sends right after the keypress
     echo ''
     [[ "$i_neofetch" =~ [^10] ]]
 do
@@ -278,7 +362,10 @@ echo "##########################################################################
 echo ""
 echo " screenfetch - вывод данных о системе с лого в консоли( аналог neofetch ) "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_screenfetch     # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " i_screenfetch     # sends right after the keypress
     echo ''
     [[ "$i_screenfetch" =~ [^10] ]]
 do
@@ -296,7 +383,10 @@ echo "##########################################################################
 echo ""
 echo " vlc - проигрыватель мультимедиа ) "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_vlc   # sends right after the keypress
+    read -n1 -p  "
+    1 - да 
+    
+    0 - нет: " i_vlc   # sends right after the keypress
     echo ''
     [[ "$i_vlc" =~ [^10] ]]
 do
@@ -314,7 +404,10 @@ echo "##########################################################################
 echo ""
 echo " gparted - программа для работы с разделоми sdd/hdd ) "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_gparted   # sends right after the keypress
+    read -n1 -p  "
+    1 - да 
+    
+    0 - нет: " i_gparted   # sends right after the keypress
     echo ''
     [[ "$i_gparted" =~ [^10] ]]
 do
@@ -332,7 +425,10 @@ echo "##########################################################################
 echo ""
 echo " telegram - мессенджер ) "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " i_telegram   # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " i_telegram   # sends right after the keypress
     echo ''
     [[ "$i_telegram" =~ [^10] ]]
 do
@@ -353,7 +449,14 @@ echo " установим программу для создания скрин�
 echo ""
 echo " spectacle(интегрируеться в рабочий стол  Plasma(kde)) и flameshot(универсальна, хорошо работает в KDE и Xfce) "
 while 
-    read -n1 -p  "1 - spectacle, 2 -flameshot , 3 - оба варианта   0 - пропустить: " i_screen   # sends right after the keypress
+    read -n1 -p  "
+    1 - spectacle
+    
+    2 -flameshot 
+    
+    3 - оба варианта   
+    
+    0 - пропустить: " i_screen   # sends right after the keypress
     echo ''
     [[ "$i_screen" =~ [^1230] ]]
 do
@@ -382,7 +485,10 @@ clear
 echo ""
 echo " Уставливаем ssh(клиент) для удаленного доступа ? : "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " t_ssh # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " t_ssh # sends right after the keypress
     echo ''
     [[ "$t_ssh" =~ [^10] ]]
 do
@@ -397,7 +503,10 @@ fi
 echo ""
 echo " Вкличим в автозагрузку ssh(server) для удаленного доступа к этому пк ? : "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " t_ssh1 # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " t_ssh1 # sends right after the keypress
     echo ''
     [[ "$t_ssh1" =~ [^10] ]]
 do
@@ -417,7 +526,9 @@ echo " установим zsh(такой же как и в установочн�
 echo ""
 echo "при необходимости можно будет установить другую оболочку в уже установленной системе "
 while 
-    read -n1 -p  "1 - установить zsh ,2 - оставим bash по умолчанию " x_shell
+    read -n1 -p  "
+    1 - установить zsh 
+    2 - оставим bash по умолчанию " x_shell
     echo ''
     [[ "$x_shell" =~ [^12] ]]
 do
@@ -433,7 +544,10 @@ echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlight
 echo 'prompt adam2' >> /etc/zsh/zshrc
 echo " сменим оболочку пользователя с bash на zsh? "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " t_shell # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " t_shell # sends right after the keypress
     echo ''
     [[ "$t_shell" =~ [^10] ]]
 do
@@ -458,7 +572,9 @@ echo " Добавим dhcpcd в автозагрузку( для проводн�
 echo ""
 echo "при необходиости это можно будет сделать уже в установленной системе "
 while 
-    read -n1 -p  "1 - включить dhcpcd ,0 - не включать dhcpcd " x_dhcpcd
+    read -n1 -p  "
+    1 - включить dhcpcd 
+    0 - не включать dhcpcd " x_dhcpcd
     echo ''
     [[ "$x_dhcpcd" =~ [^10] ]]
 do
@@ -484,7 +600,12 @@ echo ""
 ###########################################################################
 echo " Уставливаем aur-helper ( pikaur(идет как зависимость для octopi) или yay ) ?  "
 while 
-    read -n1 -p  "1 - pikaur, 2 - yay, 0 - пропустить : " in_aur_help # sends right after the keypress
+    read -n1 -p  "
+    1 - pikaur
+    
+    2 - yay 
+    
+    0 - пропустить : " in_aur_help # sends right after the keypress
     echo ''
     [[ "$in_aur_help" =~ [^120] ]]
 do
@@ -515,7 +636,14 @@ echo "################################################################"
 echo ""
 echo " Устанавливаем браузер? : "
 while 
-    read -n1 -p  "1 - google-chrome, 2 - firefox(russian), 3 - установить оба,  0 - пропустить: " g_chrome # sends right after the keypress
+    read -n1 -p  "
+    1 - google-chrome 
+    
+    2 - firefox(russian) 
+    
+    3 - установить оба
+    
+    0 - пропустить: " g_chrome # sends right after the keypress
     echo ''
     [[ "$g_chrome" =~ [^1230] ]]
 do
@@ -550,7 +678,10 @@ echo "################################################################"
 echo ""
 echo " Уставливаем teamviewer для удаленного доступа ? : "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " t_teamviewer # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " t_teamviewer # sends right after the keypress
     echo ''
     [[ "$t_teamviewer" =~ [^10] ]]
 do
@@ -573,7 +704,10 @@ echo "################################################################"
 echo ""
 echo " Уставливаем vk-messenger ? : "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " t_vk # sends right after the keypress
+    read -n1 -p  "
+    1 - да,
+    
+    0 - нет: " t_vk # sends right after the keypress
     echo ''
     [[ "$t_vk" =~ [^10] ]]
 do
@@ -596,7 +730,10 @@ echo "################################################################"
 ########
 echo " Уставливаем woeusb (Программа для записи Windows.iso на USB-накопитель)  ? : "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " t_woeusb # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " t_woeusb # sends right after the keypress
     echo ''
     [[ "$t_woeusb" =~ [^10] ]]
 do
@@ -619,7 +756,10 @@ echo "################################################################"
 echo ""
 echo " Уставливаем alsi (альтернатива neofetch и screenfetch)  ? : "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " t_alsi # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " t_alsi # sends right after the keypress
     echo ''
     [[ "$t_alsi" =~ [^10] ]]
 do
@@ -642,7 +782,10 @@ echo "################################################################"
 echo ""
 echo " Уставливаем inxi ( подробная информация о системе )  ? : "
 while 
-    read -n1 -p  "1 - да, 0 - нет: " t_inxi # sends right after the keypress
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " t_inxi # sends right after the keypress
     echo ''
     [[ "$t_inxi" =~ [^10] ]]
 do
@@ -665,7 +808,12 @@ echo "################################################################"
 echo ""
 echo " Уставливаем графический мереджер пакетов для Archlinux ? : "
 while 
-    read -n1 -p  "1 - octopi, 2 - pacaur, 0 - пропустить : " t_aur # sends right after the keypress
+    read -n1 -p  "
+    1 - octopi 
+    
+    2 - pamac-aur
+    
+    0 - пропустить : " t_aur # sends right after the keypress
     echo ''
     [[ "$t_aur" =~ [^120] ]]
 do
@@ -674,7 +822,18 @@ done
 if [[ $t_aur == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_aur == 1 ]]; then
-###
+echo " Был ли выбран ранее pikaur ? : "
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " t_picaur # sends right after the keypress
+    echo ''
+    [[ "$t_picaur" =~ [^10] ]]
+do
+    :
+done
+if [[ $t_picaur == 0 ]]; then
 cd /home/$username
 git clone https://aur.archlinux.org/pikaur.git
 chown -R $username:users /home/$username/pikaur   
@@ -700,24 +859,36 @@ sudo -u $username  makepkg -si --noconfirm
 rm -Rf /home/$username/octopi
 clear
 echo " Octopi успешно установлен "
+elif [[ $t_picaur == 1 ]]; then
+cd /home/$username
+git clone https://aur.archlinux.org/alpm_octopi_utils.git
+chown -R $username:users /home/$username/alpm_octopi_utils
+chown -R $username:users /home/$username/alpm_octopi_utils/PKGBUILD 
+cd /home/$username/alpm_octopi_utils
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/alpm_octopi_utils
+################
+cd /home/$username
+git clone https://aur.archlinux.org/octopi.git
+chown -R $username:users /home/$username/octopi
+chown -R $username:users /home/$username/octopi/PKGBUILD 
+cd /home/$username/octopi
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/octopi
+clear
+echo " Octopi успешно установлен "
+fi
+
 elif [[ $t_aur == 2 ]]; then
 cd /home/$username
-git clone https://aur.archlinux.org/auracle-git.git
-chown -R $username:users /home/$username/auracle-git
-chown -R $username:users /home/$username/auracle-git/PKGBUILD 
-cd /home/$username/auracle-git
+ git clone https://aur.archlinux.org/pamac-aur.git
+chown -R $username:users /home/$username/pamac-aur
+chown -R $username:users /home/$username/pamac-aur/PKGBUILD 
+cd /home/$username/pamac-aur
 sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/auracle-git
-#######
-cd /home/$username
-git clone https://aur.archlinux.org/pacaur.git
-chown -R $username:users /home/$username/pacaur
-chown -R $username:users /home/$username/pacaur/PKGBUILD 
-cd /home/$username/pacaur
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/pacaur
+rm -Rf /home/$username/pamac-aur
 clear
-echo " Pacaur успешно установлен! "
+echo " Pamac-aur успешно установлен! "
 fi 
 echo "####################   Установка пакетов завершена   ############################################"
 echo ""
@@ -738,4 +909,23 @@ fi
 echo "################################################################"
 echo "###################    T H E   E N D      ######################"
 echo "################################################################"
+echo ""
+echo ' Выходим из режима arch-chroot? '
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " r_chroot
+    echo ''
+    [[ "$r_chroot" =~ [^10] ]]
+do
+    :
+done
+if [[ $r_reboot == 0 ]]; then
+  echo 'Вы остались в режиме arch-chroot!!!'
+  elif [[ $r_reboot == 1 ]]; then
 exit
+echo " Вы успешно покинули режим arch-chroot"
+ fi
+exit    
+
