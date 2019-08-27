@@ -89,6 +89,28 @@ passwd
 echo 'Добавляем пароль для пользователя '$username' '
 useradd -m -g users -G wheel -s /bin/bash $username
 passwd $username
+echo ""
+echo " Я рекомендую не изменять зеркала во время установки, для уменьшения вероятности ошибок " 
+echo " Если не уверены в том что смена зеркал вамм необходима тогда пропустите "
+echo ""
+echo 'Сменим зеркала на яндекс для увеличения скорости загрузки пакетов?'
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " zerkala # sends right after the keypress
+    echo ''
+    [[ "$zerkala" =~ [^10] ]]
+do
+    :
+done
+ if [[ $zerkala == 1 ]]; then
+wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
+cat 'zer' > /etc/pacman.d/mirrorlist
+rm zer
+  elif [[ $zerkala == 0 ]]; then
+   echo 'смена зеркал пропущена.'   
+fi
 pacman -Syy
 clear
 lsblk -f
