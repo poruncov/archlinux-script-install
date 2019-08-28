@@ -217,7 +217,16 @@ echo "#####################################################################"
 echo ""
 echo " Установка дополнительных программ "
 echo ""
-echo " flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  telegram-desktop  "
+echo " 
+flameshot
+filezilla 
+htop
+gparted
+neofetch
+screenfetch
+gwenview
+steam steam-native-runtime 
+spectacle vlc  telegram-desktop  "
 echo ""
 echo " установим все или на ваш выбор? "
 while 
@@ -303,7 +312,7 @@ while
     read -n1 -p  "
     1 - да
     
-    0 - нет: " i_Filezilla    # sends right after the keypress
+    0 - нет: " i_filezilla    # sends right after the keypress
     echo ''
     [[ "$i_filezilla" =~ [^10] ]]
 do
