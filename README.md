@@ -4,6 +4,7 @@
 Для установки  ArchLinux(KDE vs Xfce) вам необходимо загрузиться с установочного диска ArchLinux и в теринале выполнить   
 
 1 wget https://git.io/arc.sh
+
 2 chmod +x arc.sh
 
 3 ./arc.sh
