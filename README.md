@@ -40,7 +40,7 @@ gvfs-mtp - android
 KDE или Xfce на выбор!!!
 
 предоставлен выбор zsh или bash
-zsh(С таким же плагином и подцветкой как в усановочном образе archlinux ) 
+zsh(С таким же плагином и подцветкой как в установочном образе archlinux ) 
 
 так же можно установить Mozilla Firefox(russian) или GoogleChrome на выбор!
 
