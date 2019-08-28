@@ -164,9 +164,56 @@ grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
 fi
 mkinitcpio -p linux
+##########
+echo ""
+echo " Настроим Sudo? "
+while 
+    read -n1 -p  "
+    1 - с паролем   
+    
+    2 - без пароля
+    
+    0 - Sudo не добавляем : " i_sudo   # sends right after the keypress
+    echo ''
+    [[ "$i_sudo" =~ [^120] ]]
+do
+    :
+done
+if [[ $i_sudo  == 0 ]]; then
+clear
+echo " Добавление sudo пропущено"
+elif [[ $i_sudo  == 1 ]]; then
+echo '%%wheel ALL=(ALL) ALL' >> /etc/sudoers
+clear
+echo " Sudo с запросом пароля установлено "
+elif [[ $i_sudo  == 2 ]]; then
 echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+clear
+echo " Sudo nopassword добавлено  "
+fi
+##########
+echo ""
+echo " Настроим multilib? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_multilib   # sends right after the keypress
+    echo ''
+    [[ "$i_multilib" =~ [^12] ]]
+do
+    :
+done
+if [[ $i_multilib  == 0 ]]; then
+clear
+echo " Добавление мультилиб репозитория  пропущено"
+elif [[ $i_multilib  == 1 ]]; then
 echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+clear
+echo " Multilib рерозиторий добавлен"
+fi
+#######################
 pacman -Syy 
 pacman -Sy xorg-server xorg-drivers --noconfirm
 pacman -Sy linux-headers networkmanager  network-manager-applet ppp --noconfirm
@@ -609,6 +656,7 @@ echo "при необходиости это можно будет сделат�
 while 
     read -n1 -p  "
     1 - включить dhcpcd 
+    
     0 - не включать dhcpcd " x_dhcpcd
     echo ''
     [[ "$x_dhcpcd" =~ [^10] ]]
@@ -927,22 +975,6 @@ echo " Pamac-aur успешно установлен! "
 fi 
 echo "####################   Установка пакетов завершена   ############################################"
 echo ""
-echo "Создаем папки музыка, видео и т.д. в дириктории пользователя?"
-while 
-    read -n1 -p  "1 - да, 0 - нет: " vm_text # sends right after the keypress
-    echo ''
-    [[ "$vm_text" =~ [^10] ]]
-do
-    :
-done
-if [[ $vm_text == 0 ]]; then
-  echo 'этап пропущен' 
-elif [[ $vm_text == 1 ]]; then
-  mkdir /home/$username/{Downloads,Music,Pictures,Videos,Documents,time} 
-  chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
-fi
-echo "################################################################"
-echo ""
 echo "
 Данный этап поможет исключить возможные ошибки при первом запуске системы 
 
@@ -963,22 +995,22 @@ nano /etc/fstab
 fi 
 clear
 echo "################################################################"
-echo "###################    T H E   E N D      ######################"
-echo "################################################################"
 echo ""
-echo " Выходим из arch-chroot? "
+echo "Создаем папки музыка, видео и т.д. в дириктории пользователя?"
 while 
-    read -n1 -p  "1 - да, 0 - нет: " vm_chroot # sends right after the keypress
+    read -n1 -p  "1 - да, 0 - нет: " vm_text # sends right after the keypress
     echo ''
-    [[ "$vm_chroot" =~ [^10] ]]
+    [[ "$vm_text" =~ [^10] ]]
 do
     :
 done
-if [[ $vm_chroot == 0 ]]; then
-  echo 'Установка успешно завершена, можете продолжить работу в arch-chroot' 
-elif [[ $vm_chroot == 1 ]]; then
-exit
-fi 
-
+if [[ $vm_text == 0 ]]; then
+  echo 'этап пропущен' 
+elif [[ $vm_text == 1 ]]; then
+  mkdir /home/$username/{Downloads,Music,Pictures,Videos,Documents,time} 
+  chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
+fi
+echo "################################################################"
+echo "###################    T H E   E N D      ######################"
+echo "################################################################"
 exit    
-
