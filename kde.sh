@@ -942,8 +942,43 @@ elif [[ $vm_text == 1 ]]; then
   chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
 fi
 echo "################################################################"
+echo ""
+echo "
+Данный этап поможет исключить возможные ошибки при первом запуске системы 
+
+Фаил откроется через редактор  !nano!"
+echo ""
+echo " Просмотрим//отредактируем /etc/fstab ?"
+while 
+    read -n1 -p  "1 - да, 0 - нет: " vm_fstab # sends right after the keypress
+    echo ''
+    [[ "$vm_fstab" =~ [^10] ]]
+do
+    :
+done
+if [[ $vm_fstab == 0 ]]; then
+  echo 'этап пропущен' 
+elif [[ $vm_fstab == 1 ]]; then
+nano /etc/fstab
+fi 
+clear
+echo "################################################################"
 echo "###################    T H E   E N D      ######################"
 echo "################################################################"
 echo ""
+echo " Выходим из arch-chroot? "
+while 
+    read -n1 -p  "1 - да, 0 - нет: " vm_chroot # sends right after the keypress
+    echo ''
+    [[ "$vm_chroot" =~ [^10] ]]
+do
+    :
+done
+if [[ $vm_chroot == 0 ]]; then
+  echo 'Установка успешно завершена, можете продолжить работу в arch-chroot' 
+elif [[ $vm_chroot == 1 ]]; then
+exit
+fi 
+
 exit    
 
