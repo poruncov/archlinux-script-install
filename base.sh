@@ -13,11 +13,11 @@ UEFI или Legacy на выбор
 
 важная информация! Вся разметка диска производиться только в cfdisk! Не забудьте указать 
 
-type=EFI для boot раздела 
-
-также   указать 
+type=EFI для boot раздела также указать 
 
 type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
+
+
 echo ""
 
 #####
@@ -90,7 +90,10 @@ echo " При установке дуал бут раздел не нужно ф
 echo ""
 echo 'удалим старый загрузчик linux'
 while 
-    read -n1 -p  "1 - удалим старый загрузкик линукс , 0 -(пропустить) данный этап можно пропустить если устанока производиться первый раз(и не были установлеены другие дистрибутивы) " boots 
+    read -n1 -p  "
+    1 - удалим старый загрузкик линукс 
+    
+    0 -(пропустить) данный этап можно пропустить если устанока производиться первый раз(и не были установлеены другие дистрибутивы) " boots 
     echo ''
     [[ "$boots" =~ [^10] ]]
 do
@@ -366,7 +369,7 @@ if [[ $int == 1 ]]; then
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
-read -p  "нажмите кливишу что бы продолжить..."
+read -p  "нажмите кливишу enter для продолжения..."
 umount -a
 reboot  
 
@@ -638,7 +641,7 @@ if [[ $int == 1 ]]; then
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
-read -p  "нажмите кливишу что бы продолжить..."
+read -p  "нажмите кливишу enter для  продолжения..."
 umount -a
 reboot  
 ##############################################
