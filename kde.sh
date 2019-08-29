@@ -211,7 +211,7 @@ elif [[ $i_multilib  == 1 ]]; then
 echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 clear
-echo " Multilib рерозиторий добавлен"
+echo " Multilib репозиторий добавлен"
 fi
 #######################
 pacman -Syy 
@@ -733,7 +733,7 @@ do
     :
 done
 if [[ $g_chrome == 0 ]]; then
-  echo ' установка браузера пропущена после установки системы вы сможте установить браузер на свой усмотрение!!!!' 
+  echo ' установка браузера пропущена после установки системы вы сможете установить браузер на свой усмотрение!!!!' 
 elif [[ $g_chrome == 1 ]]; then
 cd /home/$username   
 git clone https://aur.archlinux.org/google-chrome.git
@@ -863,7 +863,7 @@ clear
 fi
 echo "################################################################"
 echo ""
-echo " Уставливаем inxi ( подробная информация о системе )  ? : "
+echo " Устанавливаем inxi ( подробная информация о системе )  ? : "
 while 
     read -n1 -p  "
     1 - да
@@ -889,7 +889,7 @@ clear
 fi
 echo "################################################################"
 echo ""
-echo " Уставливаем графический мереджер пакетов для Archlinux ? : "
+echo " Уставливаем графический менеджер пакетов для Archlinux ? : "
 while 
     read -n1 -p  "
     1 - octopi 
