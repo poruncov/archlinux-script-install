@@ -200,7 +200,7 @@ while
     
     0 - нет : " i_multilib   # sends right after the keypress
     echo ''
-    [[ "$i_multilib" =~ [^12] ]]
+    [[ "$i_multilib" =~ [^10] ]]
 do
     :
 done
