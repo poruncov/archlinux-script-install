@@ -124,7 +124,7 @@ while
     
     0 - нет: " cfdisk # sends right after the keypress
     echo ''
-    [[ "$cfdisk" =~ [^10] ]]
+    [[ " $cfdisk " =~ [^10] ]]
 do
     :
 done
@@ -390,7 +390,7 @@ while
     
     0 - нет: " cfdisk # sends right after the keypress
     echo ''
-    [[ "$cfdisk" =~ [^10] ]]
+    [[ " $cfdisk " =~ [^10] ]]
 do
     :
 done
