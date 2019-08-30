@@ -389,13 +389,13 @@ while
     1 - да
     
     0 - нет: " cfdisk # sends right after the keypress
-    echo ''
+    echo ""
     [[ "$cfdisk" =~ [^10] ]]
 do
     :
 done
  if [[ $cfdisk == 1 ]]; then
-read -p " Укажите диск (sda/sdb) : " cfd
+read -p " Укажите диск (sda/sdb): " cfd
 cfdisk /dev/$cfd
   elif [[ $cfdisk == 0 ]]; then
    echo 'разметка пропущена.'   
