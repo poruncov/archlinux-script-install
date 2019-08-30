@@ -129,7 +129,7 @@ do
     :
 done
  if [[ $cfdisk == 1 ]]; then
-  read -p "Укажите диск (sda/sdb ( например sda )):" cfd
+  read -p "Укажите диск ( sda/sdb ( например sda )):" cfd
 cfdisk /dev/$cfd
   elif [[ $cfdisk == 0 ]]; then
    echo 'разметка пропущена.'   
@@ -395,7 +395,7 @@ do
     :
 done
  if [[ $cfdisk == 1 ]]; then
-  read -p "Укажите диск (sda/sdb ( например sda )):" cfd
+  read -p " Укажите диск ( sda/sdb ( например sda )):" cfd
 cfdisk /dev/$cfd
   elif [[ $cfdisk == 0 ]]; then
    echo 'разметка пропущена.'   
