@@ -388,18 +388,19 @@ while
     read -n1 -p  "
     1 - да
     
-    0 - нет: " cfdisk  # sends right after the keypress
-    echo ""
+    0 - нет: " cfdisk # sends right after the keypress
+    echo ''
     [[ "$cfdisk" =~ [^10] ]]
 do
     :
 done
  if [[ $cfdisk == 1 ]]; then
-read -p ' Укажите диск (sda/sdb): " cfd
+  read -p "Укажите диск (sda/sdb ( например sda )):" cfd
 cfdisk /dev/$cfd
   elif [[ $cfdisk == 0 ]]; then
    echo 'разметка пропущена.'   
 fi
+
 #
 read -p "Укажите ROOT раздел(sda/sdb 1.2.3.4 (sda5 например)):" root
 echo ""
