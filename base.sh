@@ -368,8 +368,8 @@ if [[ $int == 1 ]]; then
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
-  fi
-read -p  "нажмите кливишу enter для продолжения..."
+"  
+fi
 umount -a
 reboot  
 
@@ -641,7 +641,6 @@ if [[ $int == 1 ]]; then
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
   fi
-read -p  "нажмите кливишу enter для  продолжения..."
 umount -a
 reboot  
 ##############################################
