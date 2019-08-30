@@ -124,12 +124,12 @@ while
     
     0 - нет: " cfdisk # sends right after the keypress
     echo ''
-    [[ " $cfdisk " =~ [^10] ]]
+    [[ "$cfdisk" =~ [^10] ]]
 do
     :
 done
  if [[ $cfdisk == 1 ]]; then
-  read -p "Укажите диск ( sda/sdb ( например sda )):" cfd
+  read -p "Укажите диск (sda/sdb например sda) : " cfd
 cfdisk /dev/$cfd
   elif [[ $cfdisk == 0 ]]; then
    echo 'разметка пропущена.'   
@@ -368,7 +368,6 @@ if [[ $int == 1 ]]; then
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
-"  
 fi
 umount -a
 reboot  
@@ -378,29 +377,27 @@ reboot
 ## часть вторая
 elif [[ $menu == 2 ]]; then 
 echo "Добро пожаловать в установку ArchLinux режим GRUB-Legacy "
-
 lsblk -f
 echo ""
-echo " Выберайте "1 ", если ранее не производилась разметка диска и у вас нет разделов для ArchLinux "
+echo " Выберайте "1", если ранее не производилась разметка диска и у вас нет разделов для ArchLinux "
 echo ""
 echo 'Нужна разметка диска?'
 while 
-    read -n1 -p  "
-    1 - да
+   read -n1 -p  "
+   1 - да
     
-    0 - нет: " cfdisk # sends right after the keypress
+   0 - нет: " cfdisk # sends right after the keypress
     echo ''
-    [[ " $cfdisk " =~ [^10] ]]
+    [[ "$cfdisk" =~ [^10] ]]
 do
-    :
+   :
 done
  if [[ $cfdisk == 1 ]]; then
-  read -p "Укажите диск ( sda/sdb ( например sda )): " cfd
+read -p " Укажите диск (sda/sdb/sdc) " cfd
 cfdisk /dev/$cfd
-  elif [[ $cfdisk == 0 ]]; then
-   echo 'разметка пропущена.'   
+elif [[ $cfdisk == 0 ]]; then
+echo 'разметка пропущена.'   
 fi
-
 #
 read -p "Укажите ROOT раздел(sda/sdb 1.2.3.4 (sda5 например)):" root
 echo ""
