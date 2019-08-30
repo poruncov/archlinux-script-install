@@ -158,7 +158,7 @@ rm -Rf /home/$username/systemd-boot-pacman-hook
 cd /home/$username 
 clear
 elif [[ $t_bootloader == 2 ]]; then
-pacman -S grub grub-customizer os-prober
+pacman -S grub grub-customizer os-prober --noconfirm
 read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -213,9 +213,24 @@ echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 clear
 echo " Multilib репозиторий добавлен"
 fi
-#######################
-pacman -Syy 
+echo ""
+echo " Устанавливаем на виртуальную машину ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_vbox   # sends right after the keypress
+    echo ''
+    [[ "$i_vbox" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_vbox  == 0 ]]; then
 pacman -Sy xorg-server xorg-drivers --noconfirm
+elif [[ $i_vbox  == 1 ]]; then
+pacman -Sy xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils --noconfirm
+fi
+pacman -Syy 
 pacman -Sy linux-headers networkmanager  network-manager-applet ppp --noconfirm
 pacman -Sy pulseaudio-bluetooth  ark exfat-utils  alsa-utils  unzip  ntfs-3g pulseaudio-equalizer-ladspa  unrar  lha --noconfirm
 echo "#####################################################################"
