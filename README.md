@@ -1,4 +1,4 @@
-# archlinux-kde--script-install-uefi-nogrub   
+# archlinux-kde-xfce--script-install-uefi-nogrub   
 РЕЖИМ UEFI и Legacy
 
 Для установки  ArchLinux(KDE vs Xfce) вам необходимо загрузиться с установочного диска ArchLinux и в теринале выполнить   
