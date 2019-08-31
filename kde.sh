@@ -116,6 +116,8 @@ clear
 lsblk -f
 ###########################################################################
 echo ""
+echo " Если установка производиться на vds тогда grub "
+echo ""
 echo "Какой загрузчик установить UEFI(systemd) или Grub для legacy"
 while 
     read -n1 -p  "
@@ -158,10 +160,30 @@ rm -Rf /home/$username/systemd-boot-pacman-hook
 cd /home/$username 
 clear
 elif [[ $t_bootloader == 2 ]]; then
+echo " Устанавливаем на vds сервер? "
+while 
+    read -n1 -p  "
+    1 - да
+    
+    2 - нет: " i_grub      # sends right after the keypress
+    echo ''
+    [[ "$i_grub" =~ [^12] ]]
+do
+    :
+done
+if [[ $i_grub == 2 ]]; then
 pacman -S grub grub-customizer os-prober --noconfirm
 read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
+echo " установка завершена "
+elif [[ $i_grub == 1 ]]; then
+pacman -S grub --noconfirm
+read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
+grub-install /dev/$x_boot
+grub-mkconfig -o /boot/grub/grub.cfg
+echo " установка завершена "
+fi  
 fi
 mkinitcpio -p linux
 ##########
@@ -213,6 +235,22 @@ echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 clear
 echo " Multilib репозиторий добавлен"
 fi
+######
+echo ""
+echo " Если вам не нужен X-сервер, тогда выбирайте пункт '2'  "
+echo ""
+echo " Установка производиться на vds или на ПК? "
+while 
+    read -n1 -p  "
+    1 - ПК  
+    
+    2 - vds : " i_xorg # sends right after the keypress
+    echo ''
+    [[ "$i_xorg" =~ [^12] ]]
+do
+    :
+done
+if [[ $i_xorg  == 1 ]]; then
 echo ""
 echo " Устанавливаем на виртуальную машину ? "
 while 
@@ -230,9 +268,86 @@ pacman -Sy xorg-server xorg-drivers --noconfirm
 elif [[ $i_vbox  == 1 ]]; then
 pacman -Sy xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils --noconfirm
 fi
-pacman -Syy 
-pacman -Sy linux-headers networkmanager  network-manager-applet ppp --noconfirm
-pacman -Sy pulseaudio-bluetooth  ark exfat-utils  alsa-utils  unzip  ntfs-3g pulseaudio-equalizer-ladspa  unrar  lha --noconfirm
+elif [[ $i_xorg  == 2 ]]; then
+echo " установка на vds  "
+fi
+pacman -Syy
+pacman -Sy linux-headers --noconfirm
+#####
+echo ""
+echo " Нужен networkManager ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_network   # sends right after the keypress
+    echo ''
+    [[ "$i_network" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_network  == 1 ]]; then
+pacman -Sy networkmanager  network-manager-applet ppp --noconfirm
+systemctl enable NetworkManager.service
+elif [[ $i_network  == 0 ]]; then
+echo " Установка NetworkManager пропущена "
+fi
+#####
+echo ""
+echo " Нужна поддержка звука ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_sound   # sends right after the keypress
+    echo ''
+    [[ "$i_sound" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_sound  == 1 ]]; then
+pacman -Sy pulseaudio-bluetooth alsa-utils pulseaudio-equalizer-ladspa   --noconfirm
+systemctl enable bluetooth.service
+elif [[ $i_network  == 0 ]]; then
+echo " Установка пропущена "
+fi
+####
+echo ""
+echo " Нужна поддержка ntfs и fat ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_fat   # sends right after the keypress
+    echo ''
+    [[ "$i_fat" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_fat  == 1 ]]; then
+pacman -Sy exfat-utils ntfs-3g   --noconfirm
+elif [[ $i_fat== 0 ]]; then
+echo " Установка пропущена "
+fi
+#####
+echo ""
+echo " Нужны программы для работы с архивами? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_zip   # sends right after the keypress
+    echo ''
+    [[ "$i_zip" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_zip  == 1 ]]; then
+pacman -Sy unzip unrar  lha ark --noconfirm
+elif [[ $i_zip== 0 ]]; then
+echo " Установка пропущена "
+fi
+#####
 echo "#####################################################################"
 echo ""
 echo " Arch-wiki рекоендует для kde-sddm, а для xfce-lxdm "
@@ -662,8 +777,6 @@ echo " оболочка изменена с bash на zsh "
 fi
 fi
 echo "#############################################################################"
-systemctl enable NetworkManager.service
-systemctl enable bluetooth.service
 echo ""
 echo " Добавим dhcpcd в автозагрузку( для проводного интернета, который  получает настройки от роутера ) ? "
 echo ""
@@ -1020,14 +1133,11 @@ do
     :
 done
 if [[ $vm_text == 0 ]]; then
-  echo 'этап пропущен' 
+  echo 'этап пропущен'
+  exit
 elif [[ $vm_text == 1 ]]; then
-  mkdir /home/$username/{Downloads,Music,Pictures,Videos,Documents,time} 
+  mkdir /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}   
   chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
-fi
-echo "################################################################"
-echo "###################    T H E   E N D      ######################"
-echo "################################################################"
-exit    
-
+exit
+fi  
 exit
