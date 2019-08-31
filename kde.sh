@@ -205,7 +205,7 @@ if [[ $i_sudo  == 0 ]]; then
 clear
 echo " Добавление sudo пропущено"
 elif [[ $i_sudo  == 1 ]]; then
-echo '%%wheel ALL=(ALL) ALL' >> /etc/sudoers
+echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 clear
 echo " Sudo с запросом пароля установлено "
 elif [[ $i_sudo  == 2 ]]; then
