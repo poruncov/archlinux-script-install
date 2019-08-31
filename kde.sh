@@ -326,7 +326,7 @@ do
 done
 if [[ $i_fat  == 1 ]]; then
 pacman -Sy exfat-utils ntfs-3g   --noconfirm
-elif [[ $i_fat== 0 ]]; then
+elif [[ $i_fat == 0 ]]; then
 echo " Установка пропущена "
 fi
 #####
