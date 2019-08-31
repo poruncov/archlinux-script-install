@@ -344,7 +344,7 @@ do
 done
 if [[ $i_zip  == 1 ]]; then
 pacman -Sy unzip unrar  lha ark --noconfirm
-elif [[ $i_zip== 0 ]]; then
+elif [[ $i_zip == 0 ]]; then
 echo " Установка пропущена "
 fi
 #####
