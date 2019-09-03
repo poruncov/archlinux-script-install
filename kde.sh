@@ -145,10 +145,36 @@ echo " если указать не правильный раздел систе
 
 echo " если у вас один hdd/ssd тогда это будет sda 99%"
 echo ""
-read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
 echo 'linux   /vmlinuz-linux' >> /boot/loader/entries/arch.conf
+echo ""
+echo " Добавим ucode cpu? "
+while 
+    read -n1 -p  "
+    1 - amd  
+    
+    2 - intel
+    
+    0 - ucode не добавляем : " i_cpu   # sends right after the keypress
+    echo ''
+    [[ "$i_cpu" =~ [^120] ]]
+do
+    :
+done
+if [[ $i_cpu == 0 ]]; then
+clear
+echo " Добавление ucode пропущено "
+elif [[ $i_cpu  == 1 ]]; then
+clear
+pacman -S amd-ucode --noconfirm
+echo ' initrd /amd-ucode.img ' >> /boot/loader/entries/arch.conf
+elif [[ $i_cpu  == 2 ]]; then
+clear
+pacman -S intel-ucode  --noconfirm
+echo ' initrd /intel-ucode.img ' >> /boot/loader/entries/arch.conf
+fi
 echo 'initrd  /initramfs-linux.img' >> /boot/loader/entries/arch.conf
+read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo options root=/dev/$root rw >> /boot/loader/entries/arch.conf
 cd /home/$username 
 git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git
@@ -350,7 +376,7 @@ fi
 #####
 echo "#####################################################################"
 echo ""
-echo " Arch-wiki рекоендует для kde-sddm, а для xfce-lxdm "
+echo " Arch-wiki рекоендует для kde-sddm, а для xfce-lxdm Gnome-gdm "
 echo ""
 echo " Установим DE? "
 while 
@@ -363,9 +389,11 @@ while
     
     4 - xfce+sddm 
     
+    5 - gmome-gdm
+    
     0 - пропустить " x_de
     echo ''
-    [[ "$x_de" =~ [^12340] ]]
+    [[ "$x_de" =~ [^123450] ]]
 do
     :
 done
@@ -393,6 +421,11 @@ pacman -S  xfce4 xfce4-goodies sddm sddm-kcm --noconfirm
 systemctl enable sddm.service -f
 clear
 echo "Xfce успешно установлено"
+elif [[ $x_de == 5 ]]; then
+pacman -S gnome gnome-extra gdm --noconfirm
+systemctl enable gdm 
+clear
+echo " Gnome успешно установлен " 
 fi
 echo "#####################################################################"                                        
 echo ""
@@ -1140,4 +1173,3 @@ elif [[ $vm_text == 1 ]]; then
   chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
 exit
 fi  
-exit
