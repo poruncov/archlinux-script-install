@@ -70,7 +70,7 @@ while
     read -n1 -p  "
     1 - UEFI
     
-    2 - GRUB-legcy
+    2 - GRUB-legacy
     
     0 - exit " menu # sends right after the keypress
     echo ''
