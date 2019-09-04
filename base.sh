@@ -3,23 +3,24 @@ loadkeys ru
 setfont cyr-sun16
 clear
 echo " 
-ArchLinux plasma kde или Xfce на выбор
-
-UEFI или Legacy на выбор 
 
 Скрипт писал Порунцов Юрий
 
 Порунцов Юрий https://vk.com/poruncov https://t.me/poruncov 
 
-важная информация! Вся разметка диска производиться только в cfdisk! Не забудьте указать 
+UEFI или Legacy на выбор! 
 
+важная информация! 
+Вся разметка диска производиться только в cfdisk! 
+Не забудьте указать 
+для UEFI
 type=EFI для boot раздела также указать 
-
 type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
-
-
+Legacy
+type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
 echo ""
-
+De--- на выбор KDE Lxde Xfce Gnome
+Dm--- на выбор sddm lxdm gdm
 #####
 echo " готовы приступить?  "
 while 
