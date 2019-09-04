@@ -37,7 +37,7 @@ steam steam-native-runtime
 
 spectacle vlc 
 
-elegram-desktop
+telegram-desktop
 
 gvfs-afc - iphone
 
