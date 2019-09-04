@@ -15,12 +15,12 @@ UEFI или Legacy на выбор!
 Не забудьте указать 
 для UEFI
 type=EFI для boot раздела также указать 
-type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
+type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) 
 Legacy
-type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) "
+type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) 
 echo ""
 De--- на выбор KDE Lxde Xfce Gnome
-Dm--- на выбор sddm lxdm gdm
+Dm--- на выбор sddm lxdm gdm"
 #####
 echo " готовы приступить?  "
 while 
