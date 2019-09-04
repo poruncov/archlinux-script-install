@@ -312,9 +312,11 @@ while
     
     4 - lxde
     
+    5 - Deepin
+    
     0 - пропустить " x_de
     echo ''
-    [[ "$x_de" =~ [^12340] ]]
+    [[ "$x_de" =~ [^123450] ]]
 do
     :
 done
@@ -337,10 +339,20 @@ elif [[ $x_de == 4 ]]; then
 pacman -S lxde --noconfirm
 clear
 echo " lxde успешно установлен "
+elif [[ $x_de == 5 ]]; then
+pacman -S deepin deepin-extra
+clear
+echo " Deepin успешно установлен "
 fi
 echo "#####################################################################"
 echo ""
-echo " Arch-wiki рекоендует для kde-sddm, xfce-lxdm, Gnome-gdm, lxde-lxdm "
+echo " 
+Arch-wiki рекоендует для: 
+kde<->sdd
+xfce   <-> lxdm
+Gnome  <-> gdm
+lxde   <-> lxdm
+Deepin <-> lightdm"
 echo ""
 echo "Установка Менеджера входа в систему "
 while 
@@ -351,16 +363,18 @@ while
     
     3 - gdm
     
+    4 - lightdm
+    
     0 - пропустить: " i_dm # sends right after the keypress
     
     echo ''
-    [[ "$i_dm" =~ [^1230] ]]
+    [[ "$i_dm" =~ [^12340] ]]
 do
     :
 done
 if [[ $i_dm == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_dm == 1 ]]; then
 pacman -S sddm sddm-kcm --noconfirm
 systemctl enable sddm.service -f
@@ -376,10 +390,15 @@ pacman -S gdm --noconfirm
 systemctl enable gdm.service -f
 clear
 echo " установка gdm завершена "
+elif [[ $i_dm == 4 ]]; then
+pacman -S lightdm --noconfirm
+systemctl enable lightdm.service -f
+clear
+echo " установка lightdm завершена "
 fi
 echo "#####################################################################"
 echo ""
-echo " Нужен networkManager ? "
+echo " Нужен NetworkManager ? "
 while 
     read -n1 -p  "
     1 - да  
@@ -500,7 +519,7 @@ do
 done
 if [[ $i_prog == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_prog == 1 ]]; then
 pacman -S flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  gvfs-mtp gvfs-afc  telegram-desktop     --noconfirm
 clear
@@ -526,7 +545,7 @@ do
 done
 if [[ $i_telephone == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_telephone == 1 ]]; then
 pacman -S gvfs-mtp --noconfirm
 clear
@@ -555,7 +574,7 @@ do
 done
 if [[ $i_htop == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_htop == 1 ]]; then
 pacman -S htop --noconfirm
 clear
@@ -577,7 +596,7 @@ do
 done
 if [[ $i_filezilla == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_filezilla == 1 ]]; then
 pacman -S filezilla --noconfirm
 clear
@@ -598,7 +617,7 @@ do
 done
 if [[ $i_gwenview == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_gwenview == 1 ]]; then
 pacman -S gwenview --noconfirm
 clear
@@ -640,7 +659,7 @@ do
 done
 if [[ $i_neofetch  == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_neofetch  == 1 ]]; then
 pacman -S neofetch  --noconfirm
 clear
@@ -661,7 +680,7 @@ do
 done
 if [[ $i_screenfetch  == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_screenfetch  == 1 ]]; then
 pacman -S screenfetch  --noconfirm
 clear
@@ -682,7 +701,7 @@ do
 done
 if [[ $i_vlc  == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_vlc  == 1 ]]; then
 pacman -S vlc  --noconfirm
 clear
@@ -703,7 +722,7 @@ do
 done
 if [[ $i_gparted  == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_gparted  == 1 ]]; then
 pacman -S gparted  --noconfirm
 clear
@@ -724,7 +743,7 @@ do
 done
 if [[ $i_telegram  == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_telegram  == 1 ]]; then
 pacman -S telegram-desktop   --noconfirm
 clear
@@ -752,7 +771,7 @@ do
 done
 if [[ $i_screen == 0 ]]; then
 clear
-echo " Устанока пропущена "
+echo " Установка пропущена "
 elif [[ $i_screen == 1 ]]; then
 pacman -S spectacle   --noconfirm
 clear
