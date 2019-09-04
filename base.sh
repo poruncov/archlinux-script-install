@@ -18,7 +18,6 @@ type=EFI для boot раздела также указать
 type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) 
 Legacy
 type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) 
-echo ""
 De--- на выбор KDE Lxde Xfce Gnome
 Dm--- на выбор sddm lxdm gdm"
 #####
