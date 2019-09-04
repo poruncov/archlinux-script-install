@@ -19,7 +19,8 @@ type=linux для других разделов будущей системы ( 
 Legacy
 type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) 
 De--- на выбор KDE Lxde Xfce Gnome
-Dm--- на выбор sddm lxdm gdm"
+Dm--- на выбор sddm lxdm gdm 
+"
 #####
 echo " готовы приступить?  "
 while 
