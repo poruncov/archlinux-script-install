@@ -105,7 +105,7 @@ do
     :
 done
  if [[ $zerkala == 1 ]]; then
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
+wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/zer
 cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
   elif [[ $zerkala == 0 ]]; then
