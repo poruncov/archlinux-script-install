@@ -174,6 +174,7 @@ pacman -S intel-ucode  --noconfirm
 echo ' initrd /intel-ucode.img ' >> /boot/loader/entries/arch.conf
 fi
 echo 'initrd  /initramfs-linux.img' >> /boot/loader/entries/arch.conf
+lsblk -f
 read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo options root=/dev/$root rw >> /boot/loader/entries/arch.conf
 cd /home/$username 
@@ -199,12 +200,14 @@ do
 done
 if [[ $i_grub == 2 ]]; then
 pacman -S grub grub-customizer os-prober --noconfirm
+lsblk -f
 read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
 echo " установка завершена "
 elif [[ $i_grub == 1 ]]; then
 pacman -S grub --noconfirm
+lsblk -f
 read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
