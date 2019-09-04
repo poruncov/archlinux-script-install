@@ -1,4 +1,4 @@
-# archlinux-script-install
+# archlinux-script-install v.0.1
 РЕЖИМ UEFI и Legacy
 
 Для установки  ArchLinux вам необходимо загрузиться с установочного диска ArchLinux и в теринале выполнить   
@@ -26,14 +26,23 @@ ________________________________________________________________________________
 есть возможность выбора  программ для установки
 
 flameshot filezilla
+
 htop gparted
+
 neofetch screenfetch
+
 gwenview
+
 steam steam-native-runtime 
+
 spectacle vlc 
+
 elegram-desktop
+
 gvfs-afc - iphone
+
 gvfs-mtp - android
+
 Mozilla Firefox(russian) или GoogleChrome на выбор!
 
 __________________________________________________________________________________________________________
@@ -51,6 +60,7 @@ Gnome 3
 
 Lxde
 
+Deepin
 __________________________________________________________________________________________________________
 
 удален только браузер  браузер konqueror если устанавливаете KDE
