@@ -300,6 +300,68 @@ fi
 pacman -Syy
 pacman -Sy linux-headers --noconfirm
 #####
+#####
+echo "#####################################################################"
+echo ""
+echo " Arch-wiki рекоендует для kde-sddm, xfce-lxdm, Gnome-gdm, lxde-lxdm "
+echo ""
+echo " Установим DE? "
+while 
+    read -n1 -p  "
+    1 - KDE(Plasma)+sddm 
+    
+    2 - xfce+lxdm 
+    
+    3 - kde+lxdm 
+    
+    4 - xfce+sddm 
+    
+    5 - gmome-gdm
+    
+    6 - lxde-lxdm
+    
+    0 - пропустить " x_de
+    echo ''
+    [[ "$x_de" =~ [^1234560] ]]
+do
+    :
+done
+if [[ $x_de == 0 ]]; then
+  echo 'уcтановка DE пропущена' 
+elif [[ $x_de == 1 ]]; then
+pacman -S sddm sddm-kcm  plasma-meta kdebase kwalletmanager  latte-dock --noconfirm
+pacman -R konqueror --noconfirm
+systemctl enable sddm.service -f
+clear
+echo "Plasma KDE успешно установлена"
+elif [[ $x_de == 2 ]]; then
+pacman -S  xfce4 xfce4-goodies lxdm --noconfirm
+systemctl enable lxdm
+clear
+echo "Xfce успешно установлено"
+elif [[ $x_de == 3 ]]; then
+pacman -S plasma-meta kdebase kwalletmanager latte-dock lxdm  --noconfirm
+pacman -R konqueror --noconfirm
+systemctl enable lxdm
+clear
+echo "Plasma KDE успешно установлена"
+elif [[ $x_de == 4 ]]; then
+pacman -S  xfce4 xfce4-goodies sddm sddm-kcm --noconfirm
+systemctl enable sddm.service -f
+clear
+echo "Xfce успешно установлено"
+elif [[ $x_de == 5 ]]; then
+pacman -S gnome gnome-extra gdm --noconfirm
+systemctl enable gdm 
+clear
+echo " Gnome успешно установлен " 
+elif [[ $x_de == 6 ]]; then
+pacman -S lxde lxdm
+systemctl enable lxdm
+clear
+echo " lxde успешно установлен "
+fi
+echo "#####################################################################"                                        
 echo ""
 echo " Нужен networkManager ? "
 while 
@@ -317,8 +379,28 @@ pacman -Sy networkmanager  network-manager-applet ppp --noconfirm
 systemctl enable NetworkManager.service
 elif [[ $i_network  == 0 ]]; then
 echo " Установка NetworkManager пропущена "
+echo ""
+echo " Добавим dhcpcd в автозагрузку( для проводного интернета, который  получает настройки от роутера ) ? "
+echo ""
+echo "при необходиости это можно будет сделать уже в установленной системе "
+while 
+    read -n1 -p  "
+    1 - включить dhcpcd 
+    
+    0 - не включать dhcpcd " x_dhcpcd
+    echo ''
+    [[ "$x_dhcpcd" =~ [^10] ]]
+do
+    :
+done
+if [[ $x_dhcpcd == 0 ]]; then
+  echo ' dhcpcd не включен в автозагрузку, при необходиости это можно будет сделать уже в установленной системе ' 
+elif [[ $x_dhcpcd == 1 ]]; then
+systemctl enable dhcpcd.service
+clear
+echo "Dhcpcd успешно добавлен в автозагрузку"
 fi
-#####
+fi
 echo ""
 echo " Нужна поддержка звука ? "
 while 
@@ -373,61 +455,6 @@ pacman -Sy unzip unrar  lha ark --noconfirm
 elif [[ $i_zip == 0 ]]; then
 echo " Установка пропущена "
 fi
-#####
-echo "#####################################################################"
-echo ""
-echo " Arch-wiki рекоендует для kde-sddm, а для xfce-lxdm Gnome-gdm "
-echo ""
-echo " Установим DE? "
-while 
-    read -n1 -p  "
-    1 - KDE(Plasma)+sddm 
-    
-    2 - xfce+lxdm 
-    
-    3 - kde+lxdm 
-    
-    4 - xfce+sddm 
-    
-    5 - gmome-gdm
-    
-    0 - пропустить " x_de
-    echo ''
-    [[ "$x_de" =~ [^123450] ]]
-do
-    :
-done
-if [[ $x_de == 0 ]]; then
-  echo 'уcтановка DE пропущена' 
-elif [[ $x_de == 1 ]]; then
-pacman -S sddm sddm-kcm  plasma-meta kdebase kwalletmanager  latte-dock --noconfirm
-pacman -R konqueror --noconfirm
-systemctl enable sddm.service -f
-clear
-echo "Plasma KDE успешно установлена"
-elif [[ $x_de == 2 ]]; then
-pacman -S  xfce4 xfce4-goodies lxdm --noconfirm
-systemctl enable lxdm
-clear
-echo "Xfce успешно установлено"
-elif [[ $x_de == 3 ]]; then
-pacman -S plasma-meta kdebase kwalletmanager latte-dock lxdm  --noconfirm
-pacman -R konqueror --noconfirm
-systemctl enable lxdm
-clear
-echo "Plasma KDE успешно установлена"
-elif [[ $x_de == 4 ]]; then
-pacman -S  xfce4 xfce4-goodies sddm sddm-kcm --noconfirm
-systemctl enable sddm.service -f
-clear
-echo "Xfce успешно установлено"
-elif [[ $x_de == 5 ]]; then
-pacman -S gnome gnome-extra gdm --noconfirm
-systemctl enable gdm 
-clear
-echo " Gnome успешно установлен " 
-fi
-echo "#####################################################################"                                        
 echo ""
 echo " Установка дополнительных программ "
 echo ""
@@ -810,27 +837,6 @@ echo " оболочка изменена с bash на zsh "
 fi
 fi
 echo "#############################################################################"
-echo ""
-echo " Добавим dhcpcd в автозагрузку( для проводного интернета, который  получает настройки от роутера ) ? "
-echo ""
-echo "при необходиости это можно будет сделать уже в установленной системе "
-while 
-    read -n1 -p  "
-    1 - включить dhcpcd 
-    
-    0 - не включать dhcpcd " x_dhcpcd
-    echo ''
-    [[ "$x_dhcpcd" =~ [^10] ]]
-do
-    :
-done
-if [[ $x_dhcpcd == 0 ]]; then
-  echo ' dhcpcd не включен в автозагрузку, при необходиости это можно будет сделать уже в установленной системе ' 
-elif [[ $x_dhcpcd == 1 ]]; then
-systemctl enable dhcpcd.service
-clear
-echo "Dhcpcd успешно добавлен в автозагрузку"
-fi
 pacman -Sy --noconfirm
 ##############################################
 echo ""
@@ -1173,3 +1179,4 @@ elif [[ $vm_text == 1 ]]; then
   chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
 exit
 fi  
+exit
