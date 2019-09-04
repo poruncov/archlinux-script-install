@@ -1,12 +1,24 @@
- 
 #!/bin/bash
-echo 'скрипт второй настройка системы в chroot '
+echo 'Продолжаем установку в chroot '
 timedatectl set-ntp true
 pacman -Syyu  --noconfirm
+
 read -p "Введите имя компьютера: " hostname
 read -p "Введите имя пользователя: " username
 
 echo 'Прописываем имя компьютера'
+
+if [[ "$hostname" == "" ]]; then
+    echo "Используется имя компьютера по умолчанию"
+    hostname = "localhost"
+fi
+
+if [[ "$username" == "" ]]; then
+    echo "Используется имя пользователя по умолчанию"
+    hostname = "user"
+fi
+
+
 echo $hostname > /etc/hostname
 echo ""
 echo " Очистим папку конфигов, кеш, и скрытые каталоги в /home/$username от старой системы ? "
@@ -84,16 +96,16 @@ locale-gen
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf 
 echo "KEYMAP=ru" >> /etc/vconsole.conf
 echo "FONT=cyr-sun16" >> /etc/vconsole.conf
-echo " Укажите пароль для "ROOT" "
+echo " Укажите пароль для пользователя root "
 passwd
 echo 'Добавляем пароль для пользователя '$username' '
 useradd -m -g users -G wheel -s /bin/bash $username
 passwd $username
 echo ""
-echo " Я рекомендую не изменять зеркала во время установки, для уменьшения вероятности ошибок " 
-echo " Если не уверены в том что смена зеркал вамм необходима, тогда пропустите "
+echo " Для уменьшения вероятности ошибок, мы не рекомендуем изменять зеркала " 
+echo " Если не уверены в том что смена зеркал вам необходима, рекомендуем пропустить "
 echo ""
-echo 'Сменим зеркала на Россия\Беларусь для увеличения скорости загрузки пакетов?'
+echo ' Сменим зеркала на Россия\Беларусь для увеличения скорости загрузки пакетов? '
 while 
     read -n1 -p  "
     1 - да
@@ -116,12 +128,12 @@ clear
 lsblk -f
 ###########################################################################
 echo ""
-echo " Если установка производиться на vds тогда grub "
+echo " Если вы производите установку на VDS, выбирайте GRUB "
 echo ""
-echo "Какой загрузчик установить UEFI(systemd) или Grub для legacy"
+echo "Какой загрузчик установить?"
 while 
     read -n1 -p  "
-    1 - UEFI
+    1 - UEFI(systemd-boot)
     
     2 - GRUB(legacy): " t_bootloader # sends right after the keypress
     echo ''
@@ -132,10 +144,10 @@ done
 if [[ $t_bootloader == 1 ]]; then
 bootctl install 
 echo ' default arch ' > /boot/loader/loader.conf
-echo ' timeout 10 ' >> /boot/loader/loader.conf
+echo ' timeout 5 ' >> /boot/loader/loader.conf
 echo ' editor 0' >> /boot/loader/loader.conf
 echo ""
-echo " Укажите тот радел который будет после перезагрузки, то есть например "
+echo " Укажите тот раздел, который будет после перезагрузки, то есть например "
 
 echo " при установке с флешки ваш hdd может быть sdb, а после перезагрузки sda "
 
@@ -186,7 +198,7 @@ rm -Rf /home/$username/systemd-boot-pacman-hook
 cd /home/$username 
 clear
 elif [[ $t_bootloader == 2 ]]; then
-echo " Устанавливаем на vds сервер? "
+echo " Устанавливаете систему на VDS? "
 while 
     read -n1 -p  "
     1 - да
@@ -199,13 +211,13 @@ do
 done
 if [[ $i_grub == 2 ]]; then
 pacman -S grub grub-customizer os-prober --noconfirm
-read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
+read -p "Укажите диск, на который будет установлен GRUB (sda/sdb): " x_boot
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
 echo " установка завершена "
 elif [[ $i_grub == 1 ]]; then
 pacman -S grub --noconfirm
-read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
+read -p "Укажите диск, на который будет установлен GRUB (sda/sdb): " x_boot
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
 echo " установка завершена "
@@ -214,14 +226,14 @@ fi
 mkinitcpio -p linux
 ##########
 echo ""
-echo " Настроим Sudo? "
+echo " Настроим sudo? "
 while 
     read -n1 -p  "
     1 - с паролем   
     
     2 - без пароля
     
-    0 - Sudo не добавляем : " i_sudo   # sends right after the keypress
+    0 - sudo не добавляем : " i_sudo   # sends right after the keypress
     echo ''
     [[ "$i_sudo" =~ [^120] ]]
 do
@@ -233,18 +245,18 @@ echo " Добавление sudo пропущено"
 elif [[ $i_sudo  == 1 ]]; then
 echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 clear
-echo " Sudo с запросом пароля установлено "
+echo " sudo с запросом пароля установлено "
 elif [[ $i_sudo  == 2 ]]; then
 echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 clear
-echo " Sudo nopassword добавлено  "
+echo " Пароль для sudo отключен.  "
 fi
 ##########
 echo ""
 echo " Настроим multilib? "
 while 
     read -n1 -p  "
-    1 - да  
+    1 - да (рекомендуется)
     
     0 - нет : " i_multilib   # sends right after the keypress
     echo ''
@@ -254,23 +266,22 @@ do
 done
 if [[ $i_multilib  == 0 ]]; then
 clear
-echo " Добавление мультилиб репозитория  пропущено"
+echo " Добавление multilib-репозитория пропущено"
 elif [[ $i_multilib  == 1 ]]; then
 echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 clear
-echo " Multilib репозиторий добавлен"
+echo " multilib-репозиторий добавлен"
 fi
 ######
 echo ""
-echo " Если вам не нужен X-сервер, тогда выбирайте пункт '2'  "
+echo " Нужен ли вам графический интерфейс (X-Сервер) ?"
 echo ""
-echo " Установка производиться на vds или на ПК? "
 while 
     read -n1 -p  "
-    1 - ПК  
+    1 - Да  
     
-    2 - vds : " i_xorg # sends right after the keypress
+    2 - Нет (при установке на VDS) : " i_xorg # sends right after the keypress
     echo ''
     [[ "$i_xorg" =~ [^12] ]]
 do
@@ -278,7 +289,7 @@ do
 done
 if [[ $i_xorg  == 1 ]]; then
 echo ""
-echo " Устанавливаем на виртуальную машину ? "
+echo " Вы устанавливаете Arch Linux на виртуальную машину? "
 while 
     read -n1 -p  "
     1 - да  
@@ -304,15 +315,19 @@ echo ""
 echo " Установим DE? "
 while 
     read -n1 -p  "
-    1 - KDE(Plasma)
+    1 - KDE Plasma 5
     
-    2 - xfce 
+    2 - XFCE 
     
-    3 - gmome
+    3 - Gmome 3 
     
-    4 - lxde
+    4 - LXDE
     
     5 - Deepin
+
+    6 - Mate
+
+    7 - LXQT
     
     0 - пропустить " x_de
     echo ''
@@ -326,33 +341,53 @@ elif [[ $x_de == 1 ]]; then
 pacman -S plasma-meta kdebase kwalletmanager  latte-dock --noconfirm
 pacman -R konqueror --noconfirm
 clear
-echo "Plasma KDE успешно установлена"
+echo "окружение KDE Plasma 5 успешно установлено"
+
+
 elif [[ $x_de == 2 ]]; then
-pacman -S  xfce4 xfce4-goodies  --noconfirm
+pacman -S  xfce4 xfce4-goodies --noconfirm
 clear
-echo "Xfce успешно установлено"
+echo "окружение XFCE успешно установлено"
+
+
 elif [[ $x_de == 3 ]]; then
-pacman -S gnome gnome-extra  --noconfirm
+pacman -S gnome gnome-extra --noconfirm
 clear
-echo " Gnome успешно установлен " 
+echo "окружение Gnome 3 успешно установлено" 
+
+
 elif [[ $x_de == 4 ]]; then
-pacman -S lxde --noconfirm
+pacman -S lxde --noconfirm --noconfirm
 clear
-echo " lxde успешно установлен "
+echo "окружение LXDE успешно установлено"
+
+
 elif [[ $x_de == 5 ]]; then
-pacman -S deepin deepin-extra
+pacman -S deepin deepin-extra --noconfirm
 clear
-echo " Deepin успешно установлен "
+echo "окружение Deepin успешно установлено"
+
+
+elif [[ $x_de == 6 ]]; then
+pacman -S mate mate-extra --noconfirm
+clear
+echo "окружение Mate успешно установлено"
+
+
+elif [[ $x_de == 7 ]]; then
+pacman -S lxqt breeze-icons --noconfirm
+clear
+echo "окружение LXQT успешно установлено"
 fi
 echo "#####################################################################"
 echo ""
 echo " 
-Arch-wiki рекоендует для: 
-kde<->sdd
-xfce   <-> lxdm
-Gnome  <-> gdm
-lxde   <-> lxdm
-Deepin <-> lightdm"
+Arch-wiki рекомендует для: 
+kde     <-> sddm
+xfce    <-> lxdm
+Gnome   <-> gdm
+lxde    <-> lxdm
+Deepin  <-> lightdm"
 echo ""
 echo "Установка Менеджера входа в систему "
 while 
@@ -415,7 +450,7 @@ systemctl enable NetworkManager.service
 elif [[ $i_network  == 0 ]]; then
 echo " Установка NetworkManager пропущена "
 echo ""
-echo " Добавим dhcpcd в автозагрузку( для проводного интернета, который  получает настройки от роутера ) ? "
+echo " Добавим dhcpcd в автозагрузку (для проводного интернета, который получает настройки от роутера) ? "
 echo ""
 echo "при необходиости это можно будет сделать уже в установленной системе "
 while 
@@ -440,7 +475,7 @@ echo ""
 echo " Нужна поддержка звука ? "
 while 
     read -n1 -p  "
-    1 - да  
+    1 - да (рекомендуется)
     
     0 - нет : " i_sound   # sends right after the keypress
     echo ''
@@ -486,7 +521,7 @@ do
     :
 done
 if [[ $i_zip  == 1 ]]; then
-pacman -Sy unzip unrar  lha ark --noconfirm
+pacman -Sy unzip unrar lha ark --noconfirm
 elif [[ $i_zip == 0 ]]; then
 echo " Установка пропущена "
 fi
@@ -502,7 +537,7 @@ neofetch
 screenfetch
 gwenview
 steam steam-native-runtime 
-spectacle vlc  telegram-desktop  "
+spectacle vlc telegram-desktop"
 echo ""
 echo " установим все или на ваш выбор? "
 while 
@@ -561,7 +596,7 @@ echo " установка gvfs-afc gvfs-mtp  завершена "
 fi
 echo "#############################################################################"
 echo ""
-echo " htop--диспетер задач для linux "
+echo " htop -- консольный диспетер задач для linux "
 while 
     read -n1 -p  "
     1 - да 
@@ -625,7 +660,7 @@ echo " Установка завершена "
 fi
 echo "#############################################################################"
 echo ""
-echo " Steam - магазин игр   "
+echo " Steam - магазин проприетарных игр и приложений "
 while 
     read -n1 -p  "
     1 - да
@@ -667,7 +702,7 @@ echo " Установка завершена "
 fi
 echo "#############################################################################"
 echo ""
-echo " screenfetch - вывод данных о системе с лого в консоли( аналог neofetch ) "
+echo " screenfetch - вывод данных о системе с лого в консоли (аналог neofetch) "
 while 
     read -n1 -p  "
     1 - да
@@ -709,7 +744,7 @@ echo " Установка завершена "
 fi
 echo "#############################################################################"
 echo ""
-echo " gparted - программа для работы с разделоми sdd/hdd ) "
+echo " gparted - программа для работы с разделами дисков"
 while 
     read -n1 -p  "
     1 - да 
@@ -754,12 +789,12 @@ echo "##########################################################################
 echo ""
 echo " установим программу для создания скриншотов? "
 echo ""
-echo " spectacle(интегрируеться в рабочий стол  Plasma(kde)) и flameshot(универсальна, хорошо работает в KDE и Xfce) "
+echo " spectacle(интегрируется в рабочий стол Plasma) и flameshot(универсальна, хорошо работает в KDE и Xfce) "
 while 
     read -n1 -p  "
     1 - spectacle
     
-    2 -flameshot 
+    2 - flameshot 
     
     3 - оба варианта   
     
@@ -843,7 +878,7 @@ do
 done
 if [[ $x_shell == 0 ]]; then
 clear
-  echo ' оболочка не изменета, по умолчанию bash!"  ' 
+  echo ' оболочка не изменена, по умолчанию bash!"  ' 
 elif [[ $x_shell == 1 ]]; then
 clear
 pacman -S zsh  zsh-syntax-highlighting  grml-zsh-config --noconfirm
@@ -862,7 +897,7 @@ do
 done
 if [[ $t_shell == 0 ]]; then
 clear
-echo 'пользоватльская обочка не изменена ( по умолчанию BASH )' 
+echo 'пользовательская обочка не изменена ( по умолчанию BASH )' 
 elif [[ $t_shell == 1 ]]; then
 chsh -s /bin/zsh
 chsh -s /bin/zsh $username
@@ -922,11 +957,13 @@ echo ""
 echo " Устанавливаем браузер? : "
 while 
     read -n1 -p  "
-    1 - google-chrome 
+    1 - google chrome 
     
     2 - firefox(russian) 
     
-    3 - установить оба
+    3 - chromium (свободный аналог google chrome)
+ 
+    4 - установить все
     
     0 - пропустить: " g_chrome # sends right after the keypress
     echo ''
@@ -935,7 +972,7 @@ do
     :
 done
 if [[ $g_chrome == 0 ]]; then
-  echo ' установка браузера пропущена после установки системы вы сможете установить браузер на свой усмотрение!!!!' 
+  echo ' Установка браузера пропущена. После установки системы вы сможете установить браузер, если он вам нужен.' 
 elif [[ $g_chrome == 1 ]]; then
 cd /home/$username   
 git clone https://aur.archlinux.org/google-chrome.git
@@ -949,7 +986,10 @@ elif [[ $g_chrome == 2 ]]; then
 pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
 clear
 elif [[ $g_chrome == 3 ]]; then
-pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
+pacman -S chromium --noconfirm 
+clear
+elif [[ $g_chrome == 4 ]]; then
+pacman -S firefox chromium firefox-developer-edition-i18n-ru --noconfirm 
 cd /home/$username   
 git clone https://aur.archlinux.org/google-chrome.git
 chown -R $username:users /home/$username/google-chrome 
@@ -961,7 +1001,7 @@ clear
 fi
 echo "################################################################"
 echo ""
-echo " Уставливаем teamviewer для удаленного доступа ? : "
+echo " Уставливаем TeamViewer для удаленного доступа ? : "
 while 
     read -n1 -p  "
     1 - да
@@ -973,7 +1013,7 @@ do
     :
 done
 if [[ $t_teamviewer == 0 ]]; then
-  echo 'уcтановка  пропущена' 
+  echo 'уcтановка пропущена' 
 elif [[ $t_teamviewer == 1 ]]; then
 cd /home/$username 
 git clone https://aur.archlinux.org/teamviewer.git
@@ -987,7 +1027,7 @@ clear
 fi
 echo "################################################################"
 echo ""
-echo " Уставливаем vk-messenger ? : "
+echo " Устанавливаем vk-messenger ? : "
 while 
     read -n1 -p  "
     1 - да,
@@ -1180,7 +1220,7 @@ echo ""
 echo "
 Данный этап поможет исключить возможные ошибки при первом запуске системы 
 
-Фаил откроется через редактор  !nano!"
+Фаил откроется через текстовый редактор nano"
 echo ""
 echo " Просмотрим//отредактируем /etc/fstab ?"
 while 
@@ -1198,7 +1238,7 @@ fi
 clear
 echo "################################################################"
 echo ""
-echo "Создаем папки музыка, видео и т.д. в дириктории пользователя?"
+echo "Создаем папки 'документы', 'загрузки' и т.д. в дириктории пользователя?"
 while 
     read -n1 -p  "1 - да, 0 - нет: " vm_text # sends right after the keypress
     echo ''
