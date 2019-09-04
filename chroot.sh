@@ -1,4 +1,3 @@
- 
 #!/bin/bash
 echo 'скрипт второй настройка системы в chroot '
 timedatectl set-ntp true
