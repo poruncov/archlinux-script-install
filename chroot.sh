@@ -299,69 +299,85 @@ echo " установка на vds  "
 fi
 pacman -Syy
 pacman -Sy linux-headers --noconfirm
-#####
-#####
 echo "#####################################################################"
-echo ""
-echo " Arch-wiki рекоендует для kde-sddm, xfce-lxdm, Gnome-gdm, lxde-lxdm "
 echo ""
 echo " Установим DE? "
 while 
     read -n1 -p  "
-    1 - KDE(Plasma)+sddm 
+    1 - KDE(Plasma)
     
-    2 - xfce+lxdm 
+    2 - xfce 
     
-    3 - kde+lxdm 
+    3 - gmome
     
-    4 - xfce+sddm 
-    
-    5 - gmome-gdm
-    
-    6 - lxde-lxdm
+    4 - lxde
     
     0 - пропустить " x_de
     echo ''
-    [[ "$x_de" =~ [^1234560] ]]
+    [[ "$x_de" =~ [^12340] ]]
 do
     :
 done
 if [[ $x_de == 0 ]]; then
   echo 'уcтановка DE пропущена' 
 elif [[ $x_de == 1 ]]; then
-pacman -S sddm sddm-kcm  plasma-meta kdebase kwalletmanager  latte-dock --noconfirm
+pacman -S plasma-meta kdebase kwalletmanager  latte-dock --noconfirm
 pacman -R konqueror --noconfirm
-systemctl enable sddm.service -f
 clear
 echo "Plasma KDE успешно установлена"
 elif [[ $x_de == 2 ]]; then
-pacman -S  xfce4 xfce4-goodies lxdm --noconfirm
-systemctl enable lxdm
+pacman -S  xfce4 xfce4-goodies  --noconfirm
 clear
 echo "Xfce успешно установлено"
 elif [[ $x_de == 3 ]]; then
-pacman -S plasma-meta kdebase kwalletmanager latte-dock lxdm  --noconfirm
-pacman -R konqueror --noconfirm
-systemctl enable lxdm
-clear
-echo "Plasma KDE успешно установлена"
-elif [[ $x_de == 4 ]]; then
-pacman -S  xfce4 xfce4-goodies sddm sddm-kcm --noconfirm
-systemctl enable sddm.service -f
-clear
-echo "Xfce успешно установлено"
-elif [[ $x_de == 5 ]]; then
-pacman -S gnome gnome-extra gdm --noconfirm
-systemctl enable gdm 
+pacman -S gnome gnome-extra  --noconfirm
 clear
 echo " Gnome успешно установлен " 
-elif [[ $x_de == 6 ]]; then
-pacman -S lxde lxdm
-systemctl enable lxdm
+elif [[ $x_de == 4 ]]; then
+pacman -S lxde --noconfirm
 clear
 echo " lxde успешно установлен "
 fi
-echo "#####################################################################"                                        
+echo "#####################################################################"
+echo ""
+echo " Arch-wiki рекоендует для kde-sddm, xfce-lxdm, Gnome-gdm, lxde-lxdm "
+echo ""
+echo "Установка Менеджера входа в систему "
+while 
+    read -n1 -p  "
+    1 - Sddm
+    
+    2 - lxdm 
+    
+    3 - gdm
+    
+    0 - пропустить: " i_dm # sends right after the keypress
+    
+    echo ''
+    [[ "$i_dm" =~ [^1230] ]]
+do
+    :
+done
+if [[ $i_dm == 0 ]]; then
+clear
+echo " Устанока пропущена "
+elif [[ $i_dm == 1 ]]; then
+pacman -S sddm sddm-kcm --noconfirm
+systemctl enable sddm.service -f
+clear
+echo " установка sddm  завершена "
+elif [[ $i_dm == 2 ]]; then
+pacman -S lxdm --noconfirm
+systemctl enable lxdm.service -f
+clear
+echo " установка lxdm завершена "
+elif [[ $i_dm == 3 ]]; then
+pacman -S gdm --noconfirm
+systemctl enable gdm.service -f
+clear
+echo " установка gdm завершена "
+fi
+echo "#####################################################################"
 echo ""
 echo " Нужен networkManager ? "
 while 
