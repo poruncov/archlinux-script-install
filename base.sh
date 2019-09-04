@@ -314,7 +314,7 @@ do
     :
 done
  if [[ $zerkala == 1 ]]; then
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
+wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/zer
 cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
   elif [[ $zerkala == 0 ]]; then
@@ -361,13 +361,13 @@ do
 done
 if [[ $int == 1 ]]; then
 
-  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh
+  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh
   echo 'первый этап готов ' 
   echo 'ARCH-LINUX chroot' 
-  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh ' 
+  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x chroot.sh || 3.команда для запуска ./chroot.sh ' 
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
-  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
+  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh)"
 fi
 
 echo "################################################################"
@@ -583,7 +583,7 @@ do
     :
 done
  if [[ $zerkala == 1 ]]; then
-wget https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/zer
+wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/zer
 cat 'zer' > /etc/pacman.d/mirrorlist
 rm zer
   elif [[ $zerkala == 0 ]]; then
@@ -617,33 +617,29 @@ fi
 
 ###############################
 clear
-echo "Если для подключения к интернету использовали wifi (wifi-menu) тогда "1" "
+echo "Если вы производите установку используя Wifi тогда рекомендую  "1" "
 echo ""
-echo "Если вы производите установку используя Wifi тогда рекомендую  '1' "
+echo "если проводной интернет тогда "2" " 
 echo ""
-echo "если проводной интернет тогда "2" "
-echo "" 
 echo 'wifi или dhcpcd ?'
 while 
-    read -n1 -p  "
-    1 - wifi
-    
-    2 - dhcpcd: " int # sends right after the keypress
+    read -n1 -p  "1 - wifi, 2 - dhcpcd: " int # sends right after the keypress
     echo ''
     [[ "$int" =~ [^12] ]]
 do
     :
 done
 if [[ $int == 1 ]]; then
-  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh
+
+  wget -P /mnt https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh
   echo 'первый этап готов ' 
   echo 'ARCH-LINUX chroot' 
-  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x kde.sh || 3.команда для запуска ./kde.sh ' 
+  echo '1. проверь  интернет для продолжение установки в черуте || 2. chmod +x chroot.sh || 3.команда для запуска ./chroot.sh ' 
   arch-chroot /mnt      
   elif [[ $int == 2 ]]; then
-  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-kde--script-install-uefi-nogrub-and-grub-install/master/kde.sh)"
-  fi
-  
+  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh)"
+fi
+
 echo "################################################################"
 echo "###################    T H E   E N D      ######################"
 echo "################################################################"
