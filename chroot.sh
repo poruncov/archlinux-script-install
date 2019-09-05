@@ -316,7 +316,11 @@ while
     4 - lxde
     
     5 - Deepin
-    
+
+    6 - Mate
+
+    7 - Lxqt
+
     0 - пропустить " x_de
     echo ''
     [[ "$x_de" =~ [^123450] ]]
@@ -346,16 +350,26 @@ elif [[ $x_de == 5 ]]; then
 pacman -S deepin deepin-extra
 clear
 echo " Deepin успешно установлен "
+elif [[ $x_de == 6 ]]; then
+pacman -S  mate mate-extra  --noconfirm
+clear
+echo " Mate успешно установлен "
+elif [[ $x_de == 7 ]]; then
+pacman -S lxqt lxqt-qtplugin lxqt-themes --noconfirm
+clear
+echo " Lxqt успешно установлен "
 fi
 echo "#####################################################################"
 echo ""
 echo " 
 Arch-wiki рекоендует для: 
-kde<->sdd
+kde    <-> sddm
+Lxqt   <-> sddm
 xfce   <-> lxdm
-Gnome  <-> gdm
 lxde   <-> lxdm
-Deepin <-> lightdm"
+Gnome  <-> gdm
+Deepin <-> lightdm
+Mate   <-> lightdm "
 echo ""
 echo "Установка Менеджера входа в систему "
 while 
@@ -927,13 +941,15 @@ while
     read -n1 -p  "
     1 - google-chrome 
     
-    2 - firefox(russian) 
+    2 - firefox 
     
-    3 - установить оба
+    3 - chromium
+    
+    4 - установить все
     
     0 - пропустить: " g_chrome # sends right after the keypress
     echo ''
-    [[ "$g_chrome" =~ [^1230] ]]
+    [[ "$g_chrome" =~ [^12340] ]]
 do
     :
 done
@@ -952,7 +968,9 @@ elif [[ $g_chrome == 2 ]]; then
 pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
 clear
 elif [[ $g_chrome == 3 ]]; then
-pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
+pacman -S chromium --noconfirm 
+elif [[ $g_chrome == 4 ]]; then
+pacman -S chromium firefox firefox-developer-edition-i18n-ru --noconfirm 
 cd /home/$username   
 git clone https://aur.archlinux.org/google-chrome.git
 chown -R $username:users /home/$username/google-chrome 
