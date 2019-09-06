@@ -352,7 +352,7 @@ pacman -S lxde --noconfirm
 clear
 echo " lxde успешно установлен "
 elif [[ $x_de == 5 ]]; then
-pacman -S deepin deepin-extra
+pacman -S deepin deepin-extra --noconfirm
 clear
 echo " Deepin успешно установлен "
 elif [[ $x_de == 6 ]]; then
