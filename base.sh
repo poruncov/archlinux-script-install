@@ -325,23 +325,24 @@ done
   fi
 ################################################################################### 
  # смена зеркал  
-echo " Я рекомендую не изменять зеркала во время установки, для уменьшения вероятности ошибок " 
-echo " Если не уверены в том что смена зеркал вамм необходима тогда пропустите "
-echo 'Сменим зеркала на яндекс для увеличения скорости загрузки пакетов?'
+echo ""
+echo " Данный этап можно пропустить если не уверены в своем выборе!!! " 
+echo " "
+echo 'Сменим зеркала  для увеличения скорости загрузки пакетов?'
 while 
     read -n1 -p  "
     1 - да
     
     0 - нет: " zerkala # sends right after the keypress
-    echo ''
+    echo ' '
     [[ "$zerkala" =~ [^10] ]]
 do
     :
 done
- if [[ $zerkala == 1 ]]; then
-wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/zer
-cat 'zer' > /etc/pacman.d/mirrorlist
-rm zer
+   if [[ $zerkala == 1 ]]; then
+pacman -S reflector --noconfirm
+reflector --verbose -l 50 -p http --sort rate --save /etc/pacman.d/mirrorlist
+reflector --verbose -l 15 --sort rate --save /etc/pacman.d/mirrorlist
   elif [[ $zerkala == 0 ]]; then
    echo 'смена зеркал пропущена.'   
 fi
@@ -594,23 +595,24 @@ done
   fi 
   fi
 # смена зеркал  
-echo " Я рекомендую не изменять зеркала во время установки, для уменьшения вероятности ошибок " 
-echo " Если не уверены в том что смена зеркал вамм необходима тогда пропустите "
-echo 'Сменим зеркала на яндекс для увеличения скорости загрузки пакетов?'
+echo ""
+echo " Данный этап можно пропустить если не уверены в своем выборе!!! " 
+echo " "
+echo 'Сменим зеркала  для увеличения скорости загрузки пакетов?'
 while 
     read -n1 -p  "
     1 - да
     
     0 - нет: " zerkala # sends right after the keypress
-    echo ''
+    echo ' '
     [[ "$zerkala" =~ [^10] ]]
 do
     :
 done
- if [[ $zerkala == 1 ]]; then
-wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/zer
-cat 'zer' > /etc/pacman.d/mirrorlist
-rm zer
+   if [[ $zerkala == 1 ]]; then
+pacman -S reflector --noconfirm
+reflector --verbose -l 50 -p http --sort rate --save /etc/pacman.d/mirrorlist
+reflector --verbose -l 15 --sort rate --save /etc/pacman.d/mirrorlist
   elif [[ $zerkala == 0 ]]; then
    echo 'смена зеркал пропущена.'   
 fi
