@@ -84,30 +84,31 @@ locale-gen
 echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf 
 echo "KEYMAP=ru" >> /etc/vconsole.conf
 echo "FONT=cyr-sun16" >> /etc/vconsole.conf
+echo ""
 echo " Укажите пароль для "ROOT" "
 passwd
 echo 'Добавляем пароль для пользователя '$username' '
+echo ""
 useradd -m -g users -G wheel -s /bin/bash $username
 passwd $username
 echo ""
-echo " Я рекомендую не изменять зеркала во время установки, для уменьшения вероятности ошибок " 
-echo " Если не уверены в том что смена зеркал вамм необходима, тогда пропустите "
-echo ""
-echo 'Сменим зеркала на Россия\Беларусь для увеличения скорости загрузки пакетов?'
+echo " Данный этап можно пропустить если не уверены в своем выборе!!! " 
+echo " "
+echo 'Сменим зеркала  для увеличения скорости загрузки пакетов?'
 while 
     read -n1 -p  "
     1 - да
     
     0 - нет: " zerkala # sends right after the keypress
-    echo ''
+    echo ' '
     [[ "$zerkala" =~ [^10] ]]
 do
     :
 done
- if [[ $zerkala == 1 ]]; then
-wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/zer
-cat 'zer' > /etc/pacman.d/mirrorlist
-rm zer
+   if [[ $zerkala == 1 ]]; then
+pacman -S reflector --noconfirm
+reflector --verbose -l 50 -p http --sort rate --save /etc/pacman.d/mirrorlist
+reflector --verbose -l 15 --sort rate --save /etc/pacman.d/mirrorlist
   elif [[ $zerkala == 0 ]]; then
    echo 'смена зеркал пропущена.'   
 fi
@@ -175,6 +176,7 @@ echo ' initrd /intel-ucode.img ' >> /boot/loader/entries/arch.conf
 fi
 echo 'initrd  /initramfs-linux.img' >> /boot/loader/entries/arch.conf
 lsblk -f
+echo ""
 read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo options root=/dev/$root rw >> /boot/loader/entries/arch.conf
 cd /home/$username 
