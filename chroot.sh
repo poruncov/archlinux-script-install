@@ -92,6 +92,7 @@ passwd
 echo 'Добавляем пароль для пользователя '$username' '
 echo ""
 useradd -m -g users -G wheel -s /bin/bash $username
+echo ""
 passwd $username
 echo ""
 echo " Данный этап можно пропустить если не уверены в своем выборе!!! " 
@@ -372,7 +373,7 @@ Lxqt   <-> sddm
 xfce   <-> lxdm
 lxde   <-> lxdm
 Gnome  <-> gdm
-Deepin <-> lxdm
+Deepin <-> lxdm/sddm
 Mate   <-> lxdm "
 echo ""
 echo "Установка Менеджера входа в систему "
@@ -450,6 +451,7 @@ clear
 echo "Dhcpcd успешно добавлен в автозагрузку"
 fi
 fi
+clear
 echo ""
 echo " Нужна поддержка звука ? "
 while 
@@ -469,6 +471,7 @@ elif [[ $i_network  == 0 ]]; then
 echo " Установка пропущена "
 fi
 ####
+clear
 echo ""
 echo " Нужна поддержка ntfs и fat ? "
 while 
@@ -487,6 +490,7 @@ elif [[ $i_fat == 0 ]]; then
 echo " Установка пропущена "
 fi
 #####
+clear
 echo ""
 echo " Нужны программы для работы с архивами? "
 while 
@@ -590,7 +594,7 @@ if [[ $i_htop == 0 ]]; then
 clear
 echo " Установка пропущена "
 elif [[ $i_htop == 1 ]]; then
-pacman -S htop --noconfirm
+pacman -S htop xterm --noconfirm
 clear
 echo " установка htop  завершена "
 fi
@@ -820,7 +824,6 @@ if [[ $t_ssh == 0 ]]; then
 elif [[ $t_ssh == 1 ]]; then
 pacman -S openssh --noconfirm
 clear
-fi
 echo ""
 echo " Вкличим в автозагрузку ssh(server) для удаленного доступа к этому пк ? : "
 while 
@@ -839,6 +842,7 @@ clear
 elif [[ $t_ssh1 == 1 ]]; then
 systemctl enable sshd.service
 clear
+fi
 fi
 echo "#############################################################################"
 echo "######    ZSH   #####"
@@ -1160,7 +1164,13 @@ chown -R $username:users /home/$username/octopi/PKGBUILD
 cd /home/$username/octopi
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/octopi
-clear
+######################
+git clone https://aur.archlinux.org/gksu.git
+chown -R $username:users /home/$username/gksu
+chown -R $username:users /home/$username/gksu/PKGBUILD 
+cd /home/$username/gksu
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/gksu
 echo " Octopi успешно установлен "
 elif [[ $t_picaur == 1 ]]; then
 cd /home/$username
@@ -1171,6 +1181,14 @@ cd /home/$username/alpm_octopi_utils
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/alpm_octopi_utils
 ################
+cd /home/$username
+git clone https://aur.archlinux.org/gksu.git
+chown -R $username:users /home/$username/gksu
+chown -R $username:users /home/$username/gksu/PKGBUILD 
+cd /home/$username/gksu
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/gksu
+#####
 cd /home/$username
 git clone https://aur.archlinux.org/octopi.git
 chown -R $username:users /home/$username/octopi
