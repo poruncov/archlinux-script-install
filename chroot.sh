@@ -3,7 +3,9 @@
 echo 'скрипт второй настройка системы в chroot '
 timedatectl set-ntp true
 pacman -Syyu  --noconfirm
+echo ""
 read -p "Введите имя компьютера: " hostname
+echo ""
 read -p "Введите имя пользователя: " username
 
 echo 'Прописываем имя компьютера'
@@ -370,8 +372,8 @@ Lxqt   <-> sddm
 xfce   <-> lxdm
 lxde   <-> lxdm
 Gnome  <-> gdm
-Deepin <-> lightdm
-Mate   <-> lightdm "
+Deepin <-> lxdm
+Mate   <-> lxdm "
 echo ""
 echo "Установка Менеджера входа в систему "
 while 
@@ -382,12 +384,10 @@ while
     
     3 - gdm
     
-    4 - lightdm
-    
     0 - пропустить: " i_dm # sends right after the keypress
     
     echo ''
-    [[ "$i_dm" =~ [^12340] ]]
+    [[ "$i_dm" =~ [^1230] ]]
 do
     :
 done
@@ -409,11 +409,6 @@ pacman -S gdm --noconfirm
 systemctl enable gdm.service -f
 clear
 echo " установка gdm завершена "
-elif [[ $i_dm == 4 ]]; then
-pacman -S lightdm --noconfirm
-systemctl enable lightdm.service -f
-clear
-echo " установка lightdm завершена "
 fi
 echo "#####################################################################"
 echo ""
