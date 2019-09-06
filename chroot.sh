@@ -360,7 +360,7 @@ pacman -S  mate mate-extra  --noconfirm
 clear
 echo " Mate успешно установлен "
 elif [[ $x_de == 7 ]]; then
-pacman -S lxqt lxqt-qtplugin lxqt-themes --noconfirm
+pacman -S lxqt lxqt-qtplugin lxqt-themes oxygen-icons xscreensaver --noconfirm
 clear
 echo " Lxqt успешно установлен "
 fi
