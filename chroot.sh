@@ -385,40 +385,40 @@ while
 
     7 - Lxqt
 
-    0 - пропустить " x_de
+    0 - пропустить " x_de2
     echo ''
-    [[ "$x_de" =~ [^12345670] ]]
+    [[ "$x_de2" =~ [^12345670] ]]
 do
     :
 done
-if [[ $x_de == 0 ]]; then
+if [[ $x_de2 == 0 ]]; then
   echo 'уcтановка DE пропущена' 
-elif [[ $x_de == 1 ]]; then
+elif [[ $x_de2 == 1 ]]; then
 pacman -S plasma-meta kdebase kwalletmanager  latte-dock --noconfirm
 pacman -R konqueror --noconfirm
 clear
 echo "Plasma KDE успешно установлена"
-elif [[ $x_de == 2 ]]; then
+elif [[ $x_de2 == 2 ]]; then
 pacman -S  xfce4 xfce4-goodies  --noconfirm
 clear
 echo "Xfce успешно установлено"
-elif [[ $x_de == 3 ]]; then
+elif [[ $x_de2 == 3 ]]; then
 pacman -S gnome gnome-extra  --noconfirm
 clear
 echo " Gnome успешно установлен " 
-elif [[ $x_de == 4 ]]; then
+elif [[ $x_de2 == 4 ]]; then
 pacman -S lxde --noconfirm
 clear
 echo " lxde успешно установлен "
-elif [[ $x_de == 5 ]]; then
+elif [[ $x_de2 == 5 ]]; then
 pacman -S deepin deepin-extra
 clear
 echo " Deepin успешно установлен "
-elif [[ $x_de == 6 ]]; then
+elif [[ $x_de2 == 6 ]]; then
 pacman -S  mate mate-extra  --noconfirm
 clear
 echo " Mate успешно установлен "
-elif [[ $x_de == 7 ]]; then
+elif [[ $x_de2 == 7 ]]; then
 pacman -S lxqt lxqt-qtplugin lxqt-themes --noconfirm
 clear
 echo " Lxqt успешно установлен "
