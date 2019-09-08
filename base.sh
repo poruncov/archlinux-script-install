@@ -133,6 +133,9 @@ do
     :
 done
 if [[ $boots == 1 ]]; then
+  clear
+ lsblk -f
+  echo ""
 read -p "Укажите boot раздел (sda2/sdb2 ( например sda2 )):" bootd
 mount /dev/$bootd /mnt
 cd /mnt
@@ -147,7 +150,8 @@ fi
 #
 pacman -Sy --noconfirm
 ##############################
-lsblk -f
+clear
+echo ""
 echo " Выбирайте "1 ", если ранее не производилась разметка диска и у вас нет разделов для ArchLinux "
 echo ""
 echo 'Нужна разметка диска?'
@@ -162,7 +166,10 @@ do
     :
 done
  if [[ $cfdisk == 1 ]]; then
-  read -p "Укажите диск (sda/sdb например sda) : " cfd
+   clear
+ lsblk -f
+  echo ""
+  read -p "Укажите диск (sda/sdb например sda или sdb) : " cfd
 cfdisk /dev/$cfd
 echo ""
 clear
@@ -172,15 +179,18 @@ elif [[ $cfdisk == 0 ]]; then
    echo 'разметка пропущена.'   
 fi
 #
-lsblk -f
-read -p "Укажите ROOT раздел(sda/sdb 1.2.3.4 (sda5 например)):" root
+  clear
+  lsblk -f
+  echo ""
+  read -p "Укажите ROOT раздел(sda/sdb 1.2.3.4 (sda5 например)):" root
 echo ""
 mkfs.ext4 /dev/$root -L root
 mount /dev/$root /mnt
 echo ""
 ########## boot  ########
-clear
-lsblk -f
+ clear
+ lsblk -f
+  echo ""
 echo 'форматируем BOOT?'
 while 
     read -n1 -p  "
@@ -203,8 +213,9 @@ done
 mount /dev/$bootd /mnt/boot
 fi
 ############ swap   ####################################################
-clear
-lsblk -f
+ clear
+ lsblk -f
+  echo ""
 echo 'добавим swap раздел?'
 while 
     read -n1 -p  "
@@ -224,8 +235,9 @@ done
    echo 'добавление swap раздела пропущено.'   
 fi
 ################  home     ############################################################ 
-clear
-lsblk -f
+ clear
+ lsblk -f
+  echo ""
 echo " Если у вас есть home раздел от предыдущей системы его можно не форматировать"
 echo " При указании пользователя укажите, то имя которое было ранее, тогда система сама восстановит home раздел "
 echo ""
@@ -266,8 +278,7 @@ done
     mount /dev/$home /mnt/home
   fi
 ###################  раздел  ###############################################################
-clear
-lsblk -f
+ clear
 echo 'Добавим разделы  Windows (ntfs/fat32)?'
 while 
     read -n1 -p  "
@@ -298,6 +309,9 @@ done
 if [[ $diskC == 0 ]]; then
   echo 'пропущено'
   elif [[ $diskC == 1 ]]; then
+   clear
+ lsblk -f
+  echo ""
   read -p " Укажите диск "C" раздел(sda/sdb 1.2.3.4 (sda4 например) ) : " diskCc
   mkdir /mnt/C 
   mount /dev/$diskCc /mnt/C
@@ -315,6 +329,9 @@ do
     :
 done
 if [[ $diskD == 1 ]]; then
+ clear
+ lsblk -f
+  echo ""
   read -p " Укажите диск "D" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDd
   mkdir /mnt/D 
   mount /dev/$diskDd /mnt/D
@@ -334,6 +351,9 @@ do
     :
 done
  if [[ $diskE == 1 ]]; then
+  clear
+ lsblk -f
+  echo ""
   read -p " Укажите диск "E" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDe
   mkdir /mnt/E 
   mount /dev/$diskDe /mnt/E
@@ -383,9 +403,11 @@ do
     :
 done
  if [[ $x_pacstrap == 1 ]]; then
+  clear
  pacstrap /mnt base  base-devel wget  efibootmgr iw   wpa_supplicant dialog
  genfstab -U /mnt >> /mnt/etc/fstab
   elif [[ $x_pacstrap == 0 ]]; then
+   clear
   pacstrap /mnt base  base-devel wget efibootmgr iw 
   genfstab -U /mnt >> /mnt/etc/fstab
   fi 
@@ -441,20 +463,27 @@ do
    :
 done
  if [[ $cfdisk == 1 ]]; then
+  clear
+ lsblk -f
+  echo ""
 read -p " Укажите диск (sda/sdb/sdc) " cfd
 cfdisk /dev/$cfd
 elif [[ $cfdisk == 0 ]]; then
 echo 'разметка пропущена.'   
 fi
 #
+ clear
+ lsblk -f
+  echo ""
 read -p "Укажите ROOT раздел(sda/sdb 1.2.3.4 (sda5 например)):" root
 echo ""
 mkfs.ext4 /dev/$root -L root
 mount /dev/$root /mnt
 echo ""     
 ##
-clear
-lsblk -f  
+ clear
+ lsblk -f
+  echo ""
 echo ' добавим и отформатируем BOOT?'
 echo " Если производиться установка, и у вас уже имеется бут раздел от предыдущей системы "
 echo " тогда вам необходимо его форматировать "1", если у вас бут раздел не вынесен на другой раздел тогда "
@@ -478,7 +507,9 @@ done
  echo " продолжим дальше "
 fi   
 ###
-lsblk -f
+ clear
+ lsblk -f
+  echo ""
 echo 'добавим swap раздел?'
 while 
     read -n1 -p  "
@@ -498,8 +529,9 @@ done
    echo 'добавление swap раздела пропущено.'   
 fi  
 ###  
-clear
-lsblk -f
+ clear
+ lsblk -f
+  echo ""
 echo ' Форматируем home раздел?'
 echo ""
 echo " Если у вас есть home раздел от предыдущей системы его можно не форматировать"
@@ -540,6 +572,7 @@ done
     mount /dev/$home /mnt/home
   fi
 ###################  раздел  ###############################################################
+ clear
 echo 'Добавим разделы  Windows (ntfs/fat32)?'
 while 
     read -n1 -p  "
@@ -569,7 +602,10 @@ done
 if [[ $diskC == 0 ]]; then
   echo 'пропущено'
   elif [[ $diskC == 1 ]]; then
-  read -p " Укажите диск "C" раздел(sda/sdb 1.2.3.4 (sda4 например) ) : " diskCc
+   clear
+ lsblk -f
+  echo ""
+  ead -p " Укажите диск "C" раздел(sda/sdb 1.2.3.4 (sda4 например) ) : " diskCc
   mkdir /mnt/C 
   mount /dev/$diskCc /mnt/C
   fi
@@ -586,6 +622,9 @@ do
     :
 done
 if [[ $diskD == 1 ]]; then
+   clear
+ lsblk -f
+  echo ""
   read -p " Укажите диск "D" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDd
   mkdir /mnt/D 
   mount /dev/$diskDd /mnt/D
@@ -605,6 +644,9 @@ do
     :
 done
  if [[ $diskE == 1 ]]; then
+   clear
+ lsblk -f
+  echo ""
   read -p " Укажите диск "E" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDe
   mkdir /mnt/E 
   mount /dev/$diskDe /mnt/E
@@ -616,7 +658,7 @@ done
 echo ""
 echo " Данный этап можно пропустить если не уверены в своем выборе!!! " 
 echo " "
-echo 'Сменим зеркала  для увеличения скорости загрузки пакетов?'
+echo 'Сменим зеркала (reflector) для увеличения скорости загрузки пакетов?'
 while 
     read -n1 -p  "
     1 - да
@@ -636,6 +678,7 @@ reflector --verbose -l 15 --sort rate --save /etc/pacman.d/mirrorlist
 fi
 pacman -Sy --noconfirm
  ################################################################################### 
+ clear
 echo ""
  echo " Если у вас есть wifi модуль и вы сейчас его не используете, то для "
  echo " исключения ошибок в работе системы рекомендую "1" " 
@@ -652,9 +695,11 @@ do
     :
 done
  if [[ $x_pacstrap == 1 ]]; then
+  clear
   pacstrap /mnt base  base-devel wget wpa_supplicant dialog
   genfstab -pU /mnt >> /mnt/etc/fstab
 elif [[ $x_pacstrap == 0 ]]; then
+  clear
   pacstrap /mnt base  base-devel wget 
   genfstab -pU /mnt >> /mnt/etc/fstab
 fi 
