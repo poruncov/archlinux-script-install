@@ -554,16 +554,20 @@ echo ""
 echo " Нужны программы для работы с архивами? "
 while 
     read -n1 -p  "
-    1 - да  
+    1 - ark ( Plasma(kde)- так же можно и для другого de )  
+    
+    2 - file-roller легковесный архиватор ( для xfce-lxqt-lxde-gnome ) 
     
     0 - нет : " i_zip   # sends right after the keypress
     echo ''
-    [[ "$i_zip" =~ [^10] ]]
+    [[ "$i_zip" =~ [^120] ]]
 do
     :
 done
 if [[ $i_zip  == 1 ]]; then
 pacman -Sy unzip unrar  lha ark --noconfirm
+elif [[ $i_zip == 2 ]]; then
+pacman -Sy unzip unrar lha file-roller p7zip unace lrzip  --noconfirm  
 elif [[ $i_zip == 0 ]]; then
 echo " Установка пропущена "
 fi
