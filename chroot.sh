@@ -6,6 +6,8 @@ pacman -Syyu  --noconfirm
 echo ""
 read -p "Введите имя компьютера: " hostname
 echo ""
+echo " Используйте в иени только буквы латинского алфавита "
+echo ""
 read -p "Введите имя пользователя: " username
 
 echo $hostname > /etc/hostname
@@ -1392,4 +1394,4 @@ elif [[ $vm_text == 1 ]]; then
   chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
 exit
 fi  
-exit
+
