@@ -432,16 +432,19 @@ if [[ $int == 1 ]]; then
   echo 'ARCH-LINUX chroot' 
   echo '1. проверь  интернет для продолжения установки в черуте || 2. chmod +x chroot.sh || 3.команда для запуска ./chroot.sh ' 
   arch-chroot /mnt      
-  elif [[ $int == 2 ]]; then
-  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh)"
-fi
-
 echo "################################################################"
 echo "###################    T H E   E N D      ######################"
 echo "################################################################"
 umount -a
 reboot  
-
+  elif [[ $int == 2 ]]; then
+  arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh)"
+echo "################################################################"
+echo "###################    T H E   E N D      ######################"
+echo "################################################################"
+umount -a
+reboot  
+fi
 #####################################
 #####################################
 ## часть вторая
@@ -726,15 +729,22 @@ if [[ $int == 1 ]]; then
   echo 'ARCH-LINUX chroot' 
   echo '1. проверь  интернет для продолжения установки в черуте || 2. chmod +x chroot.sh || 3.команда для запуска ./chroot.sh ' 
   arch-chroot /mnt      
+echo "################################################################"
+echo "###################    T H E   E N D      ######################"
+echo "################################################################"
+umount -a
+reboot    
   elif [[ $int == 2 ]]; then
   arch-chroot /mnt sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh)"
-fi
-
 echo "################################################################"
 echo "###################    T H E   E N D      ######################"
 echo "################################################################"
 umount -a
 reboot  
+
+fi
+
+
 ##############################################
 elif [[ $menu == 0 ]]; then
 exit
