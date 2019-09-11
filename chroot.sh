@@ -156,31 +156,6 @@ elif [[ $wm_sity == 0 ]]; then
 clear
 echo " Этап пропущен "
 echo ""
-echo " Укажим свой вариант? "
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " i_sity2      # sends right after the keypress
-    echo ''
-    [[ "$i_sity2" =~ [^10] ]]
-do
-    :
-done
-if [[ $i_sity2 == 0 ]]; then
-clear
-echo " Этап пропущен "
-elif [[ $i_sity2 == 1 ]]; then
-echo " Укажите свой вариант "
-echo ""
-echo " пример: ln -sf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime    "
-echo ""
-echo " По окончанию действий введите 'exit' "
-echo ""
-echo "####################################################################"
-echo ""
-bash
-fi  
 fi
 #####################################
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
