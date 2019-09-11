@@ -32,52 +32,155 @@ echo " очистка завершена "
 fi  
 #####################################
 echo " Настроим localtime "
-while 
-    read -n1 -p  "
-    1 - Москва
+echo ""
+echo " Укажите город(1-27) и нажмите Enter  "
+ while 
+    read   -p  "
+    1 - Калининград        14 - Красноярск
     
-    2 - Минск
+    2 - Киев               15 - Магадан
     
-    3 - Екатеринбург
+    3 - Киров              16 - Новокузнецк
     
-    4 - Киев
+    4 - Минск              17 - Новосибирск
     
-    5 - Якутск
+    5 - Москва             18 - Омск
     
-    6 - Саратов
+    6 - Самара             19 - Уральск
     
-    7-  Новосибирск
+    7 - Саратов            20 - Алматы
+    
+    8 - Ульяновск          21 - Среднеколымск
 
-    0 - пропустить(если нет вашего варианта) : " wm_time 
+    9 - Запарожье          22 - Ташкент
+
+    10 - Чита              23 - Тбилиси
+    
+    11 - Иркутск           24 - Томск
+    
+    12 - Стамбул           25 - Якутск
+    
+    13 - Камчатка          26 - Екатеринбург
+    
+                27 - Ереван
+
+
+0 - пропустить  : " wm_sity 
     echo ''
-    [[ "$wm_time" =~ [^12345670] ]]
+    [[ $wm_sity -lt 0 ||$wm_sity -gt 27 || "$wm_sity" =~ [^12345670] ]]
 do
     :
 done
-if [[ $wm_time == 1 ]]; then
-ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-echo " Москва "
-elif [[ $wm_time == 2 ]]; then
-ln -sf /usr/share/zoneinfo/Europe/Minsk /etc/localtime
-echo "Минск"
-elif [[ $wm_time == 3 ]]; then  
-ln -sf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
-echo " Екатеринбург "
-elif [[ $wm_time == 4 ]]; then 
-ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime 
-echo " Киев " 
-elif [[ $wm_time == 5 ]]; then
-ln -sf /usr/share/zoneinfo/Asia/Yakutsk /etc/localtime
-echo " Якутск "
-elif [[ $wm_time == 6 ]]; then
-ln -sf /usr/share/zoneinfo/Europe/Saratov /etc/localtime
-echo " Саратов "
-elif [[ $wm_time == 7 ]]; then 
-ln -sf /usr/share/zoneinfo/Asia/Novosibirsk /etc/localtime
-echo " Новосибирск "
-elif [[ $wm_time == 0 ]]; then 
+if [[ $wm_sity == 1 ]]; then
+   ln -sf /usr/share/zoneinfo/Europe/Kaliningrad /etc/localtime
+    echo " Калиниград "
+elif [[ $wm_sity == 2 ]]; then
+  ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
+    echo " Киев  "
+elif [[ $wm_sity == 3 ]]; then
+   ln -sf /usr/share/zoneinfo/Europe/Kirov /etc/localtime
+    echo " Киров  "
+elif [[ $wm_sity == 4 ]]; then
+    ln -sf /usr/share/zoneinfo/Europe/Minsk /etc/localtime
+    echo " Минск  "
+elif [[ $wm_sity == 5 ]]; then
+    ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+    echo " Москва  "
+elif [[ $wm_sity == 6 ]]; then
+    ln -sf /usr/share/zoneinfo/Europe/Samara /etc/localtime
+    echo " Самара   "
+elif [[ $wm_sity == 7 ]]; then
+    ln -sf /usr/share/zoneinfo/Europe/Saratov /etc/localtime
+    echo " Саратов   "
+elif [[ $wm_sity == 8 ]]; then
+   ln -sf /usr/share/zoneinfo/Europe/Ulyanovsk /etc/localtime
+    echo " Ульяновск  "
+elif [[ $wm_sity == 9 ]]; then
+    ln -sf /usr/share/zoneinfo/Europe/Zaporozhye /etc/localtime
+    echo " Запорожье "
+elif [[ $wm_sity == 10 ]]; then
+   ln -sf /usr/share/zoneinfo/Asia/Chita /etc/localtime
+    echo " Чита "
+elif [[ $wm_sity == 11 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Irkutsk /etc/localtime
+    echo " Иркутск  "
+elif [[ $wm_sity == 12 ]]; then
+   ln -sf /usr/share/zoneinfo/Asia/Istanbul /etc/localtime
+    echo " Стамбул  "
+elif [[ $wm_sity == 13 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Kamchatka /etc/localtime
+    echo " Камчатка "
+elif [[ $wm_sity == 14 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Krasnoyarsk /etc/localtime
+    echo " Красноярск "
+elif [[ $wm_sity == 15 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Magadan /etc/localtime
+    echo " Магадан   "
+elif [[ $wm_sity == 16 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Novokuznetsk /etc/localtime
+    echo " Новокузнецк   "
+elif [[ $wm_sity == 17 ]]; then
+   ln -sf /usr/share/zoneinfo/Asia/Novosibirsk /etc/localtime
+    echo " Новосибирск  "
+elif [[ $wm_sity == 18 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Omsk /etc/localtime
+    echo " Омск "
+elif [[ $wm_sity == 19 ]]; then
+   ln -sf /usr/share/zoneinfo/Asia/Oral /etc/localtime
+    echo " Уральск "
+elif [[ $wm_sity == 20 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Almaty /etc/localtime
+    echo " Алматы  "
+elif [[ $wm_sity == 21 ]]; then
+   ln -sf /usr/share/zoneinfo/Asia/Srednekolymsk /etc/localtime
+    echo " Среднеколымск  "
+elif [[ $wm_sity == 22 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Tashkent /etc/localtime
+    echo " Ташкент "
+elif [[ $wm_sity == 23 ]]; then
+   ln -sf /usr/share/zoneinfo/Asia/Tbilisi /etc/localtime
+    echo " Тбилиси "
+elif [[ $wm_sity == 24 ]]; then
+   ln -sf /usr/share/zoneinfo/Asia/Tomsk /etc/localtime
+    echo " Томск   "
+elif [[ $wm_sity == 25 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Yakutsk /etc/localtime
+    echo " Якутск   "
+elif [[ $wm_sity == 26 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
+    echo " Екатеринбург "
+elif [[ $wm_sity == 27 ]]; then
+    ln -sf /usr/share/zoneinfo/Asia/Yerevan /etc/localtime
+    echo " Ереван "
+elif [[ $wm_sity == 0 ]]; then
 clear
-echo  " этап пропущен " 
+echo " Этап пропущен "
+echo ""
+echo " Укажим свой вариант? "
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " i_sity2      # sends right after the keypress
+    echo ''
+    [[ "$i_sity2" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_sity2 == 0 ]]; then
+clear
+echo " Этап пропущен "
+elif [[ $i_sity2 == 1 ]]; then
+echo " Укажите свой вариант "
+echo ""
+echo " пример: ln -sf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime    "
+echo ""
+echo " По окончанию действий введите 'exit' "
+echo ""
+echo "####################################################################"
+echo ""
+bash
+fi  
 fi
 #####################################
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
