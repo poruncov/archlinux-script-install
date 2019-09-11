@@ -190,7 +190,7 @@ echo 'LANG="ru_RU.UTF-8"' > /etc/locale.conf
 echo "KEYMAP=ru" >> /etc/vconsole.conf
 echo "FONT=cyr-sun16" >> /etc/vconsole.conf
 echo ""
-echo " Укажите пароль для "ROOT" "
+echo " Укажите пароль для 'ROOT' "
 passwd
 
 echo ""
