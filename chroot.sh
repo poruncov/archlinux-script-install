@@ -8,7 +8,6 @@ read -p "Введите имя компьютера: " hostname
 echo ""
 read -p "Введите имя пользователя: " username
 
-echo 'Прописываем имя компьютера'
 echo $hostname > /etc/hostname
 echo ""
 echo " Очистим папку конфигов, кеш, и скрытые каталоги в /home/$username от старой системы ? "
