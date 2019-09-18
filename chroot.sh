@@ -1395,3 +1395,6 @@ elif [[ $vm_text == 1 ]]; then
 exit
 fi  
 
+exit
+
+exit
