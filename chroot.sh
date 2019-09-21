@@ -950,6 +950,117 @@ fi
 ###############################################################################
 pacman -S  ttf-arphic-ukai git ttf-liberation ttf-dejavu ttf-arphic-uming ttf-fireflysung ttf-sazanami --noconfirm
 clear
+echo "################################################################"
+echo ""
+echo " Установим браузер? : "
+while 
+    read -n1 -p  "
+    1 - google-chrome 
+    
+    2 - firefox 
+    
+    3 - chromium
+    
+    4 - установить все
+    
+    0 - пропустить: " g_chrome # sends right after the keypress
+    echo ''
+    [[ "$g_chrome" =~ [^12340] ]]
+do
+    :
+done
+if [[ $g_chrome == 0 ]]; then
+  echo ' установка браузера пропущена после установки системы вы сможете установить браузер на свой усмотрение!!!!' 
+elif [[ $g_chrome == 1 ]]; then
+cd /home/$username   
+git clone https://aur.archlinux.org/google-chrome.git
+chown -R $username:users /home/$username/google-chrome 
+chown -R $username:users /home/$username/google-chrome/PKGBUILD 
+cd /home/$username/google-chrome  
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/google-chrome
+clear
+elif [[ $g_chrome == 2 ]]; then
+pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
+clear
+elif [[ $g_chrome == 3 ]]; then
+pacman -S chromium --noconfirm 
+elif [[ $g_chrome == 4 ]]; then
+pacman -S chromium firefox firefox-developer-edition-i18n-ru --noconfirm 
+cd /home/$username   
+git clone https://aur.archlinux.org/google-chrome.git
+chown -R $username:users /home/$username/google-chrome 
+chown -R $username:users /home/$username/google-chrome/PKGBUILD 
+cd /home/$username/google-chrome  
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/google-chrome
+clear
+fi
+#############################################################################
+echo ""
+echo ""
+echo " установим офисный пакет для работы с документами? : "
+while 
+    read -n1 -p  "
+    1 - WPS-office 
+    
+    2 - libreoffice
+    
+    3 - onlyoffice
+    
+    0 - нет: " t_office # sends right after the keypress
+    echo ''
+    [[ "$t_office" =~ [^1230] ]]
+do
+    :
+done
+if [[ $t_office == 0 ]]; then
+    clear
+    echo ' установка пропущена ' 
+elif [[ $t_office == 1 ]]; then
+####    
+    cd /home/$username
+    git clone https://aur.archlinux.org/wps-office.git
+    chown -R $username:users /home/$username/wps-office
+    chown -R $username:users /home/$username/wps-office/PKGBUILD 
+    cd /home/$username/wps-office  
+    sudo -u $username  makepkg -si --noconfirm  
+    rm -Rf /home/$username/wps-office
+###########
+    cd /home/$username
+    git clone https://aur.archlinux.org/wps-office-mui-ru-ru.git
+    chown -R $username:users /home/$username/wps-office-mui-ru-ru
+    chown -R $username:users /home/$username/wps-office-mui-ru-ru/PKGBUILD 
+    cd /home/$username/wps-office-mui-ru-ru  
+    sudo -u $username  makepkg -si --noconfirm  
+    rm -Rf /home/$username/wps-office-mui-ru-ru
+####
+    cd /home/$username
+    git clone https://aur.archlinux.org/ttf-wps-win10.git
+    chown -R $username:users /home/$username/ttf-wps-win10
+    chown -R $username:users /home/$username/ttf-wps-win10/PKGBUILD 
+    cd /home/$username/ttf-wps-win10  
+    sudo -u $username  makepkg -si --noconfirm  
+    rm -Rf /home/$username/ttf-wps-win10
+####
+clear
+echo " установка WPS office завершена "
+elif [[ $t_office == 2 ]]; then
+pacman -S libreoffice-still libreoffice-still-ru --noconfirm
+clear
+echo " установка libreoffice завершена "
+elif [[ $t_office == 3 ]]; then
+    cd /home/$username
+   git clone https://aur.archlinux.org/onlyoffice-bin.git
+    chown -R $username:users /home/$username/onlyoffice-bin
+    chown -R $username:users /home/$username/onlyoffice-bin/PKGBUILD 
+    cd /home/$username/onlyoffice-bin 
+    sudo -u $username  makepkg -si --noconfirm  
+    rm -Rf /home/$username/onlyoffice-bin
+clear 
+echo " установка onlyoffice завершена "
+fi
+#############################################################################
 echo ""
 echo " Установим ssh(клиент) для удаленного доступа ? : "
 while 
@@ -987,7 +1098,6 @@ systemctl enable sshd.service
 clear
 fi
 fi
-echo "#############################################################################"
 echo "######    ZSH   #####"
 echo ""
 echo " установим zsh(такой же, как и в установочном образе Archlinux) или оставим Bash по умолчанию ? "
@@ -1078,53 +1188,6 @@ sudo -u $username  makepkg -si --noconfirm
 rm -Rf /home/$username/yay
 clear
 fi
-
-echo "################################################################"
-echo ""
-echo " Установим браузер? : "
-while 
-    read -n1 -p  "
-    1 - google-chrome 
-    
-    2 - firefox 
-    
-    3 - chromium
-    
-    4 - установить все
-    
-    0 - пропустить: " g_chrome # sends right after the keypress
-    echo ''
-    [[ "$g_chrome" =~ [^12340] ]]
-do
-    :
-done
-if [[ $g_chrome == 0 ]]; then
-  echo ' установка браузера пропущена после установки системы вы сможете установить браузер на свой усмотрение!!!!' 
-elif [[ $g_chrome == 1 ]]; then
-cd /home/$username   
-git clone https://aur.archlinux.org/google-chrome.git
-chown -R $username:users /home/$username/google-chrome 
-chown -R $username:users /home/$username/google-chrome/PKGBUILD 
-cd /home/$username/google-chrome  
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/google-chrome
-clear
-elif [[ $g_chrome == 2 ]]; then
-pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
-clear
-elif [[ $g_chrome == 3 ]]; then
-pacman -S chromium --noconfirm 
-elif [[ $g_chrome == 4 ]]; then
-pacman -S chromium firefox firefox-developer-edition-i18n-ru --noconfirm 
-cd /home/$username   
-git clone https://aur.archlinux.org/google-chrome.git
-chown -R $username:users /home/$username/google-chrome 
-chown -R $username:users /home/$username/google-chrome/PKGBUILD 
-cd /home/$username/google-chrome  
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/google-chrome
-clear
-fi
 echo "################################################################"
 echo ""
 echo " Установим teamviewer для удаленного доступа ? : "
@@ -1178,7 +1241,7 @@ clear
 fi
 
 echo "################################################################"
-########
+echo ""
 echo " Установим woeusb (Программа для записи Windows.iso на USB-накопитель)  ? : "
 while 
     read -n1 -p  "
