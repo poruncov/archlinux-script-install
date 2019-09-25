@@ -445,7 +445,6 @@ echo 'Качаем и устанавливаем настройки Xfce'
   rm -rf /home/$username/.config/xfce4/panel/
   rm -rf /home/$username/.config/xfce4/*
   tar -xzf xfce4.tar.gz -C /home/$username
-  chown -R $username:users /home/$username/.config/xfce4/*
   echo 'Установка тем'
 #  
 cd /home/$username
@@ -576,7 +575,6 @@ echo 'Качаем и устанавливаем настройки Xfce'
   rm -rf /home/$username/.config/xfce4/panel/
   rm -rf /home/$username/.config/xfce4/*
   tar -xzf xfce4.tar.gz -C /home/$username
-  chown -R $username:users /home/$username/.config/xfce4/*
   echo 'Установка тем'
 #  
 cd /home/$username
@@ -702,7 +700,7 @@ do
     :
 done
 if [[ $i_audm  == 0 ]]; then
-
+echo " пропущено"
 elif [[ $i_audm == 1 ]]; then
 echo  autologin=$username  >> /etc/lxdm/lxdm.conf
 fi
