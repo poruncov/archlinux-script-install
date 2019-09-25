@@ -422,6 +422,81 @@ clear
 echo "Plasma KDE успешно установлена"
 elif [[ $x_de == 2 ]]; then
 pacman -S  xfce4 xfce4-goodies  --noconfirm
+##
+echo ""
+echo " Устанновим  оформление ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_thems   # sends right after the keypress
+    echo ''
+    [[ "$i_thems" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_thems  == 0 ]]; then
+echo " установка пропущена  "
+elif [[ $i_thems  == 1 ]]; then
+echo 'Скачать и установить конфиг и темы для XFCE?'
+echo 'Качаем и устанавливаем настройки Xfce'
+  cd /home/$username
+  wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/xfce/xfce4.tar.gz
+  rm -rf /home/$username/.config/xfce4/panel/
+  rm -rf /home/$username/.config/xfce4/*
+  tar -xzf xfce4.tar.gz -C /home/$username
+  chown -R $username:users /home/$username/.config/xfce4/*
+  echo 'Установка тем'
+#  
+cd /home/$username
+    git clone https://aur.archlinux.org/osx-arc-shadow.git
+    chown -R $username:users /home/$username/osx-arc-shadow
+    chown -R $username:users /home/$username/osx-arc-shadow/PKGBUILD 
+    cd /home/$username/osx-arc-shadow  
+    sudo -u $username  makepkg -si --noconfirm  
+    rm -Rf /home/$username/osx-arc-shadow
+clear
+#
+cd /home/$username
+    git clone https://aur.archlinux.org/papirus-icon-theme-git.git
+    chown -R $username:users /home/$username/papirus-icon-theme-git
+    chown -R $username:users /home/$username/papirus-icon-theme-git/PKGBUILD 
+    cd /home/$username/papirus-icon-theme-git
+    sudo -u $username  makepkg -si  --noconfirm
+    rm -Rf /home/$username/papirus-icon-theme-git
+clear
+#
+cd /home/$username
+    git clone https://aur.archlinux.org/papirus-maia-icon-theme-git.git
+    chown -R $username:users /home/$username/papirus-maia-icon-theme-git
+    chown -R $username:users /home/$username/papirus-maia-icon-theme-git/PKGBUILD 
+    cd /home/$username/papirus-maia-icon-theme-git
+    sudo -u $username  makepkg -si --noconfirm   
+    rm -Rf /home/$username/papirus-maia-icon-theme-git
+clear
+#
+cd /home/$username
+    git clone https://aur.archlinux.org/breeze-default-cursor-theme.git
+    chown -R $username:users /home/$username/breeze-default-cursor-theme
+    chown -R $username:users /home/$username/breeze-default-cursor-theme/PKGBUILD 
+    cd /home/$username/breeze-default-cursor-theme
+    sudo -u $username  makepkg -si --noconfirm  
+    rm -Rf /home/$username/breeze-default-cursor-theme
+clear
+#
+pacman -S capitaine-cursors galculator --noconfirm
+
+cd /home/$username
+    echo 'Ставим лого ArchLinux в меню'
+    https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/xfce/arch_logo.pnge
+    mv -f arch_logo.png /usr/share/pixmaps/arch_logo.png
+    
+    wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/xfce/arch-d.jpg
+    rm -rf /usr/share/backgrounds/xfce/* #Удаляем стандартрые обои
+    mv -f arch-d.jpg /usr/share/backgrounds/xfce/bg.jpg
+
+fi
+##
 clear
 echo "Xfce успешно установлено"
 elif [[ $x_de == 3 ]]; then
@@ -479,6 +554,79 @@ clear
 echo "Plasma KDE успешно установлена"
 elif [[ $x_de2 == 2 ]]; then
 pacman -S  xfce4 xfce4-goodies  --noconfirm
+echo ""
+echo " Устанновим  оформление ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_thems   # sends right after the keypress
+    echo ''
+    [[ "$i_thems" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_thems  == 0 ]]; then
+echo " установка пропущена  "
+elif [[ $i_thems  == 1 ]]; then
+echo 'Скачать и установить конфиг и темы для XFCE?'
+echo 'Качаем и устанавливаем настройки Xfce'
+  cd /home/$username
+  wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/xfce/xfce4.tar.gz
+  rm -rf /home/$username/.config/xfce4/panel/
+  rm -rf /home/$username/.config/xfce4/*
+  tar -xzf xfce4.tar.gz -C /home/$username
+  chown -R $username:users /home/$username/.config/xfce4/*
+  echo 'Установка тем'
+#  
+cd /home/$username
+    git clone https://aur.archlinux.org/osx-arc-shadow.git
+    chown -R $username:users /home/$username/osx-arc-shadow
+    chown -R $username:users /home/$username/osx-arc-shadow/PKGBUILD 
+    cd /home/$username/osx-arc-shadow  
+    sudo -u $username  makepkg -si --noconfirm  
+    rm -Rf /home/$username/osx-arc-shadow
+clear
+#
+cd /home/$username
+    git clone https://aur.archlinux.org/papirus-icon-theme-git.git
+    chown -R $username:users /home/$username/papirus-icon-theme-git
+    chown -R $username:users /home/$username/papirus-icon-theme-git/PKGBUILD 
+    cd /home/$username/papirus-icon-theme-git
+    sudo -u $username  makepkg -si  --noconfirm
+    rm -Rf /home/$username/papirus-icon-theme-git
+clear
+#
+cd /home/$username
+    git clone https://aur.archlinux.org/papirus-maia-icon-theme-git.git
+    chown -R $username:users /home/$username/papirus-maia-icon-theme-git
+    chown -R $username:users /home/$username/papirus-maia-icon-theme-git/PKGBUILD 
+    cd /home/$username/papirus-maia-icon-theme-git
+    sudo -u $username  makepkg -si --noconfirm   
+    rm -Rf /home/$username/papirus-maia-icon-theme-git
+clear
+#
+cd /home/$username
+    git clone https://aur.archlinux.org/breeze-default-cursor-theme.git
+    chown -R $username:users /home/$username/breeze-default-cursor-theme
+    chown -R $username:users /home/$username/breeze-default-cursor-theme/PKGBUILD 
+    cd /home/$username/breeze-default-cursor-theme
+    sudo -u $username  makepkg -si --noconfirm  
+    rm -Rf /home/$username/breeze-default-cursor-theme
+clear
+#
+pacman -S capitaine-cursors galculator --noconfirm
+
+cd /home/$username
+    echo 'Ставим лого ArchLinux в меню'
+    https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/xfce/arch_logo.pnge
+    mv -f arch_logo.png /usr/share/pixmaps/arch_logo.png
+    
+    wget https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/xfce/arch-d.jpg
+    rm -rf /usr/share/backgrounds/xfce/* #Удаляем стандартрые обои
+    mv -f arch-d.jpg /usr/share/backgrounds/xfce/bg.jpg
+
+fi
 clear
 echo "Xfce успешно установлено"
 elif [[ $x_de2 == 3 ]]; then
@@ -540,7 +688,26 @@ clear
 echo " установка sddm  завершена "
 elif [[ $i_dm == 2 ]]; then
 pacman -S lxdm --noconfirm
+clear
+echo ""
+echo " Включим автовход в систему? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_audm   # sends right after the keypress
+    echo ''
+    [[ "$i_audm" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_audm  == 0 ]]; then
+
+elif [[ $i_audm == 1 ]]; then
+echo  autologin=$username  >> /etc/lxdm/lxdm.conf
+fi
 systemctl enable lxdm.service -f
+
 clear
 echo " установка lxdm завершена "
 elif [[ $i_dm == 3 ]]; then
@@ -765,7 +932,7 @@ echo " Установка завершена "
 fi  
 echo "#############################################################################"
 echo ""
-echo " gwenview - программа для просмотра изображений  "
+echo " gwenview - программа для просмотра изображений для gnome и xfce есть собственное  "
 while 
     read -n1 -p  "
     1 - да
@@ -1457,7 +1624,8 @@ elif [[ $vm_text == 1 ]]; then
   chown -R $username:users  /home/$username/{Downloads,Music,Pictures,Videos,Documents,time}
 exit
 fi  
-
+clear 
+echo " Установка завершена для выхода введите >> exit << "
+echo " Или можете продолжить настройку системы в CHROOT "
 exit
 
-exit
