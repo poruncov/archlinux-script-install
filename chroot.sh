@@ -540,26 +540,7 @@ clear
 echo " установка sddm  завершена "
 elif [[ $i_dm == 2 ]]; then
 pacman -S lxdm --noconfirm
-clear
-echo ""
-echo " Включим автовход в систему? "
-while 
-    read -n1 -p  "
-    1 - да  
-    
-    0 - нет : " i_audm   # sends right after the keypress
-    echo ''
-    [[ "$i_audm" =~ [^10] ]]
-do
-    :
-done
-if [[ $i_audm  == 0 ]]; then
-echo " пропущено"
-elif [[ $i_audm == 1 ]]; then
-echo  autologin=$username  >> /etc/lxdm/lxdm.conf
-fi
 systemctl enable lxdm.service -f
-
 clear
 echo " установка lxdm завершена "
 elif [[ $i_dm == 3 ]]; then
@@ -1047,12 +1028,12 @@ elif [[ $t_office == 1 ]]; then
     rm -Rf /home/$username/wps-office
 ###########
     cd /home/$username
-    git clone https://aur.archlinux.org/wps-office-mui-ru-ru.git
-    chown -R $username:users /home/$username/wps-office-mui-ru-ru
-    chown -R $username:users /home/$username/wps-office-mui-ru-ru/PKGBUILD 
-    cd /home/$username/wps-office-mui-ru-ru  
+git clone https://aur.archlinux.org/wps-office-extension-russian-dictionary.git
+    chown -R $username:users /home/$username/wps-office-extension-russian-dictionary
+    chown -R $username:users /home/$username/wps-office-extension-russian-dictionary/PKGBUILD 
+    cd /home/$username/wps-office-extension-russian-dictionary
     sudo -u $username  makepkg -si --noconfirm  
-    rm -Rf /home/$username/wps-office-mui-ru-ru
+    rm -Rf /home/$username/wps-office-extension-russian-dictionary
 ####
     cd /home/$username
     git clone https://aur.archlinux.org/ttf-wps-win10.git
