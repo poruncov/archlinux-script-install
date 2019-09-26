@@ -421,7 +421,7 @@ pacman -R konqueror --noconfirm
 clear
 echo "Plasma KDE успешно установлена"
 elif [[ $x_de == 2 ]]; then
-pacman -S  xfce4 xfce4-goodies  --noconfirm
+pacman -S  xfce4  pavucontrol xfce4-goodies  --noconfirm
 clear
 echo "Xfce успешно установлено"
 elif [[ $x_de == 3 ]]; then
@@ -478,7 +478,7 @@ pacman -R konqueror --noconfirm
 clear
 echo "Plasma KDE успешно установлена"
 elif [[ $x_de2 == 2 ]]; then
-pacman -S  xfce4 xfce4-goodies  --noconfirm
+pacman -S  xfce4 pavucontrol xfce4-goodies  --noconfirm
 clear
 echo "Xfce успешно установлено"
 elif [[ $x_de2 == 3 ]]; then
@@ -1478,6 +1478,5 @@ exit
 fi  
 clear 
 echo " Установка завершена для выхода введите >> exit << "
-echo " Или можете продолжить настройку системы в CHROOT "
 exit
 
