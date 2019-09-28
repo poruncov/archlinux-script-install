@@ -406,10 +406,12 @@ while
     6 - Mate
 
     7 - Lxqt
+    
+    8 - i3 ( exec i3, нету нужды устанавливать DM, конфиги стандартные )
 
     0 - пропустить " x_de
     echo ''
-    [[ "$x_de" =~ [^12345670] ]]
+    [[ "$x_de" =~ [^123456780] ]]
 do
     :
 done
@@ -444,6 +446,10 @@ elif [[ $x_de == 7 ]]; then
 pacman -S lxqt lxqt-qtplugin lxqt-themes oxygen-icons xscreensaver --noconfirm
 clear
 echo " Lxqt успешно установлен "
+elif [[ $x_de == 8 ]]; then
+pacman -S i3 i3-wm i3status dmenu --noconfirm
+echo " exec i3 " >> /root/.xinitrc
+echo " exec i3 " >> /home/$username/.xinitrc
 fi
 ####
 echo ""
@@ -463,10 +469,12 @@ while
     6 - Mate
 
     7 - Lxqt
+    
+    8 - i3 ( exec i3, нету нужды устанавливать DM, конфиги стандартные )
 
     0 - пропустить " x_de2
     echo ''
-    [[ "$x_de2" =~ [^12345670] ]]
+    [[ "$x_de2" =~ [^123456780] ]]
 do
     :
 done
@@ -501,10 +509,15 @@ elif [[ $x_de2 == 7 ]]; then
 pacman -S lxqt lxqt-qtplugin lxqt-themes --noconfirm
 clear
 echo " Lxqt успешно установлен "
+elif [[ $x_de2 == 8 ]]; then
+pacman -S i3 i3-wm i3status dmenu --noconfirm
+echo " exec i3 " >> /root/.xinitrc
+echo " exec i3 " >> /home/$username/.xinitrc
 fi
 echo "#####################################################################"
 echo ""
 echo " 
+echo " При установке i3 можно без dm " 
 Arch-wiki рекоендует для: 
 kde    <-> sddm
 Lxqt   <-> sddm
@@ -961,11 +974,13 @@ while
     
     3 - chromium
     
-    4 - установить все
+    4 - opera ( + pepper-flash )
+    
+    5 - установить все
     
     0 - пропустить: " g_chrome # sends right after the keypress
     echo ''
-    [[ "$g_chrome" =~ [^12340] ]]
+    [[ "$g_chrome" =~ [^123450] ]]
 do
     :
 done
@@ -986,7 +1001,9 @@ clear
 elif [[ $g_chrome == 3 ]]; then
 pacman -S chromium --noconfirm 
 elif [[ $g_chrome == 4 ]]; then
-pacman -S chromium firefox firefox-developer-edition-i18n-ru --noconfirm 
+pacman -S opera pepper-flash --noconfirm 
+elif [[ $g_chrome == 5 ]]; then
+pacman -S chromium opera pepper-flash firefox firefox-developer-edition-i18n-ru --noconfirm 
 cd /home/$username   
 git clone https://aur.archlinux.org/google-chrome.git
 chown -R $username:users /home/$username/google-chrome 
