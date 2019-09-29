@@ -456,6 +456,7 @@ mkdir /etc/systemd/system/getty@tty1.service.d/
 echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
 echo  " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
 echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo "startx" >> /etc/profile
 fi
 ####
 echo ""
@@ -525,6 +526,7 @@ mkdir /etc/systemd/system/getty@tty1.service.d/
 echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
 echo  " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
 echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo "startx" >> /etc/profile
 fi
 echo "#####################################################################"
 echo ""
