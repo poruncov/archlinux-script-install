@@ -576,7 +576,7 @@ do
     :
 done
 if [[ $i_network  == 1 ]]; then
-pacman -Sy networkmanager  network-manager-applet ppp --noconfirm
+pacman -Sy networkmanager networkmanager-openvpn network-manager-applet ppp --noconfirm
 systemctl enable NetworkManager.service
 elif [[ $i_network  == 0 ]]; then
 echo " Установка NetworkManager пропущена "
