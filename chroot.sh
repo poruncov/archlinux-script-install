@@ -684,7 +684,7 @@ echo ""
 echo " 
 flameshot
 filezilla 
-htop
+htop 
 gparted
 neofetch
 screenfetch
@@ -749,7 +749,9 @@ echo " установка gvfs-afc gvfs-mtp  завершена "
 fi
 echo "#############################################################################"
 echo ""
-echo " htop--диспетер задач для linux "
+echo " htop--диспетер задач для linux  "
+echo " "
+echo " При установке для i3 терминал xterm по умолчанию " 
 while 
     read -n1 -p  "
     1 - да 
