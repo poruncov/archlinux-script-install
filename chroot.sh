@@ -710,7 +710,7 @@ if [[ $i_prog == 0 ]]; then
 clear
 echo " Установка пропущена "
 elif [[ $i_prog == 1 ]]; then
-pacman -S flameshot filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  gvfs-mtp gvfs-afc  telegram-desktop     --noconfirm
+pacman -S flameshot blueman filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  gvfs-mtp gvfs-afc  telegram-desktop     --noconfirm
 clear
 echo " установка завершена "
 elif [[ $i_prog == 2 ]]; then
@@ -775,7 +775,7 @@ fi
 
 echo "#############################################################################"
 echo ""
-echo " htop--диспетер задач для linux  "
+echo " htop--диспетчер задач для linux  "
 echo " "
 echo " При установке для i3 терминал xterm по умолчанию " 
 while 
