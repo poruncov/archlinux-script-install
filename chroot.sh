@@ -686,6 +686,7 @@ flameshot
 filezilla 
 htop 
 gparted
+blueman
 neofetch
 screenfetch
 gwenview
@@ -747,6 +748,31 @@ pacman -S gvfs-afc gvfs-mtp --noconfirm
 clear
 echo " установка gvfs-afc gvfs-mtp  завершена "
 fi
+echo "#############################################################################"
+echo ""
+echo " blueman --диспетчер blutooth устройств  "
+echo " "
+echo " полезно для i3 " 
+while 
+    read -n1 -p  "
+    1 - да 
+    
+    0 - нет: " i_blu # sends right after the keypress
+    echo ''
+    [[ "$i_blu" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_blu == 0 ]]; then
+clear
+echo " Установка пропущена "
+elif [[ $i_blu == 1 ]]; then
+pacman -S blueman --noconfirm
+clear
+echo " установка blueman завершена "
+fi
+
+
 echo "#############################################################################"
 echo ""
 echo " htop--диспетер задач для linux  "
