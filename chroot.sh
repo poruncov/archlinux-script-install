@@ -449,6 +449,8 @@ echo " Lxqt успешно установлен "
 elif [[ $x_de == 8 ]]; then
 pacman -S i3 i3-wm i3status  xorg-xinit dmenu --noconfirm
 cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
 echo " exec i3 " >> /home/$username/.xinitrc
 fi
 ####
@@ -513,6 +515,8 @@ elif [[ $x_de2 == 8 ]]; then
 pacman -S i3 i3-wm i3status  xorg-xinit dmenu --noconfirm
 cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
 echo " exec i3 " >> /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
 fi
 echo "#####################################################################"
 echo ""
