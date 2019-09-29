@@ -452,6 +452,10 @@ cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
 chown $username:users /home/$username/.xinitrc
 chmod +x /home/$username/.xinitrc
 echo " exec i3 " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo  " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
 fi
 ####
 echo ""
@@ -514,9 +518,13 @@ echo " Lxqt успешно установлен "
 elif [[ $x_de2 == 8 ]]; then
 pacman -S i3 i3-wm i3status  xorg-xinit dmenu --noconfirm
 cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
-echo " exec i3 " >> /home/$username/.xinitrc
 chown $username:users /home/$username/.xinitrc
 chmod +x /home/$username/.xinitrc
+echo " exec i3 " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo  " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
 fi
 echo "#####################################################################"
 echo ""
