@@ -21,8 +21,8 @@ type=linux для других разделов будущей системы ( 
 Legacy
 type=linux для других разделов будущей системы ( root/swap(type=swap)/home раздела ) 
 
-De--- на выбор KDE Lxde Xfce Gnome Lxqt Mate
-Dm--- на выбор sddm lxdm gdm 
+De ---> на выбор KDE Lxde Xfce Gnome Lxqt Mate i3 
+Dm ---> на выбор sddm lxdm gdm 
 "
 #####
 echo " готовы приступить?  "
@@ -381,8 +381,10 @@ done
 pacman -S reflector --noconfirm
 reflector --verbose -l 50 -p http --sort rate --save /etc/pacman.d/mirrorlist
 reflector --verbose -l 15 --sort rate --save /etc/pacman.d/mirrorlist
+clear
   elif [[ $zerkala == 0 ]]; then
-   echo 'смена зеркал пропущена.'   
+  clear
+  echo 'смена зеркал пропущена.'   
 fi
 pacman -Sy --noconfirm
 ######
@@ -676,7 +678,9 @@ done
 pacman -S reflector --noconfirm
 reflector --verbose -l 50 -p http --sort rate --save /etc/pacman.d/mirrorlist
 reflector --verbose -l 15 --sort rate --save /etc/pacman.d/mirrorlist
+clear
   elif [[ $zerkala == 0 ]]; then
+  clear
    echo 'смена зеркал пропущена.'   
 fi
 pacman -Sy --noconfirm
