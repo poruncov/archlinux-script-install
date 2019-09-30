@@ -447,7 +447,26 @@ pacman -S lxqt lxqt-qtplugin lxqt-themes oxygen-icons xscreensaver --noconfirm
 clear
 echo " Lxqt успешно установлен "
 elif [[ $x_de == 8 ]]; then
-pacman -S i3 i3-wm i3status   xorg-xinit dmenu  nitrogen --noconfirm
+pacman -S i3 i3-wm i3status dmenu nitrogen --noconfirm
+clear
+echo ""
+echo " Если желаете использовать 2 окружения тогда укажите 0  "
+echo ""
+echo " Нужен автовход без DM ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_i3w   # sends right after the keypress
+    echo ''
+    [[ "$i_i3w" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_i3w  == 0 ]]; then
+echo " буду использовами DM "
+elif [[ $i_i3w  == 1 ]]; then
+pacman -S xorg-xinit --noconfirm
 cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
 chown $username:users /home/$username/.xinitrc
 chmod +x /home/$username/.xinitrc
@@ -458,6 +477,8 @@ echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
 echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
 echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
 echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+fi
+echo " Установка i3 завершена " 
 fi
 ####
 echo ""
@@ -518,22 +539,14 @@ pacman -S lxqt lxqt-qtplugin lxqt-themes --noconfirm
 clear
 echo " Lxqt успешно установлен "
 elif [[ $x_de2 == 8 ]]; then
-pacman -S i3 i3-wm i3status  xorg-xinit dmenu  nitrogen --noconfirm
-cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
-chown $username:users /home/$username/.xinitrc
-chmod +x /home/$username/.xinitrc
-sed -i 52,55d /home/$username/.xinitrc
-echo "exec i3 " >> /home/$username/.xinitrc
-mkdir /etc/systemd/system/getty@tty1.service.d/
-echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
-echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
-echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
-echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+pacman -S i3 i3-wm i3status  dmenu  nitrogen --noconfirm
+clear
+echo " Установка i3 завершена " 
 fi
 echo "#####################################################################"
 echo ""
 echo " 
-echo " При установке i3 можно без dm " 
+echo " При установке i3  можно без dm если был " 
 Arch-wiki рекоендует для: 
 kde    <-> sddm
 Lxqt   <-> sddm
