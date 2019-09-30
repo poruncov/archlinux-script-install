@@ -545,16 +545,16 @@ echo " Установка i3 завершена "
 fi
 echo "#####################################################################"
 echo ""
-echo " При установке i3  можно без dm если был " 
+echo " При установке i3  без dm, dm не ставим!!! " 
 echo " 
 Arch-wiki рекоендует для: 
-kde    <-> sddm
-Lxqt   <-> sddm
-xfce   <-> lxdm
-lxde   <-> lxdm
-Gnome  <-> gdm
-Deepin <-> lxdm/sddm
-Mate   <-> lxdm "
+kde      <-> sddm
+Lxqt     <-> sddm
+xfce(i3) <-> lxdm
+lxde     <-> lxdm
+Gnome    <-> gdm
+Deepin   <-> lxdm/sddm
+Mate     <-> lxdm "
 echo ""
 echo "Установка Менеджера входа в систему "
 while 
