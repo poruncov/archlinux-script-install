@@ -447,7 +447,7 @@ pacman -S lxqt lxqt-qtplugin lxqt-themes oxygen-icons xscreensaver --noconfirm
 clear
 echo " Lxqt успешно установлен "
 elif [[ $x_de == 8 ]]; then
-pacman -S i3 i3-wm i3status  xorg-xinit dmenu --noconfirm
+pacman -S i3 i3-wm i3status   xorg-xinit dmenu  nitrogen --noconfirm
 cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
 chown $username:users /home/$username/.xinitrc
 chmod +x /home/$username/.xinitrc
