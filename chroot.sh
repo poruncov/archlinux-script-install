@@ -451,7 +451,11 @@ pacman -S i3 i3-wm i3status   xorg-xinit dmenu  nitrogen --noconfirm
 cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
 chown $username:users /home/$username/.xinitrc
 chmod +x /home/$username/.xinitrc
-echo " exec i3 " >> /home/$username/.xinitrc
+echo "exec i3 " >> /home/$username/.xinitrc
+sed -i 52d /home/$username/.xinitrc
+sed -i 52d /home/$username/.xinitrc
+sed -i 52d /home/$username/.xinitrc
+sed -i 52d /home/$username/.xinitrc
 mkdir /etc/systemd/system/getty@tty1.service.d/
 echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
 echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
@@ -522,6 +526,10 @@ cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
 chown $username:users /home/$username/.xinitrc
 chmod +x /home/$username/.xinitrc
 echo " exec i3 " >> /home/$username/.xinitrc
+sed -i 52d /home/$username/.xinitrc
+sed -i 52d /home/$username/.xinitrc
+sed -i 52d /home/$username/.xinitrc
+sed -i 52d /home/$username/.xinitrc
 mkdir /etc/systemd/system/getty@tty1.service.d/
 echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
 echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
