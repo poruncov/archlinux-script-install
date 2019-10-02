@@ -447,7 +447,7 @@ pacman -S lxqt lxqt-qtplugin lxqt-themes oxygen-icons xscreensaver --noconfirm
 clear
 echo " Lxqt успешно установлен "
 elif [[ $x_de == 8 ]]; then
-pacman -S i3 i3-wm i3status dmenu nitrogen --noconfirm
+pacman -S i3 i3-wm i3status dmenu --noconfirm
 clear
 echo ""
 echo " Если желаете использовать 2 окружения тогда укажите 0  "
@@ -478,8 +478,28 @@ echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
 echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
 echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
 fi
-echo " Установка i3 завершена " 
+echo ""
+echo " nitrogen - легкая программа для установки обоев на рабочий стол" 
+echo ""
+echo " Установим nitrogen? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_natro   # sends right after the keypress
+    echo ''
+    [[ "$i_natro" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_natro  == 0 ]]; then
+echo "yстановка пропущена"
+elif [[ $i_natro  == 1 ]]; then
+pacman -Sy nitrogen  --noconfirm
 fi
+fi
+clear
+echo " Установка i3 завершена " 
 ####
 echo ""
 echo " Установим еще одно DE? "
@@ -539,10 +559,30 @@ pacman -S lxqt lxqt-qtplugin lxqt-themes --noconfirm
 clear
 echo " Lxqt успешно установлен "
 elif [[ $x_de2 == 8 ]]; then
-pacman -S i3 i3-wm i3status  dmenu  nitrogen --noconfirm
+pacman -S i3 i3-wm i3status  dmenu  --noconfirm
 clear
-echo " Установка i3 завершена " 
+echo ""
+echo " nitrogen - легкая программа для установки обоев на рабочий стол" 
+echo ""
+echo " Установим nitrogen? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_natro   # sends right after the keypress
+    echo ''
+    [[ "$i_natro" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_natro  == 0 ]]; then
+echo "yстановка пропущена"
+elif [[ $i_natro  == 1 ]]; then
+pacman -Sy nitrogen  --noconfirm
+fi 
 fi
+clear
+echo " Установка i3 завершена "
 echo "#####################################################################"
 echo ""
 echo " При установке i3  без dm, dm не ставим!!! " 
