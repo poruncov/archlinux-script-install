@@ -407,11 +407,11 @@ do
 done
  if [[ $x_pacstrap == 1 ]]; then
   clear
- pacstrap /mnt base dhcpcd   base-devel wget  efibootmgr nano iw linux-firmware  linux linux-headers  wpa_supplicant dialog
+ pacstrap /mnt base dhcpcd  which inetutils base-devel wget  efibootmgr nano iw linux-firmware  linux linux-headers  wpa_supplicant dialog
  genfstab -U /mnt >> /mnt/etc/fstab
  elif [[ $x_pacstrap == 2 ]]; then
   clear
-  pacstrap /mnt base dhcpcd  base-devel wget nano linux-firmware linux linux-headers efibootmgr iw 
+  pacstrap /mnt base dhcpcd which inetutils base-devel wget nano linux-firmware linux linux-headers efibootmgr iw 
   genfstab -U /mnt >> /mnt/etc/fstab
   fi 
 ##################################################
@@ -705,11 +705,11 @@ do
 done
  if [[ $x_pacstrap == 1 ]]; then
   clear
-  pacstrap /mnt base dhcpcd   base-devel wget wget linux-firmware linux linux-headers nano wpa_supplicant dialog
+  pacstrap /mnt base dhcpcd which inetutils  base-devel wget wget linux-firmware linux linux-headers nano wpa_supplicant dialog
   genfstab -pU /mnt >> /mnt/etc/fstab
 elif [[ $x_pacstrap == 2 ]]; then
   clear
-  pacstrap /mnt base dhcpcd   base-devel wget  wget linux-firmware linux linux-headers nano
+  pacstrap /mnt base dhcpcd which inetutils  base-devel wget  wget linux-firmware linux linux-headers nano
   genfstab -pU /mnt >> /mnt/etc/fstab
 fi 
  clear
