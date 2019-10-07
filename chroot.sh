@@ -387,7 +387,6 @@ elif [[ $i_xorg  == 2 ]]; then
 echo " установка на vds  "
 fi
 pacman -Syy
-pacman -Sy linux-headers --noconfirm
 echo "#####################################################################"
 echo ""
 echo " Установим DE? "
