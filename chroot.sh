@@ -216,22 +216,32 @@ do
 done
 if [[ $t_bootloader == 1 ]]; then
 bootctl install 
+clear 
+echo   "
+linux ( базавое )
+
+linux-lts
+
+linux-zen
+"
+echo ""
+echo ""
+echo " Введите
+
+linux - для базавого ядра 
+
+linux-lts - для linux-lts
+
+linux-zen - для ядра zen"
+
+echo "Пример: Было выбрано ядро lts, значит здесь я пишу linux-lts "
+echo ""
+read -p "Укажите какае ядро было установлено: " kernel
 echo ' default arch ' > /boot/loader/loader.conf
 echo ' timeout 10 ' >> /boot/loader/loader.conf
 echo ' editor 0' >> /boot/loader/loader.conf
-echo ""
-echo " Укажите тот радел который будет после перезагрузки, то есть например "
-
-echo " при установке с флешки ваш hdd может быть sdb, а после перезагрузки sda "
-
-echo " выше видно что sdbX например примонтирован в /mnt, а после перезагрузки systemd будет искать корень на sdaX "
-
-echo " если указать не правильный раздел система не загрузится "
-
-echo " если у вас один hdd/ssd тогда это будет sda 99%"
-echo ""
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
-echo 'linux   /vmlinuz-linux' >> /boot/loader/entries/arch.conf
+echo 'linux   /vmlinuz-$kernel' >> /boot/loader/entries/arch.conf
 echo ""
 echo " Добавим ucode cpu? "
 while 
@@ -258,8 +268,19 @@ clear
 pacman -S intel-ucode  --noconfirm
 echo ' initrd /intel-ucode.img ' >> /boot/loader/entries/arch.conf
 fi
-echo 'initrd  /initramfs-linux.img' >> /boot/loader/entries/arch.conf
+echo initrd  /initramfs-$kernel.img >> /boot/loader/entries/arch.conf
+clear
 lsblk -f
+echo ""
+echo " Укажите тот радел который будет после перезагрузки, то есть например "
+
+echo " при установке с флешки ваш hdd может быть sdb, а после перезагрузки sda "
+
+echo " выше видно что sdbX например примонтирован в /mnt, а после перезагрузки systemd будет искать корень на sdaX "
+
+echo " если указать не правильный раздел система не загрузится "
+
+echo " если у вас один hdd/ssd тогда это будет sda 99%"
 echo ""
 read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo options root=/dev/$root rw >> /boot/loader/entries/arch.conf
@@ -300,7 +321,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 echo " установка завершена "
 fi  
 fi
-mkinitcpio -p linux
+mkinitcpio -p $kernel
 ##########
 echo ""
 echo " Настроим Sudo? "
