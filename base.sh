@@ -386,7 +386,7 @@ clear
   clear
   echo 'смена зеркал пропущена.'   
 fi
-pacman -Sy --noconfirm
+pacman -Sy --noconfirm 
 ######
  echo "Если для подключения к интернету использовали wifi (wifi-menu) тогда "1" "
  echo ""
@@ -406,13 +406,34 @@ do
 done
  if [[ $x_pacstrap == 1 ]]; then
   clear
- pacstrap /mnt base  base-devel wget  efibootmgr iw   wpa_supplicant dialog
- genfstab -U /mnt >> /mnt/etc/fstab
+ pacstrap /mnt base  base-devel wget  efibootmgr nano iw linux-firmware   wpa_supplicant dialog
   elif [[ $x_pacstrap == 0 ]]; then
    clear
-  pacstrap /mnt base  base-devel wget efibootmgr iw 
-  genfstab -U /mnt >> /mnt/etc/fstab
+  pacstrap /mnt base  base-devel wget nano linux-firmware efibootmgr iw 
   fi 
+  clear
+echo 'Какое ядро ставим?'
+while 
+    read -n1 -p  "
+    1 - базавое( по умолчанию )
+    
+    2 - lts
+    
+    3 - zen-kernel: " i_kernel 
+    echo ''
+    [[ "$i_kernel" =~ [^123] ]]
+do
+    :
+done
+ if [[ $i_kernel == 1 ]]; then
+ pacstrap /mnt linux linux-headers
+elif [[ $i_kernel == 2 ]]; then
+ pacstrap /mnt linux-lts linux-lts-headers
+elif [[ $i_kernel == 3 ]]; then
+ pacstrap /mnt linux-zen linux-zen-headers
+ fi
+ clear
+ genfstab -U /mnt >> /mnt/etc/fstab
 ##################################################
 clear
 echo "Если вы производите установку используя Wifi тогда рекомендую  "1" "
@@ -703,14 +724,34 @@ do
 done
  if [[ $x_pacstrap == 1 ]]; then
   clear
-  pacstrap /mnt base  base-devel wget wpa_supplicant dialog
-  genfstab -pU /mnt >> /mnt/etc/fstab
+  pacstrap /mnt base  base-devel wget wget linux-firmware nano wpa_supplicant dialog
 elif [[ $x_pacstrap == 0 ]]; then
   clear
-  pacstrap /mnt base  base-devel wget 
-  genfstab -pU /mnt >> /mnt/etc/fstab
+  pacstrap /mnt base  base-devel wget  wget linux-firmware nano
 fi 
- 
+  clear
+echo 'Какое ядро ставим?'
+while 
+    read -n1 -p  "
+    1 - базавое( по умолчанию )
+    
+    2 - lts
+    
+    3 - zen-kernel: " x_kernel 
+    echo ''
+    [[ "$x_kernel" =~ [^123] ]]
+do
+    :
+done
+ if [[ $x_kernel == 1 ]]; then
+ pacstrap /mnt linux linux-headers
+elif [[ $x_kernel == 2 ]]; then
+ pacstrap /mnt linux-lts linux-lts-headers
+elif [[ $x_kernel == 3 ]]; then
+ pacstrap /mnt linux-zen linux-zen-headers
+ fi
+ clear
+genfstab -pU /mnt >> /mnt/etc/fstab
 
 ###############################
 clear
