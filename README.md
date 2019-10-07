@@ -1,6 +1,5 @@
-# archlinux-script-install v.0.1
+# archlinux-script-install v.0.2
 
-!!! В связи с изменениями установки скрипт не работаеет!!!!
 
 
 РЕЖИМ UEFI и Legacy
