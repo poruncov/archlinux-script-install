@@ -241,7 +241,7 @@ echo ' default arch ' > /boot/loader/loader.conf
 echo ' timeout 10 ' >> /boot/loader/loader.conf
 echo ' editor 0' >> /boot/loader/loader.conf
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
-echo 'linux   /vmlinuz-$kernel' >> /boot/loader/entries/arch.conf
+echo linux   /vmlinuz-$kernel >> /boot/loader/entries/arch.conf
 echo ""
 echo " Добавим ucode cpu? "
 while 
@@ -262,7 +262,7 @@ echo " Добавление ucode пропущено "
 elif [[ $i_cpu  == 1 ]]; then
 clear
 pacman -S amd-ucode --noconfirm
-echo ' initrd /amd-ucode.img ' >> /boot/loader/entries/arch.conf
+echo  'initrd /amd-ucode.img ' >> /boot/loader/entries/arch.conf
 elif [[ $i_cpu  == 2 ]]; then
 clear
 pacman -S intel-ucode  --noconfirm
