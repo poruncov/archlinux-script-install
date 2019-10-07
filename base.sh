@@ -399,7 +399,7 @@ while
     read -n1 -p  "
     1 - да
     
-    0 - нет: " x_pacstrap  # sends right after the keypress
+    2 - нет: " x_pacstrap  # sends right after the keypress
     echo ''
     [[ "$x_pacstrap" =~ [^12] ]]
 do
@@ -697,9 +697,9 @@ while
     read -n1 -p  "
     1 - да
     
-    0 - нет: " x_pacstrap  # sends right after the keypress
+    2 - нет: " x_pacstrap  # sends right after the keypress
     echo ''
-    [[ "$x_pacstrap" =~ [^10] ]]
+    [[ "$x_pacstrap" =~ [^12] ]]
 do
     :
 done
@@ -707,7 +707,7 @@ done
   clear
   pacstrap /mnt base dhcpcd   base-devel wget wget linux-firmware linux linux-headers nano wpa_supplicant dialog
   genfstab -pU /mnt >> /mnt/etc/fstab
-elif [[ $x_pacstrap == 0 ]]; then
+elif [[ $x_pacstrap == 2 ]]; then
   clear
   pacstrap /mnt base dhcpcd   base-devel wget  wget linux-firmware linux linux-headers nano
   genfstab -pU /mnt >> /mnt/etc/fstab
