@@ -388,7 +388,28 @@ clear
 fi
 pacman -Sy --noconfirm 
 ######
-clear
+clear 
+echo 'Какое ядро ставим?'
+while 
+    read -n1 -p  "
+    1 - базавое( по умолчанию )
+    
+    2 - lts
+    
+    3 - zen-kernel: " i_kernel 
+    echo ''
+    [[ "$i_kernel" =~ [^123] ]]
+do
+    :
+done
+ if [[ $i_kernel == 1 ]]; then
+ pacstrap /mnt linux linux-headers
+elif [[ $i_kernel == 2 ]]; then
+ pacstrap /mnt linux-lts linux-lts-headers
+elif [[ $i_kernel == 3 ]]; then
+ pacstrap /mnt linux-zen linux-zen-headers
+ fi
+ clear
  echo "Если для подключения к интернету использовали wifi (wifi-menu) тогда "1" "
  echo ""
  echo " Если у вас есть wifi модуль и вы сейчас его не используете, но будете использовать потом то для "
@@ -407,11 +428,11 @@ do
 done
  if [[ $x_pacstrap == 1 ]]; then
   clear
- pacstrap /mnt base dhcpcd  which inetutils base-devel wget  efibootmgr nano iw linux-firmware  linux linux-headers  wpa_supplicant dialog
+ pacstrap /mnt base dhcpcd  which inetutils base-devel wget  efibootmgr nano iw linux-firmware   wpa_supplicant dialog
  genfstab -U /mnt >> /mnt/etc/fstab
  elif [[ $x_pacstrap == 2 ]]; then
   clear
-  pacstrap /mnt base dhcpcd which inetutils base-devel wget nano linux-firmware linux linux-headers efibootmgr iw 
+  pacstrap /mnt base dhcpcd which inetutils base-devel wget nano linux-firmware  efibootmgr iw 
   genfstab -U /mnt >> /mnt/etc/fstab
   fi 
 ##################################################
@@ -688,6 +709,26 @@ fi
 pacman -Sy --noconfirm
  ################################################################################### 
  clear
+ echo 'Какое ядро ставим?'
+while 
+    read -n1 -p  "
+    1 - базавое( по умолчанию )
+    
+    2 - lts
+    
+    3 - zen-kernel: " i_kernel 
+    echo ''
+    [[ "$i_kernel" =~ [^123] ]]
+do
+    :
+done
+ if [[ $i_kernel == 1 ]]; then
+ pacstrap /mnt linux linux-headers
+elif [[ $i_kernel == 2 ]]; then
+ pacstrap /mnt linux-lts linux-lts-headers
+elif [[ $i_kernel == 3 ]]; then
+ pacstrap /mnt linux-zen linux-zen-headers
+ fi
 echo ""
  echo " Если у вас есть wifi модуль и вы сейчас его не используете, то для "
  echo " исключения ошибок в работе системы рекомендую "1" " 
@@ -705,11 +746,11 @@ do
 done
  if [[ $x_pacstrap == 1 ]]; then
   clear
-  pacstrap /mnt base dhcpcd which inetutils  base-devel wget wget linux-firmware linux linux-headers nano wpa_supplicant dialog
+  pacstrap /mnt base dhcpcd which inetutils  base-devel wget wget linux-firmware  nano wpa_supplicant dialog
   genfstab -pU /mnt >> /mnt/etc/fstab
 elif [[ $x_pacstrap == 2 ]]; then
   clear
-  pacstrap /mnt base dhcpcd which inetutils  base-devel wget  wget linux-firmware linux linux-headers nano
+  pacstrap /mnt base dhcpcd which inetutils  base-devel wget  wget linux-firmware  nano
   genfstab -pU /mnt >> /mnt/etc/fstab
 fi 
  clear
