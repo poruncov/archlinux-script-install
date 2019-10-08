@@ -223,8 +223,8 @@ if [[ $t_bootloader == 1 ]]; then
 bootctl install 
 clear 
 echo   "
-linux  ( Stable )
-
+linux ( Stable ) базавое
+ 
 linux-lts
 
 linux-zen
