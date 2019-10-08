@@ -203,14 +203,19 @@ lsblk -f
 echo ""
 echo " Если установка производиться на vds тогда grub "
 echo ""
-echo "Какой загрузчик установить UEFI(systemd) или Grub для legacy"
+echo " Если у вас версия UEFI моложе 2013г. тогда ставьте UEFI-grub "
+echo ""
+echo "Какой загрузчик установить UEFI(systemd или GRUB) или Grub-legacy"
 while 
     read -n1 -p  "
-    1 - UEFI
+    1 - UEFI(systemd-boot )
+  
+    2 - GRUB(legacy)
     
-    2 - GRUB(legacy): " t_bootloader # sends right after the keypress
+    3 - UEFI-GRUB: " t_bootloader # sends right after the keypress
+    
     echo ''
-    [[ "$t_bootloader" =~ [^12] ]]
+    [[ "$t_bootloader" =~ [^123] ]]
 do
     :
 done
@@ -218,7 +223,7 @@ if [[ $t_bootloader == 1 ]]; then
 bootctl install 
 clear 
 echo   "
-linux ( базавое )
+linux  ( Stable )
 
 linux-lts
 
@@ -228,7 +233,7 @@ echo ""
 echo ""
 echo " Введите
 
-linux - для базавого ядра 
+linux - для базавого(Stable) ядра 
 
 linux-lts - для linux-lts
 
@@ -241,7 +246,7 @@ echo ' default arch ' > /boot/loader/loader.conf
 echo ' timeout 10 ' >> /boot/loader/loader.conf
 echo ' editor 0' >> /boot/loader/loader.conf
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
-echo linux   /vmlinuz-$kernel >> /boot/loader/entries/arch.conf
+echo linux  /vmlinuz-$kernel >> /boot/loader/entries/arch.conf
 echo ""
 echo " Добавим ucode cpu? "
 while 
@@ -284,6 +289,7 @@ echo " если у вас один hdd/ssd тогда это будет sda 99%"
 echo ""
 read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo options root=/dev/$root rw >> /boot/loader/entries/arch.conf
+#
 cd /home/$username 
 git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git
 chown -R $username:users /home/$username/systemd-boot-pacman-hook   
@@ -292,6 +298,7 @@ cd /home/$username/systemd-boot-pacman-hook
 sudo -u $username makepkg -si --noconfirm  
 rm -Rf /home/$username/systemd-boot-pacman-hook
 cd /home/$username 
+#
 clear
 elif [[ $t_bootloader == 2 ]]; then
 echo " Устанавливаем на vds сервер? "
@@ -320,6 +327,10 @@ grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
 echo " установка завершена "
 fi  
+elif [[ $t_bootloader == 3 ]]; then
+pacman -S grub grub-customizer os-prober --noconfirm
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
 fi
 mkinitcpio -p $kernel
 ##########
