@@ -223,7 +223,7 @@ if [[ $t_bootloader == 1 ]]; then
 bootctl install 
 clear 
 echo   "
-linux ( Stable ) базавое
+linux ( Stable ) базовое
  
 linux-lts
 
@@ -233,7 +233,7 @@ echo ""
 echo ""
 echo " Введите
 
-linux - для базавого(Stable) ядра 
+linux - для базового(Stable) ядра 
 
 linux-lts - для linux-lts
 
