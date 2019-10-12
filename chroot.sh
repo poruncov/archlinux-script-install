@@ -1517,6 +1517,7 @@ cd /home/$username/octopi
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/octopi
 ######################
+cd /home/$username
 git clone https://aur.archlinux.org/libgksu.git
 chown -R $username:users /home/$username/libgksu
 chown -R $username:users /home/$username/libgksu/PKGBUILD 
@@ -1540,6 +1541,7 @@ cd /home/$username/alpm_octopi_utils
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/alpm_octopi_utils
 ################
+cd /home/$username
 git clone https://aur.archlinux.org/libgksu.git
 chown -R $username:users /home/$username/libgksu
 chown -R $username:users /home/$username/libgksu/PKGBUILD 
