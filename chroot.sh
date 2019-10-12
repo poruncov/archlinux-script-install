@@ -421,7 +421,7 @@ fi
 pacman -Syy
 echo "#####################################################################"
 echo ""
-echo " Установим DE? "
+echo " Установим DE/WM? "
 while 
     read -n1 -p  "
     1 - KDE(Plasma)
@@ -533,7 +533,7 @@ clear
 echo " Установка i3 завершена " 
 ####
 echo ""
-echo " Установим еще одно DE? "
+echo " Установим еще одно DE/WM? "
 while 
     read -n1 -p  "
     1 - KDE(Plasma)
