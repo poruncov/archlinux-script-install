@@ -633,7 +633,7 @@ if [[ $diskC == 0 ]]; then
    clear
  lsblk -f
   echo ""
-  ead -p " Укажите диск "C" раздел(sda/sdb 1.2.3.4 (sda4 например) ) : " diskCc
+  read -p " Укажите диск "C" раздел(sda/sdb 1.2.3.4 (sda4 например) ) : " diskCc
   mkdir /mnt/C 
   mount /dev/$diskCc /mnt/C
   fi
