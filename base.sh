@@ -428,11 +428,11 @@ do
 done
  if [[ $x_pacstrap == 1 ]]; then
   clear
- pacstrap /mnt base dhcpcd  which inetutils base-devel wget  efibootmgr nano iw linux-firmware   wpa_supplicant dialog
+ pacstrap /mnt base dhcpcd  which inetutils netctl base-devel wget  efibootmgr nano  linux-firmware wpa_supplicant dialog
  genfstab -U /mnt >> /mnt/etc/fstab
  elif [[ $x_pacstrap == 2 ]]; then
   clear
-  pacstrap /mnt base dhcpcd which inetutils base-devel wget nano linux-firmware  efibootmgr iw 
+  pacstrap /mnt base dhcpcd which inetutils netctl base-devel wget nano linux-firmware  efibootmgr  
   genfstab -U /mnt >> /mnt/etc/fstab
   fi 
 ##################################################
@@ -746,11 +746,11 @@ do
 done
  if [[ $x_pacstrap == 1 ]]; then
   clear
-  pacstrap /mnt base dhcpcd which netctl inetutils netctl base-devel  wget linux-firmware  nano wpa_supplicant dialog
+  pacstrap /mnt base dhcpcd which netctl inetutils  base-devel  wget linux-firmware  nano wpa_supplicant dialog
   genfstab -pU /mnt >> /mnt/etc/fstab
 elif [[ $x_pacstrap == 2 ]]; then
   clear
-  pacstrap /mnt base dhcpcd which netctl inetutils netctl base-devel  wget linux-firmware  nano
+  pacstrap /mnt base dhcpcd which netctl inetutils base-devel  wget linux-firmware  nano
   genfstab -pU /mnt >> /mnt/etc/fstab
 fi 
  clear
