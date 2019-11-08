@@ -281,12 +281,13 @@ cd /home/$username
 #
 clear
 elif [[ $t_bootloader == 2 ]]; then
+clear
 echo " Если на компьютере/сервере будет только один ArchLinux 
 
 и вам не нужна мультибут тогда 1
 
 ессли же установка рядом в Windows или другой OS тогда 2 "
-clear
+echo ""
 echo " Нужен мультибут (установка рядом с другой OS)? "
 while 
     read -n1 -p  "
