@@ -221,32 +221,12 @@ do
 done
 if [[ $t_bootloader == 1 ]]; then
 bootctl install 
-clear 
-echo   "
-linux ( Stable ) базовое
- 
-linux-lts
-
-linux-zen
-"
-echo ""
-echo ""
-echo " Введите
-
-linux - для базового(Stable) ядра 
-
-linux-lts - для linux-lts
-
-linux-zen - для ядра zen"
-
-echo "Пример: Было выбрано ядро lts, значит здесь я пишу linux-lts "
-echo ""
-read -p "Укажите какае ядро было установлено: " kernel
+clear
 echo ' default arch ' > /boot/loader/loader.conf
 echo ' timeout 10 ' >> /boot/loader/loader.conf
 echo ' editor 0' >> /boot/loader/loader.conf
 echo 'title   Arch Linux' > /boot/loader/entries/arch.conf
-echo linux  /vmlinuz-$kernel >> /boot/loader/entries/arch.conf
+echo "linux  /vmlinuz-linux" >> /boot/loader/entries/arch.conf
 echo ""
 echo " Добавим ucode cpu? "
 while 
@@ -273,7 +253,7 @@ clear
 pacman -S intel-ucode  --noconfirm
 echo ' initrd /intel-ucode.img ' >> /boot/loader/entries/arch.conf
 fi
-echo initrd  /initramfs-$kernel.img >> /boot/loader/entries/arch.conf
+echo "initrd  /initramfs-linux.img" >> /boot/loader/entries/arch.conf
 clear
 lsblk -f
 echo ""
@@ -301,7 +281,13 @@ cd /home/$username
 #
 clear
 elif [[ $t_bootloader == 2 ]]; then
-echo " Устанавливаем на vds сервер? "
+echo " Если на компьютере/сервере будет только один ArchLinux 
+
+и вам не нужна мультибут тогда 1
+
+ессли же установка рядом в Windows или другой OS тогда 2 "
+clear
+echo " Нужен мультибут (установка рядом с другой OS)? "
 while 
     read -n1 -p  "
     1 - да
@@ -328,11 +314,11 @@ grub-mkconfig -o /boot/grub/grub.cfg
 echo " установка завершена "
 fi  
 elif [[ $t_bootloader == 3 ]]; then
-pacman -S grub grub-customizer os-prober --noconfirm
+pacman -S grub os-prober --noconfirm
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 fi
-mkinitcpio -p $kernel
+mkinitcpio -p linux
 ##########
 echo ""
 echo " Настроим Sudo? "
