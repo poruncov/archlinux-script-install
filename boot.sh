@@ -89,7 +89,6 @@ if [[ $diskC == 0 ]]; then
  lsblk -f
   echo ""
   read -p " Укажите диск "C" раздел(sda/sdb 1.2.3.4 (sda4 например) ) : " diskCc
-  mkdir /mnt/C 
   mount /dev/$diskCc /mnt/C
   fi
 ############### disk D ##############
@@ -109,7 +108,6 @@ if [[ $diskD == 1 ]]; then
  lsblk -f
   echo ""
   read -p " Укажите диск "D" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDd
-  mkdir /mnt/D 
   mount /dev/$diskDd /mnt/D
   elif [[ $diskD == 0 ]]; then
   echo 'пропущено'
@@ -131,13 +129,13 @@ done
  lsblk -f
   echo ""
   read -p " Укажите диск "E" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDe
-  mkdir /mnt/E 
+ 
   mount /dev/$diskDe /mnt/E
   elif [[ $diskE == 0 ]]; then
   echo 'пропущено'
   fi 
   fi
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt > /mnt/etc/fstab
 arch-chroot /mnt  sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/boot2.sh)"
 reboot
 ######
@@ -229,7 +227,7 @@ if [[ $diskC == 0 ]]; then
  lsblk -f
   echo ""
   read -p " Укажите диск "C" раздел(sda/sdb 1.2.3.4 (sda4 например) ) : " diskCc
-  mkdir /mnt/C 
+ 
   mount /dev/$diskCc /mnt/C
   fi
 ############### disk D ##############
@@ -249,7 +247,8 @@ if [[ $diskD == 1 ]]; then
  lsblk -f
   echo ""
   read -p " Укажите диск "D" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDd
-  mkdir /mnt/D 
+  
+
   mount /dev/$diskDd /mnt/D
   elif [[ $diskD == 0 ]]; then
   echo 'пропущено'
@@ -271,13 +270,13 @@ done
  lsblk -f
   echo ""
   read -p " Укажите диск "E" раздел(sda/sdb 1.2.3.4 (sda5 например)) : " diskDe
-  mkdir /mnt/E 
+  
   mount /dev/$diskDe /mnt/E
   elif [[ $diskE == 0 ]]; then
   echo 'пропущено'
   fi 
   fi
-genfstab -pU /mnt >> /mnt/etc/fstab
+genfstab -pU /mnt > /mnt/etc/fstab
 arch-chroot /mnt  sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/boot2.sh)" 
 reboot
 fi
