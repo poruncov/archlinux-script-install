@@ -138,7 +138,7 @@ done
   fi 
   fi
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt  sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh)"
+arch-chroot /mnt  sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/boot2.sh)"
 reboot
 ######
 elif [[ $disk == 0 ]]; then
@@ -278,7 +278,7 @@ done
   fi 
   fi
 genfstab -pU /mnt >> /mnt/etc/fstab
-arch-chroot /mnt  sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/chroot.sh)" 
+arch-chroot /mnt  sh -c "$(curl -fsSL https://raw.githubusercontent.com/poruncov/archlinux-script-install/master/boot2.sh)" 
 reboot
 fi
 
