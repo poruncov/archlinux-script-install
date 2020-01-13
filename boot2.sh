@@ -71,6 +71,7 @@ echo ""
 read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
 echo options root=/dev/$root rw >> /boot/loader/entries/arch.conf
 #
+read -p "Введите имя пользователя: " username
 cd /home/$username 
 git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git
 chown -R $username:users /home/$username/systemd-boot-pacman-hook   
