@@ -705,7 +705,7 @@ done
 if [[ $i_sound  == 1 ]]; then
 pacman -Sy pulseaudio-bluetooth alsa-utils pulseaudio-equalizer-ladspa   --noconfirm
 systemctl enable bluetooth.service
-elif [[ $i_network  == 0 ]]; then
+elif [[ $i_sound  == 0 ]]; then
 echo " Установка пропущена "
 fi
 ####
