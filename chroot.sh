@@ -893,7 +893,7 @@ echo " Установка завершена "
 fi  
 echo "#############################################################################"
 echo ""
-echo " gwenview - программа для просмотра изображений для gnome и xfce есть собственное  "
+echo " gwenview - программа для просмотра изображений для gnome и xfce есть собственное"
 while 
     read -n1 -p  "
     1 - да
@@ -1111,7 +1111,7 @@ sudo -u $username  makepkg -si --noconfirm
 rm -Rf /home/$username/google-chrome
 clear
 elif [[ $g_chrome == 2 ]]; then
-pacman -S firefox firefox-developer-edition-i18n-ru --noconfirm 
+pacman -S firefox firefox-i18n-ru --noconfirm 
 clear
 elif [[ $g_chrome == 3 ]]; then
 pacman -S chromium --noconfirm 
