@@ -1363,12 +1363,21 @@ if [[ $t_vk == 0 ]]; then
   echo 'уcтановка  пропущена' 
 elif [[ $t_vk == 1 ]]; then
 cd /home/$username
+git clone https://aur.archlinux.org/gconf.git 
+chown -R $username:users /home/$username/gconf
+chown -R $username:users /home/$username/gconf/PKGBUILD 
+cd /home/$username/gconf  
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/gconf
+###
+cd /home/$username
 git clone https://aur.archlinux.org/vk-messenger.git
 chown -R $username:users /home/$username/vk-messenger
 chown -R $username:users /home/$username/vk-messenger/PKGBUILD 
 cd /home/$username/vk-messenger  
 sudo -u $username  makepkg -si --noconfirm  
 rm -Rf /home/$username/vk-messenger
+#####
 clear
 fi
 
