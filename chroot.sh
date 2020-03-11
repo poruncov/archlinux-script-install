@@ -300,14 +300,14 @@ do
     :
 done
 if [[ $i_grub == 2 ]]; then
-pacman -S grub grub-customizer os-prober --noconfirm
+pacman -S grub   --noconfirm
 lsblk -f
 read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
 echo " установка завершена "
 elif [[ $i_grub == 1 ]]; then
-pacman -S grub --noconfirm
+pacman -S grub grub-customizer os-prober  --noconfirm
 lsblk -f
 read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
 grub-install /dev/$x_boot
@@ -437,11 +437,69 @@ if [[ $x_de == 0 ]]; then
   echo 'уcтановка DE пропущена' 
 elif [[ $x_de == 1 ]]; then
 pacman -S plasma-meta kdebase kwalletmanager  latte-dock --noconfirm
+clear
+echo " Если желаете использовать 2 окружения тогда укажите 0  "
+echo ""
+echo " Нужен автовход без DM ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_kde   # sends right after the keypress
+    echo ''
+    [[ "$i_kde" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_kde  == 0 ]]; then
+echo " буду использовами DM "
+elif [[ $i_kde  == 1 ]]; then
+pacman -S xorg-xinit --noconfirm
+cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
+sed -i 52,55d /home/$username/.xinitrc
+echo "exec startplasma-x11 " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+fi
 pacman -R konqueror --noconfirm
 clear
 echo "Plasma KDE успешно установлена"
 elif [[ $x_de == 2 ]]; then
 pacman -S  xfce4  pavucontrol xfce4-goodies  --noconfirm
+clear
+echo " Если желаете использовать 2 окружения тогда укажите 0  "
+echo ""
+echo " Нужен автовход без DM ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_xfce   # sends right after the keypress
+    echo ''
+    [[ "$i_xfce" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_xfce  == 0 ]]; then
+echo " буду использовами DM "
+elif [[ $i_xfce  == 1 ]]; then
+pacman -S xorg-xinit --noconfirm
+cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
+sed -i 52,55d /home/$username/.xinitrc
+echo "exec startxfce4 " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+fi
 clear
 echo "Xfce успешно установлено"
 elif [[ $x_de == 3 ]]; then
@@ -451,17 +509,133 @@ echo " Gnome успешно установлен "
 elif [[ $x_de == 4 ]]; then
 pacman -S lxde --noconfirm
 clear
+echo " Если желаете использовать 2 окружения тогда укажите 0  "
+echo ""
+echo " Нужен автовход без DM ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_lxde   # sends right after the keypress
+    echo ''
+    [[ "$i_lxde" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_lxde  == 0 ]]; then
+echo " буду использовами DM "
+elif [[ $i_lxde  == 1 ]]; then
+pacman -S xorg-xinit --noconfirm
+cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
+sed -i 52,55d /home/$username/.xinitrc
+echo "exec startlxde " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+fi
+clear
 echo " lxde успешно установлен "
 elif [[ $x_de == 5 ]]; then
 pacman -S deepin deepin-extra --noconfirm
+clear
+echo " Если желаете использовать 2 окружения тогда укажите 0  "
+echo ""
+echo " Нужен автовход без DM ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_deepin   # sends right after the keypress
+    echo ''
+    [[ "$i_deepin" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_deepin  == 0 ]]; then
+echo " буду использовами DM "
+elif [[ $i_deepin  == 1 ]]; then
+pacman -S xorg-xinit --noconfirm
+cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
+sed -i 52,55d /home/$username/.xinitrc
+echo "exec startdde  " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+fi
 clear
 echo " Deepin успешно установлен "
 elif [[ $x_de == 6 ]]; then
 pacman -S  mate mate-extra  --noconfirm
 clear
+echo " Если желаете использовать 2 окружения тогда укажите 0  "
+echo ""
+echo " Нужен автовход без DM ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_mate   # sends right after the keypress
+    echo ''
+    [[ "$i_mate" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_mate  == 0 ]]; then
+echo " буду использовами DM "
+elif [[ $i_mate  == 1 ]]; then
+pacman -S xorg-xinit --noconfirm
+cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
+sed -i 52,55d /home/$username/.xinitrc
+echo "exec mate-session  " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+fi
+clear
 echo " Mate успешно установлен "
 elif [[ $x_de == 7 ]]; then
 pacman -S lxqt lxqt-qtplugin lxqt-themes oxygen-icons xscreensaver --noconfirm
+clear
+echo " Если желаете использовать 2 окружения тогда укажите 0  "
+echo ""
+echo " Нужен автовход без DM ? "
+while 
+    read -n1 -p  "
+    1 - да  
+    
+    0 - нет : " i_lxqt   # sends right after the keypress
+    echo ''
+    [[ "$i_deepin" =~ [^10] ]]
+do
+    :
+done
+if [[ $i_lxqt  == 0 ]]; then
+echo " буду использовами DM "
+elif [[ $i_lxqt  == 1 ]]; then
+pacman -S xorg-xinit --noconfirm
+cp /etc/X11/xinit/xinitrc /home/$username/.xinitrc
+chown $username:users /home/$username/.xinitrc
+chmod +x /home/$username/.xinitrc
+sed -i 52,55d /home/$username/.xinitrc
+echo "exec startlxqt " >> /home/$username/.xinitrc
+mkdir /etc/systemd/system/getty@tty1.service.d/
+echo " [Service] " > /etc/systemd/system/getty@tty1.service.d/override.conf
+echo " ExecStart=" >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo   ExecStart=-/usr/bin/agetty --autologin $username --noclear %I 38400 linux >> /etc/systemd/system/getty@tty1.service.d/override.conf
+echo ' [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx ' >> /etc/profile
+fi
 clear
 echo " Lxqt успешно установлен "
 elif [[ $x_de == 8 ]]; then
@@ -516,8 +690,8 @@ elif [[ $i_natro  == 1 ]]; then
 pacman -Sy nitrogen  --noconfirm
 fi
 fi
-clear
-echo " Установка i3 завершена " 
+clear 
+echo " i3wm успешно установлен " 
 ####
 echo ""
 echo " Установим еще одно DE/WM? "
@@ -611,7 +785,7 @@ Lxqt     <-> sddm
 xfce(i3) <-> lxdm
 lxde     <-> lxdm
 Gnome    <-> gdm
-Deepin   <-> lxdm/sddm
+Deepin   <-> lxdm
 Mate     <-> lxdm "
 echo ""
 echo "Установка Менеджера входа в систему "
@@ -766,16 +940,14 @@ gwenview
 steam steam-native-runtime 
 spectacle vlc  telegram-desktop  "
 echo ""
-echo " установим все или на ваш выбор? "
 while 
     read -n1 -p  "
-    1 - все
+    1 - да
     
-    2 - на выбор
     
     0 - пропустить " i_prog # sends right after the keypress
     echo ''
-    [[ "$i_prog" =~ [^120] ]]
+    [[ "$i_prog" =~ [^10] ]]
 do
     :
 done
@@ -783,10 +955,6 @@ if [[ $i_prog == 0 ]]; then
 clear
 echo " Установка пропущена "
 elif [[ $i_prog == 1 ]]; then
-pacman -S flameshot blueman filezilla htop gparted neofetch screenfetch gwenview steam steam-native-runtime spectacle vlc  gvfs-mtp gvfs-afc  telegram-desktop     --noconfirm
-clear
-echo " установка завершена "
-elif [[ $i_prog == 2 ]]; then
 echo "#############################################################################"
 echo ""
 echo " Будете ли вы подключать Android или Iphone к ПК через USB? "
@@ -1131,14 +1299,10 @@ fi
 #############################################################################
 echo ""
 echo ""
-echo " установим офисный пакет для работы с документами? : "
+echo " установим офисный пакет libreoffice  для работы с документами? : "
 while 
     read -n1 -p  "
-    1 - WPS-office 
-    
-    2 - libreoffice
-    
-    3 - onlyoffice
+    1 - да 
     
     0 - нет: " t_office # sends right after the keypress
     echo ''
@@ -1150,47 +1314,9 @@ if [[ $t_office == 0 ]]; then
     clear
     echo ' установка пропущена ' 
 elif [[ $t_office == 1 ]]; then
-####    
-    cd /home/$username
-    git clone https://aur.archlinux.org/wps-office.git
-    chown -R $username:users /home/$username/wps-office
-    chown -R $username:users /home/$username/wps-office/PKGBUILD 
-    cd /home/$username/wps-office  
-    sudo -u $username  makepkg -si --noconfirm  
-    rm -Rf /home/$username/wps-office
-###########
-    cd /home/$username
-git clone https://aur.archlinux.org/wps-office-extension-russian-dictionary.git
-    chown -R $username:users /home/$username/wps-office-extension-russian-dictionary
-    chown -R $username:users /home/$username/wps-office-extension-russian-dictionary/PKGBUILD 
-    cd /home/$username/wps-office-extension-russian-dictionary
-    sudo -u $username  makepkg -si --noconfirm  
-    rm -Rf /home/$username/wps-office-extension-russian-dictionary
-####
-    cd /home/$username
-    git clone https://aur.archlinux.org/ttf-wps-win10.git
-    chown -R $username:users /home/$username/ttf-wps-win10
-    chown -R $username:users /home/$username/ttf-wps-win10/PKGBUILD 
-    cd /home/$username/ttf-wps-win10  
-    sudo -u $username  makepkg -si --noconfirm  
-    rm -Rf /home/$username/ttf-wps-win10
-####
-clear
-echo " установка WPS office завершена "
-elif [[ $t_office == 2 ]]; then
 pacman -S libreoffice-still libreoffice-still-ru --noconfirm
 clear
 echo " установка libreoffice завершена "
-elif [[ $t_office == 3 ]]; then
-    cd /home/$username
-   git clone https://aur.archlinux.org/onlyoffice-bin.git
-    chown -R $username:users /home/$username/onlyoffice-bin
-    chown -R $username:users /home/$username/onlyoffice-bin/PKGBUILD 
-    cd /home/$username/onlyoffice-bin 
-    sudo -u $username  makepkg -si --noconfirm  
-    rm -Rf /home/$username/onlyoffice-bin
-clear 
-echo " установка onlyoffice завершена "
 fi
 #############################################################################
 echo ""
