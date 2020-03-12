@@ -235,30 +235,12 @@ done
    echo 'добавление swap раздела пропущено.'   
 fi
 ################  home     ############################################################ 
- clear
- lsblk -f
-  echo ""
-echo " Если у вас есть HOME раздел от предыдущей системы его можно не форматировать"
-echo " При указании пользователя укажите, то имя которое было ранее, тогда система сама восстановит home раздел "
+clear
 echo ""
-echo ' Форматируем HOME раздел?'
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " homeF # sends right after the keypress
-    echo ''
-    [[ "$homeF" =~ [^10] ]]
-do
-    :
-done
-   if [[ $homeF == 1 ]]; then
-   echo ""
-   read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
-   mkfs.ext4 /dev/$home -L home
-   elif [[ $homeF == 0 ]]; then
-   echo 'Форматирыване домашнего раздела пропущено.'   
-fi
+echo " Можно использовать раздел от предыдущей системы( и его не форматировать )  
+далее в процессе установки можно будет удалить все скрытые файлы и папки в каталоге 
+пользователя"
+echo ""
 echo 'Добавим раздел  HOME ?'
 while 
     read -n1 -p  "
@@ -273,10 +255,29 @@ done
    if [[ $homes == 0 ]]; then
      echo 'пропущено'
   elif [[ $homes == 1 ]]; then
-    read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
-    mkdir /mnt/home 
-    mount /dev/$home /mnt/home
-  fi
+    echo ' Форматируем HOME раздел?'
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " homeF # sends right after the keypress
+    echo ''
+    [[ "$homeF" =~ [^10] ]]
+do
+    :
+done
+   if [[ $homeF == 1 ]]; then
+   echo ""
+   lsblk -f
+   read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
+   mkfs.ext4 /dev/$home -L home
+   elif [[ $homeF == 0 ]]; then
+ lsblk -f
+ read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" homeV
+ mkdir /mnt/home 
+ mount /dev/$homeV /mnt/home
+fi
+fi
 ###################  раздел  ###############################################################
  clear
 echo 'Добавим разделы  Windows (ntfs/fat32)?'
@@ -535,31 +536,13 @@ done
   elif [[ $swap == 0 ]]; then
    echo 'добавление swap раздела пропущено.'   
 fi  
-###  
- clear
- lsblk -f
-  echo ""
-echo ' Форматируем home раздел?'
+###  ##############################################
+clear
 echo ""
-echo " Если у вас есть home раздел от предыдущей системы его можно не форматировать"
-echo " При указании пользователя укажите, то имя которое было ранее, тогда система сама восстановит home раздел "
-echo ' Форматируем home раздел?'
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " homeF # sends right after the keypress
-    echo ''
-    [[ "$homeF" =~ [^10] ]]
-do
-    :
-done
-   if [[ $homeF == 1 ]]; then
-   read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
-   mkfs.ext4 /dev/$home -L home
-   elif [[ $homeF == 0 ]]; then
-   echo 'Формаирыване домашнего раздела пропущено.'   
-fi
+echo " Можно использовать раздел от предыдущей системы( и его не форматировать )  
+далее в процессе установки можно будет удалить все скрытые файлы и папки в каталоге 
+пользователя"
+echo ""
 echo 'Добавим раздел  HOME ?'
 while 
     read -n1 -p  "
@@ -574,10 +557,29 @@ done
    if [[ $homes == 0 ]]; then
      echo 'пропущено'
   elif [[ $homes == 1 ]]; then
-    read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
-    mkdir /mnt/home 
-    mount /dev/$home /mnt/home
-  fi
+    echo ' Форматируем HOME раздел?'
+while 
+    read -n1 -p  "
+    1 - да
+    
+    0 - нет: " homeF # sends right after the keypress
+    echo ''
+    [[ "$homeF" =~ [^10] ]]
+do
+    :
+done
+   if [[ $homeF == 1 ]]; then
+   echo ""
+   lsblk -f
+   read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
+   mkfs.ext4 /dev/$home -L home
+   elif [[ $homeF == 0 ]]; then
+ lsblk -f
+ read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" homeV
+ mkdir /mnt/home 
+ mount /dev/$homeV /mnt/home
+fi
+fi
 ###################  раздел  ###############################################################
  clear
 echo 'Добавим разделы  Windows (ntfs/fat32)?'
