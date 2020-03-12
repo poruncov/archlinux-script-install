@@ -271,6 +271,8 @@ done
    lsblk -f
    read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
    mkfs.ext4 /dev/$home -L home
+   mkdir /mnt/home 
+   mount /dev/$home /mnt/home
    elif [[ $homeF == 0 ]]; then
  lsblk -f
  read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" homeV
@@ -573,6 +575,8 @@ done
    lsblk -f
    read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
    mkfs.ext4 /dev/$home -L home
+   mkdir /mnt/home 
+   mount /dev/$home /mnt/home
    elif [[ $homeF == 0 ]]; then
  lsblk -f
  read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" homeV
