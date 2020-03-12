@@ -926,26 +926,28 @@ echo " Установка пропущена "
 fi
 clear
 echo ""
-echo " Установка дополнительных программ "
+echo " Установка дополнительных программ ( установка всех программ по желанию )  "
 echo ""
 echo " 
-flameshot
-filezilla 
-htop 
-gparted
-blueman
-neofetch
-screenfetch
-gwenview
-steam steam-native-runtime 
-spectacle vlc  telegram-desktop  "
+>> blueman     
+>> htop                
+>> fiezilla 
+>> gwenview               
+>> steam 
+>> neofetch
+>> screenfetch
+>> vlc
+>> gparted  
+>> telegram-desktop 
+>> spectacle
+>> flameshot"
 echo ""
 while 
     read -n1 -p  "
-    1 - да
+    1 - да ( буду устанавливать! )
     
     
-    0 - пропустить " i_prog # sends right after the keypress
+    0 - пропустить ( Установка программ произвадиться не будет! )  " i_prog # sends right after the keypress
     echo ''
     [[ "$i_prog" =~ [^10] ]]
 do
