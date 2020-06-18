@@ -436,7 +436,7 @@ done
 if [[ $x_de == 0 ]]; then
   echo 'уcтановка DE пропущена' 
 elif [[ $x_de == 1 ]]; then
-pacman -S plasma-meta  plasma kwalletmanager  latte-dock --noconfirm
+pacman -S plasma-meta  plasma konsole kwalletmanager  latte-dock --noconfirm
 clear
 echo " Если желаете использовать 2 окружения тогда укажите 0  "
 echo ""
@@ -722,7 +722,7 @@ done
 if [[ $x_de2 == 0 ]]; then
   echo 'уcтановка DE пропущена' 
 elif [[ $x_de2 == 1 ]]; then
-pacman -S plasma-meta plasma kwalletmanager  latte-dock --noconfirm
+pacman -S plasma-meta konsole plasma kwalletmanager  latte-dock --noconfirm
 pacman -R konqueror --noconfirm
 clear
 echo "Plasma KDE успешно установлена"
