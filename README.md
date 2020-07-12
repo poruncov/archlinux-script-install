@@ -5,7 +5,7 @@
 РЕЖИМ UEFI и Legacy
 
 
-UEFI - Grub или Systemd-boot на выбор
+UEFI - Grub или Systemd-boot на выбор.
 Grub - Legacy
 ___________________________________________________________________________________________________________
 
@@ -90,7 +90,7 @@ ________________________________________________________________________________
 Для востановления загрузчика Grub-legacy Grub-UEFI Systemd-boot(UEFI)
 выполните для запуска скрипта следующее:
 
-wget bit.do/arch-boot
+curl -OL bit.do/arch-boot
 
 chmod +x arch-boot
 
