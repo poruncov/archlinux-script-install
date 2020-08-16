@@ -753,6 +753,7 @@ echo " Lxqt успешно установлен "
 elif [[ $x_de2 == 8 ]]; then
 pacman -S i3 i3-wm i3status  dmenu  --noconfirm
 clear
+echo " Установка i3 завершена "
 echo ""
 echo " nitrogen - легкая программа для установки обоев на рабочий стол" 
 echo ""
@@ -774,7 +775,6 @@ pacman -Sy nitrogen  --noconfirm
 fi 
 fi
 clear
-echo " Установка i3 завершена "
 echo "#####################################################################"
 echo ""
 echo " При установке i3  без dm, dm не ставим!!! " 
