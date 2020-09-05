@@ -783,18 +783,18 @@ echo "
 Arch-wiki рекоендует для: 
 kde      <-> sddm
 Lxqt     <-> sddm
-xfce(i3) <-> lxdm
-lxde     <-> lxdm
+xfce(i3) <-> lightdm
+lxde     <-> lightdm
 Gnome    <-> gdm
-Deepin   <-> lxdm
-Mate     <-> lxdm "
+Deepin   <-> lightdm
+Mate     <-> lightdm "
 echo ""
 echo "Установка Менеджера входа в систему "
 while 
     read -n1 -p  "
     1 - Sddm
     
-    2 - lxdm 
+    2 - lightdm 
     
     3 - gdm
     
@@ -814,10 +814,10 @@ systemctl enable sddm.service -f
 clear
 echo " установка sddm  завершена "
 elif [[ $i_dm == 2 ]]; then
-pacman -S lxdm --noconfirm
-systemctl enable lxdm.service -f
+pacman -S lightdm lightdm-gtk-greeter-settings lightdm-gtk-greeter --noconfirm
+systemctl enable lightdm.service -f
 clear
-echo " установка lxdm завершена "
+echo " установка lightdm завершена "
 elif [[ $i_dm == 3 ]]; then
 pacman -S gdm --noconfirm
 systemctl enable gdm.service -f
