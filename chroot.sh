@@ -690,9 +690,9 @@ echo "yстановка пропущена"
 elif [[ $i_natro  == 1 ]]; then
 pacman -Sy nitrogen  --noconfirm
 fi
+echo " i3wm успешно установлен " 
 fi
 clear 
-echo " i3wm успешно установлен " 
 ####
 echo ""
 echo " Установим еще одно DE/WM? "
