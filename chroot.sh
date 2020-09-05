@@ -267,8 +267,9 @@ echo " если указать не правильный раздел систе
 
 echo " если у вас один hdd/ssd тогда это будет sda 99%"
 echo ""
-read -p "Укажите ROOT  раздел для загрузчика(пример  sda6,sdb3 ): " root
-echo options root=/dev/$root rw >> /boot/loader/entries/arch.conf
+read -p "Укажите ROOT(корневой) раздел для загрузчика (Не пyтать с Boot!!!) (пример  sda6,sdb3 или nvme0n1p2 ): " root
+Proot=$(blkid -s PARTUUID /dev/$root | grep -oP '(?<=PARTUUID=").+?(?=")')
+echo options root=PARTUUID=$Proot rw >> /boot/loader/entries/arch.conf
 #
 cd /home/$username 
 git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git
