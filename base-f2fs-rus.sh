@@ -414,7 +414,7 @@ done
  genfstab -U /mnt >> /mnt/etc/fstab
  elif [[ $x_pacstrap == 2 ]]; then
   clear
-  pacstrap /mnt base linux linux-headers dhcpcd which inetutils netctl base-devel wget nano linux-firmware  efibootmgr  
+  pacstrap /mnt base linux linux-headers f2fs-tools dhcpcd which inetutils netctl base-devel wget nano linux-firmware  efibootmgr  
   genfstab -U /mnt >> /mnt/etc/fstab
   fi 
 ##################################################
@@ -715,7 +715,7 @@ done
   genfstab -pU /mnt >> /mnt/etc/fstab
 elif [[ $x_pacstrap == 2 ]]; then
   clear
-  pacstrap /mnt base dhcpcd linux linux-headers which netctl inetutils base-devel  wget linux-firmware  nano
+  pacstrap /mnt base dhcpcd linux linux-headers f2fs-tools which netctl inetutils base-devel  wget linux-firmware  nano
   genfstab -pU /mnt >> /mnt/etc/fstab
 fi 
  clear
