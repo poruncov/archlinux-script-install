@@ -487,7 +487,7 @@ fi
   echo ""
 read -p "Укажите ROOT раздел(sda/sdb 1.2.3.4 (sda5 например)):" root
 echo ""
-mkfs.f2fs /dev/$root -l root
+mkfs.f2fs /dev/$root -l root -f
 mount /dev/$root /mnt
 echo ""     
 ##
@@ -574,7 +574,7 @@ done
    echo ""
    lsblk -f
    read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
-   mkfs.f2fs /dev/$home -l home
+   mkfs.f2fs /dev/$home -l home -f
    mkdir /mnt/home 
    mount /dev/$home /mnt/home
    elif [[ $homeF == 0 ]]; then
