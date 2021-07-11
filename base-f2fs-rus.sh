@@ -270,7 +270,7 @@ done
    echo ""
    lsblk -f
    read -p "Укажите HOME раздел(sda/sdb 1.2.3.4 (sda6 например)):" home
-   mkfs.btrfs /dev/$home -l home -f
+   mkfs.xfs /dev/$home -l home -f
    mkdir /mnt/home 
    mount /dev/$home /mnt/home
    elif [[ $homeF == 0 ]]; then
