@@ -1696,8 +1696,18 @@ echo " Octopi успешно установлен "
 fi
 
 elif [[ $t_aur == 2 ]]; then
+########
+
 cd /home/$username
- git clone https://aur.archlinux.org/pamac-aur.git
+git clone https://aur.archlinux.org/libpamac-aur.git
+chown -R $username:users /home/$username/amac-aur
+chown -R $username:users /home/$username/libpamac-aur/PKGBUILD 
+cd /home/$username/libpamac-aur
+sudo -u $username  makepkg -si --noconfirm  
+rm -Rf /home/$username/libpamac-aur
+########
+cd /home/$username
+git clone https://aur.archlinux.org/pamac-aur.git
 chown -R $username:users /home/$username/pamac-aur
 chown -R $username:users /home/$username/pamac-aur/PKGBUILD 
 cd /home/$username/pamac-aur
