@@ -318,6 +318,7 @@ echo " установка завершена "
 fi  
 elif [[ $t_bootloader == 3 ]]; then
 pacman -S grub os-prober --noconfirm
+echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 fi
