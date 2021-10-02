@@ -311,6 +311,7 @@ elif [[ $i_grub == 1 ]]; then
 pacman -S grub grub-customizer os-prober  --noconfirm
 lsblk -f
 read -p "Укажите диск куда установить GRUB (sda/sdb): " x_boot
+echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
 echo " установка завершена "
