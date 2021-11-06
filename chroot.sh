@@ -212,10 +212,11 @@ while
   
     2 - GRUB(legacy)
     
-    3 - UEFI-GRUB: " t_bootloader # sends right after the keypress
+    3 - UEFI-GRUB:  
     
+    4 - не устанавливать загрузчик"
     echo ''
-    [[ "$t_bootloader" =~ [^123] ]]
+    [[ "$t_bootloader" =~ [^1234] ]]
 do
     :
 done
@@ -321,6 +322,9 @@ pacman -S grub os-prober --noconfirm
 echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
+fi
+elif [[ $t_bootloader == 4 ]]; then
+echo "Установка загрузчика пропущена"
 fi
 mkinitcpio -p linux
 ##########
