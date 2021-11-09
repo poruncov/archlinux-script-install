@@ -208,13 +208,13 @@ echo ""
 echo "Какой загрузчик установить UEFI(systemd или GRUB) или Grub-legacy"
 while 
     read -n1 -p  "
-    1 - UEFI(systemd-boot )
+    1 - UEFI(systemd-boot)
   
     2 - GRUB(legacy)
     
     3 - UEFI-GRUB  
     
-    0 - не устанавливать загрузчик:"
+    0 - не устанавливать загрузчик" t_bootloader
     echo ''
     [[ "$t_bootloader" =~ [^1230] ]]
 do
@@ -271,6 +271,7 @@ echo ""
 read -p "Укажите ROOT(корневой) раздел для загрузчика (Не пyтать с Boot!!!) (пример  sda6,sdb3 или nvme0n1p2 ): " root
 Proot=$(blkid -s PARTUUID /dev/$root | grep -oP '(?<=PARTUUID=").+?(?=")')
 echo options root=PARTUUID=$Proot rw >> /boot/loader/entries/arch.conf
+mkinitcpio -p linux
 #
 cd /home/$username 
 git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git
@@ -315,6 +316,7 @@ read -p "Укажите диск куда установить GRUB (sda/sdb): "
 echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-install /dev/$x_boot
 grub-mkconfig -o /boot/grub/grub.cfg
+mkinitcpio -p linux
 echo " установка завершена "
 fi  
 elif [[ $t_bootloader == 3 ]]; then
@@ -322,11 +324,11 @@ pacman -S grub os-prober --noconfirm
 echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
-fi
-elif [[ $t_bootloader == 0 ]]; then
-echo "Установка загрузчика пропущена"
-fi
 mkinitcpio -p linux
+elif [[ $t_bootloader == 0 ]]; then
+clear 
+echo "Установка загрузчика прорущена"   
+fi
 ##########
 echo ""
 echo " Настроим Sudo? "
@@ -1417,13 +1419,13 @@ pacman -Sy --noconfirm
 echo ""
 echo ""
 echo "##################################################################################"
-echo "###################   <<<< установка программ из AUR >>>    ######################"
+echo "###################   <<<< установка  AUR-HELPER >>>    ######################"
 echo "##################################################################################"
 echo ""
 echo "    каждую из программ можно будет пропустить! "
 echo ""
 ###########################################################################
-echo " Установим  aur-helper ( pikaur-(идет как зависимость для octopi) или yay ) ?  "
+echo " Установим  aur-helper ( pikaur-идет как зависимость для octopi) или yay ) ?  "
 while 
     read -n1 -p  "
     1 - pikaur
@@ -1456,146 +1458,6 @@ sudo -u $username  makepkg -si --noconfirm
 rm -Rf /home/$username/yay
 clear
 fi
-echo "################################################################"
-echo ""
-echo " Установим teamviewer для удаленного доступа ? : "
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " t_teamviewer # sends right after the keypress
-    echo ''
-    [[ "$t_teamviewer" =~ [^10] ]]
-do
-    :
-done
-if [[ $t_teamviewer == 0 ]]; then
-  echo 'уcтановка  пропущена' 
-elif [[ $t_teamviewer == 1 ]]; then
-cd /home/$username 
-git clone https://aur.archlinux.org/teamviewer.git
-chown -R $username:users /home/$username/teamviewer
-chown -R $username:users /home/$username/teamviewer/PKGBUILD 
-cd /home/$username/teamviewer  
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/teamviewer
-systemctl enable teamviewerd.service
-clear
-fi
-echo "################################################################"
-echo ""
-echo " Установим vk-messenger ? : "
-while 
-    read -n1 -p  "
-    1 - да,
-    
-    0 - нет: " t_vk # sends right after the keypress
-    echo ''
-    [[ "$t_vk" =~ [^10] ]]
-do
-    :
-done
-if [[ $t_vk == 0 ]]; then
-  echo 'уcтановка  пропущена' 
-elif [[ $t_vk == 1 ]]; then
-cd /home/$username
-git clone https://aur.archlinux.org/gconf.git 
-chown -R $username:users /home/$username/gconf
-chown -R $username:users /home/$username/gconf/PKGBUILD 
-cd /home/$username/gconf  
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/gconf
-###
-cd /home/$username
-git clone https://aur.archlinux.org/vk-messenger.git
-chown -R $username:users /home/$username/vk-messenger
-chown -R $username:users /home/$username/vk-messenger/PKGBUILD 
-cd /home/$username/vk-messenger  
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/vk-messenger
-#####
-clear
-fi
-
-echo "################################################################"
-echo ""
-echo " Установим woeusb (Программа для записи Windows.iso на USB-накопитель)  ? : "
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " t_woeusb # sends right after the keypress
-    echo ''
-    [[ "$t_woeusb" =~ [^10] ]]
-do
-    :
-done
-if [[ $t_woeusb == 0 ]]; then
-clear
-  echo 'уcтановка  пропущена' 
-elif [[ $t_woeusb == 1 ]]; then
-cd /home/$username 
-git clone https://aur.archlinux.org/woeusb.git
-chown -R $username:users /home/$username/woeusb
-chown -R $username:users /home/$username/woeusb/PKGBUILD 
-cd /home/$username/woeusb  
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/woeusb
-clear
-fi
-echo "################################################################"
-echo ""
-echo " Установим alsi (альтернатива neofetch и screenfetch)  ? : "
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " t_alsi # sends right after the keypress
-    echo ''
-    [[ "$t_alsi" =~ [^10] ]]
-do
-    :
-done
-if [[ $t_alsi == 0 ]]; then
-clear
-  echo 'уcтановка  пропущена' 
-elif [[ $t_alsi == 1 ]]; then
-cd /home/$username
-git clone https://aur.archlinux.org/alsi.git
-chown -R $username:users /home/$username/alsi
-chown -R $username:users /home/$username/alsi/PKGBUILD 
-cd /home/$username/alsi  
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/alsi
-clear
-fi
-echo "################################################################"
-echo ""
-echo " Установим inxi ( подробная информация о системе )  ? : "
-while 
-    read -n1 -p  "
-    1 - да
-    
-    0 - нет: " t_inxi # sends right after the keypress
-    echo ''
-    [[ "$t_inxi" =~ [^10] ]]
-do
-    :
-done
-if [[ $t_inxi == 0 ]]; then
-clear
-  echo 'уcтановка  пропущена' 
-elif [[ $t_inxi == 1 ]]; then
-cd /home/$username 
-git clone https://aur.archlinux.org/inxi.git
-chown -R $username:users /home/$username/inxi
-chown -R $username:users /home/$username/inxi/PKGBUILD 
-cd /home/$username/inxi  
-sudo -u $username  makepkg -si --noconfirm  
-rm -Rf /home/$username/inxi
-clear
-fi
-echo "################################################################"
 echo ""
 echo " Установим графический менеджер пакетов для Archlinux ? : "
 while 
