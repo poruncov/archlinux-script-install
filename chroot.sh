@@ -68,7 +68,7 @@ echo " Укажите город(1-27) и нажмите Enter  "
 
 0 - пропустить  : " wm_sity 
     echo ''
-    [[ $wm_sity -lt 0 ||$wm_sity -gt 27 || "$wm_sity" =~ [^12345670] ]]
+    [[ $wm_sity -lt 0 ||$wm_sity -gt 27 || "$wm_sity" =~ [^1234567890] ]]
 do
     :
 done
